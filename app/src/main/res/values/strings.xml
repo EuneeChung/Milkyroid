@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MilkyWay</string>
+    <string name="home">홈</string>
+    <string name="report">제보하기</string>
+    <string name="setting">설정</string>
+</resources>
