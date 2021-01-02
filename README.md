@@ -148,7 +148,7 @@
     // Fragment-Ktx
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
-    //Navigation-Ktx
+    // Navigation-Ktx
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
 
@@ -160,9 +160,9 @@
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     
-    //Naver map
+    // Naver map
     implementation 'com.naver.maps:map-sdk:3.10.1'
-    //Google play service - location
+    // Google play service - location
     implementation("com.google.android.gms:play-services-location:16.0.0")
 
 ```
