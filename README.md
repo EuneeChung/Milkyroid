@@ -1,7 +1,7 @@
 # 🥛MilkyWay Android : Milkyroid🥛
 
-> SOPT 17Th APPJAM - TEAM MilkyWay
-2020.12.26 ~
+> SOPT 17Th APPJAM - TEAM MilkyWay  
+기간: 2020.12.26 ~
 
 ## 🤹‍♀️Role
 
@@ -159,8 +159,8 @@
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
-		//Naver map
+    
+    //Naver map
     implementation 'com.naver.maps:map-sdk:3.10.1'
     //Google play service - location
     implementation("com.google.android.gms:play-services-location:16.0.0")
