@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report
+package com.milkyway.milkyway.ui.report.search
 
 import android.os.Bundle
 import android.text.Editable

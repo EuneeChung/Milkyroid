@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report
+package com.milkyway.milkyway.ui.report.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

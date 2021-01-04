@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.milkyway.milkyway">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +11,7 @@
         android:theme="@style/Theme.MilkyWay">
 
         <activity
-            android:name=".ui.report.PlaceSearchActivity"
+            android:name=".ui.report.search.PlaceSearchActivity"
             android:label="@string/title_activity_place_search"/>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
