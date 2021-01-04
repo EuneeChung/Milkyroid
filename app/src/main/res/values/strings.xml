@@ -3,4 +3,6 @@
     <string name="home">홈</string>
     <string name="report">제보하기</string>
     <string name="setting">설정</string>
+    <string name="title_activity_place_search">PlaceSearchActivity</string>
+    <string name="hello_world">Hello Square World!</string>
 </resources>
