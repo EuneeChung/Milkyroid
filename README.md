@@ -2,7 +2,7 @@
 
 <img src = "https://user-images.githubusercontent.com/55903679/103667439-47f95a00-4fb9-11eb-994d-648e7de9f05c.png" />
 
-> SOPT 27Th APPJAM - TEAM MilkyWay  
+> SOPT 27기 17TH APPJAM - TEAM MilkyWay  
 2020.12.26 ~ ing 🤍
 
 
