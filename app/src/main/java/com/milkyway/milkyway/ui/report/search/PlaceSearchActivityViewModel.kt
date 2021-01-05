@@ -14,7 +14,7 @@ class PlaceSearchActivityViewModel : ViewModel() {
         val placeDatas: MutableList<PlaceSearchData> = mutableListOf()
         placeDatas.clear()
         placeDatas.add(PlaceSearchData("dwegegw", "d", true))
-        placeDatas.add(PlaceSearchData("d", "d", true))
+        placeDatas.add(PlaceSearchData("안녕클레오파트라세상에서제일가는포테이토칩", "d", true))
         placeDatas.add(PlaceSearchData("d", "d", false))
         placeDatas.add(PlaceSearchData("d", "d", true))
         placeDatas.add(PlaceSearchData("d", "d", false))
