@@ -1,7 +1,11 @@
 # 🥛MilkyWay Android : Milkyroid🥛
 
+<img src = "https://user-images.githubusercontent.com/55903679/103667439-47f95a00-4fb9-11eb-994d-648e7de9f05c.png" />
+
 > SOPT 17Th APPJAM - TEAM MilkyWay  
 기간: 2020.12.26 ~
+
+
 
 ## 🤹‍♀️Role
 
@@ -10,6 +14,7 @@
 ```
 - 나의 제보
 - 카페 상세 정보
+- 설정
 ```
 
 은이
@@ -17,24 +22,32 @@
 ```
 - 바텀 네비게이션
 - 홈 바텀 시트
-- 카페 정보 수정/삭제
+- 카페 정보 수정/삭제/추가
+- 유니버스
 ```
 
 수정
 
 ```
-- 제보하기
+- 카페 제보
+- 카카오톡 공유
+- 홈, 카페제보 검색
 ```
 
 영민
 
 ```
-- 홈 지도&필터
-- 유니버스
+- 홈 지도
+- 홈 필터
+- 로그인
 - 회원가입
 ```
 
+
+
 ## 🎫Meeting Log
+
+### [Milkyroid -  Meeting wiki](https://github.com/MilkyOnOurWay/Milkyroid/wiki)
 
 > 일시 : 화 목 토 전체 회의 이후
 
@@ -46,12 +59,24 @@
 
 2주차
 
+- [21.01.05 4차 회의 - 진행상황 공유, pull request 사용](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210105%5D-Milkyroid-4%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+
 3주차
+
+
+
+## 👪 Communication
+
+### [Milkyroid - Kanban board](https://github.com/MilkyOnOurWay/Milkyroid/projects/1)
+
+
 
 ## 🔧TOOLS
 
 - Android Studio 4.1.1
 - Zeplin
+
+
 
 ## 🎠ID Naming
 
@@ -68,12 +93,13 @@
 
     ex) border_lightgray_line_32.xml
 
-- **ic_name**
-- **selector_where_description.xml**
+- ic_name
+- selector_where_description.xml
 
 ### view
 
 - **elementtype_where_action**
+  
     - btn_home_login
     - img
     - tv
@@ -81,9 +107,11 @@
     - tab
     - vp
     - rv
-    - item
-
+- item
+  
         ex) item_home_title
+
+
 
 ## 🧶Branching
 
@@ -99,8 +127,11 @@
     ```
 
 - 하위 브랜치
-    - 브랜치/이슈번호_내용_**이슈카테고리**
-    - ex) feature/36_home_layout
+    - **브랜치/이슈번호\_내용_이슈카테고리**
+    
+      ex) feature/36_home_layout
+
+
 
 ## 💫Issue Naming
 
@@ -110,15 +141,20 @@
     - **[feature] :  기능**
     - **[refactor] : 코드 개선**
     - **[fix] : 버그 수정**
-- ex) [layout] 마이 유니버스 등록
+    
+    ex) [layout] 마이 유니버스 등록
+
+
 
 ## 💬Commit Message
 
 - [    ] 카테고리 5개 중 하나 쓰기.
 - 깃 이슈 번호 붙이기
-- [이슈카테고리] #이슈번호 뒤에 내용
+- **[이슈카테고리] #이슈번호 뒤에 내용**
 
-    ex)  **[feature] #1  Add feature** 
+    ex)  [feature] #1  Add feature 
+
+
 
 ## 🎪Project Structure
 
@@ -139,9 +175,11 @@
  ┗ 📂util
 ```
 
+
+
 ## 🎢Dependency
 
-```
+```kotlin
     // Activity-Ktx
     implementation "androidx.activity:activity-ktx:$activity_version"
 
@@ -164,7 +202,15 @@
     implementation 'com.naver.maps:map-sdk:3.10.1'
     // Google play service - location
     implementation("com.google.android.gms:play-services-location:16.0.0")
-
 ```
 
-###
+
+
+## 👊Milkyroid
+
+> 💻 Milkyway's Android eveloper
+
+|          **🙋 [김영민](https://github.com/kym1924)**          |        **🙋‍ [김회진](https://github.com/bluelemon9)**         |          **🙋‍ [이수정](https://github.com/doodung)**          |        **🙋‍ [정은이](https://github.com/EuneeChung)**         |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="https://user-images.githubusercontent.com/55903679/103664267-6d846480-4fb5-11eb-8d26-361ee5bb01fe.jpg" width="250" height="250" /> | <img src = "https://user-images.githubusercontent.com/55903679/103664259-6bbaa100-4fb5-11eb-97e9-46178dfcb96e.jpg" width="250" height="250" /> | <img src = "https://user-images.githubusercontent.com/55903679/103664250-68bfb080-4fb5-11eb-80c2-f1a4ee334dcb.png" width="250" height="250" /> | <img src = "https://user-images.githubusercontent.com/55903679/103664254-6a897400-4fb5-11eb-98e1-1a3773023af4.png" width="250" height="250" /> |
+|                    안드로이드 리드 개발자                    |                      안드로이드 개발자                       |                      안드로이드 개발자                       |                      안드로이드 개발자                       |
