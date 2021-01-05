@@ -2,8 +2,8 @@
 
 <img src = "https://user-images.githubusercontent.com/55903679/103667439-47f95a00-4fb9-11eb-994d-648e7de9f05c.png" />
 
-> SOPT 17Th APPJAM - TEAM MilkyWay  
-기간: 2020.12.26 ~
+> SOPT 27Th APPJAM - TEAM MilkyWay  
+2020.12.26 ~ ing 🤍
 
 
 
