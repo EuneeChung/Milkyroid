@@ -13,6 +13,8 @@
         android:text="TextView"
         android:textSize="16dp"
         android:textColor="@color/black"
+        android:ems="16"
+        android:ellipsize="end"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
