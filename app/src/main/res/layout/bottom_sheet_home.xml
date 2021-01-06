@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.milkyway.milkyway.ui.home.HomeBottomSheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_white_fill_round"
+        android:elevation="12dp"
+        app:behavior_peekHeight="80dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_bottomsheet_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:includeFontPadding="true"
+            android:text="다른 지역을 찾고 있나요?"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/tv_mangwondong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/selector_home_bottomsheet_location"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="@{()->vm.chooseLocation(0)}"
+            android:text="망원동"
+            android:textColor="@drawable/selector_home_bottomsheet_text_color"
+            app:isSelected="@{vm.isSelectedList[0]}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_yeonnamdong"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bottomsheet_desc" />
+
+        <TextView
+            android:id="@+id/tv_yeonnamdong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/selector_home_bottomsheet_location"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="@{()->vm.chooseLocation(1)}"
+            android:text="연남동"
+            android:textColor="@drawable/selector_home_bottomsheet_text_color"
+            app:isSelected="@{vm.isSelectedList[1]}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_hannamdong"
+            app:layout_constraintStart_toEndOf="@+id/tv_mangwondong"
+            app:layout_constraintTop_toTopOf="@+id/tv_mangwondong" />
+
+        <TextView
+            android:id="@+id/tv_hannamdong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/selector_home_bottomsheet_location"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="한남동"
+            android:onClick="@{()->vm.chooseLocation(2)}"
+            app:isSelected="@{vm.isSelectedList[2]}"
+            android:textColor="@drawable/selector_home_bottomsheet_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_yeonnamdong"
+            app:layout_constraintTop_toTopOf="@+id/tv_yeonnamdong" />
+
+        <TextView
+            android:id="@+id/tv_sinsadong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/selector_home_bottomsheet_location"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="신사동"
+            android:onClick="@{()->vm.chooseLocation(3)}"
+            app:isSelected="@{vm.isSelectedList[3]}"
+            android:textColor="@drawable/selector_home_bottomsheet_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_yeoksamdong"
+            app:layout_constraintStart_toStartOf="@+id/tv_mangwondong"
+            app:layout_constraintTop_toBottomOf="@+id/tv_yeonnamdong" />
+
+        <TextView
+            android:id="@+id/tv_yeoksamdong"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/selector_home_bottomsheet_location"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="역삼동"
+            android:onClick="@{()->vm.chooseLocation(4)}"
+            app:isSelected="@{vm.isSelectedList[4]}"
+            android:textColor="@drawable/selector_home_bottomsheet_text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_sinsadong"
+            app:layout_constraintEnd_toEndOf="@+id/tv_hannamdong"
+            app:layout_constraintStart_toEndOf="@+id/tv_sinsadong"
+            app:layout_constraintTop_toTopOf="@+id/tv_sinsadong" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

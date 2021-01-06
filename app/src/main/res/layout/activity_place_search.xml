@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".ui.report.search.PlaceSearchActivity">
+
+    <ImageView
+        android:id="@+id/btn_back_search"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="12dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_place_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="12dp"
+        android:background="#F6F5F2"
+        android:hint="카페 검색하기"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:paddingVertical="10dp"
+        android:paddingStart="12dp"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back_search"
+        app:layout_constraintTop_toTopOf="@+id/btn_back_search" />
+
+    <ImageView
+        android:id="@+id/btn_place_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_setting_24"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/et_place_search"
+        app:layout_constraintEnd_toEndOf="@+id/et_place_search"
+        app:layout_constraintTop_toTopOf="@+id/et_place_search" />
+
+    <ImageView
+        android:id="@+id/btn_place_search_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_home_24"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/et_place_search"
+        app:layout_constraintEnd_toEndOf="@+id/et_place_search"
+        app:layout_constraintTop_toTopOf="@+id/et_place_search" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="#E5E5E5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_place_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_place_search"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:listitem="@layout/item_place_search" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_empty_place_search"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2">
+
+        <ImageView
+            android:id="@+id/img_empty_place_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="245dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintEnd_toEndOf="@+id/tv_empty_place_search"
+            app:layout_constraintStart_toStartOf="@+id/tv_empty_place_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_empty_place_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:lineHeight="16dp"
+            android:text="밀키웨이는 현재 다양한 지역의\n카페들을 제보받는 중입니다.\n다른 지역들은 조금만 기다려주세요!"
+            android:textAlignment="center"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_empty_place_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
