@@ -15,4 +15,5 @@
     <string name="nickname_fail">사용 불가한 닉네임 입니다.</string>
     <string name="nickname_max_length">/10</string>
     <string name="nickname_btn_next">밀키웨이 시작하기</string>
+    <string name="title_activity_cafe_detail">CafeDetailActivity</string>
 </resources>
