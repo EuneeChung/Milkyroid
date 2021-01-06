@@ -16,12 +16,15 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
 
         initBottomNavigation(binding)
+
     }
     private fun initBottomNavigation(binding : ActivityMainBinding) {
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         binding.bottomNavigation.setupWithNavController(navController)
-        //binding.bottomNavigation.itemIconTintList=null
+        binding.bottomNavigation.itemIconTintList=null
+
+
     }
 
 }
