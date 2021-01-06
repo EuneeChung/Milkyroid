@@ -7,4 +7,12 @@
     <string name="hello_world">Hello Square World!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- in NicknameActivity -->
+    <string name="nickname_setting">밀키웨이에서 사용할 닉네임을 설정해주세요.</string>
+    <string name="nickname_warning">*영어, 특수문자, 이모티콘은 사용 불가합니다.</string>
+    <string name="nickname_hint">최대 10자 이내로 작성해 주세요.</string>
+    <string name="nickname_fail">사용 불가한 닉네임 입니다.</string>
+    <string name="nickname_max_length">/10</string>
+    <string name="nickname_btn_next">밀키웨이 시작하기</string>
 </resources>
