@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="nicknameViewModel"
+            type="com.milkyway.milkyway.ui.nickname.NicknameViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f5f2"
+        tools:context=".NicknameActivity">
+
+        <ImageView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="74dp"
+            android:src="@drawable/img_im_on_my_milky_way"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_nickname_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/nickname_setting"
+            android:textColor="#3320a6"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/nickname_warning"
+            android:textColor="#9a9792"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname_setting"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname_setting" />
+
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/border_gray_line_round_8"
+            android:text="@={nicknameViewModel.nickname}"
+            android:hint="@string/nickname_hint"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            android:maxLength="10"
+            android:paddingVertical="12dp"
+            android:paddingStart="14dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_warning"
+            setEditTextBackground="@{nicknameViewModel.nickname}"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageButton
+            android:id="@+id/btn_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_nickname_success_24"
+            app:layout_constraintBottom_toBottomOf="@id/et_nickname"
+            app:layout_constraintEnd_toEndOf="@id/et_nickname"
+            app:layout_constraintTop_toTopOf="@id/et_nickname"
+            tools:ignore="ContentDescription"
+            setBtnCheck="@{nicknameViewModel.nickname}" />
+
+        <TextView
+            android:id="@+id/tv_impossible_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/nickname_fail"
+            android:textColor="#ff0000"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/et_nickname"
+            app:layout_constraintTop_toBottomOf="@id/et_nickname"
+            setFilter="@{nicknameViewModel.nickname}" />
+
+        <TextView
+            android:id="@+id/tv_max_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/nickname_max_length"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/et_nickname"
+            app:layout_constraintTop_toBottomOf="@id/et_nickname" />
+
+        <TextView
+            android:id="@+id/tv_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/tv_max_length"
+            app:layout_constraintBottom_toBottomOf="@id/tv_max_length"
+            app:layout_constraintEnd_toStartOf="@id/tv_max_length"
+            setLengthText="@{nicknameViewModel.nickname}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_gray_fill_round_40"
+            android:text="@string/nickname_btn_next"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            setBtnActive="@{nicknameViewModel.nickname}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
