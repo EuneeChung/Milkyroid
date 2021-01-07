@@ -18,4 +18,9 @@
 
     <!-- in HomeFragment -->
     <string name="home_suggest">오늘도 \'속\' 편한 탐험을 시작해 볼까요?</string>
+    <string name="decaffeinated">디카페인</string>
+    <string name="soy_milk">두유</string>
+    <string name="low_fat_milk">저지방우유</string>
+    <string name="fat_free_milk">무지방우유</string>
+
 </resources>
