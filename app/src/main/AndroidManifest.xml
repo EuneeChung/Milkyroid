@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.milkyway.milkyway">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MilkyWay">
-        <activity android:name=".ui.nickname.NicknameActivity"
+
+        <activity
+            android:name=".ui.modify.request.RequestModificationsActivity"
+            android:label="@string/title_activity_modification_request">
+        </activity>
+        <activity
+            android:name=".ui.nickname.NicknameActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.report.search.PlaceSearchActivity"

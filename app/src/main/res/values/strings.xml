@@ -15,4 +15,12 @@
     <string name="nickname_fail">사용 불가한 닉네임 입니다.</string>
     <string name="nickname_max_length">/10</string>
     <string name="nickname_btn_next">밀키웨이 시작하기</string>
+
+
+    <!-- in ModificationRequestActivity edited by eun -->
+    <string name="request_modifications_word">정보 수정 요청</string>
+    <string name="request_modifications_sentence">수정할 정보를 작성해주세요</string>
+    <string name="modify_desc">*최소 5글자 이상 입력해 주세요.</string>
+    <string name="modify_hint">두유 옵션만 가능해요!\n콜드브루만 디카페인이래요.</string>
+    <string name="title_activity_modification_request">ModificationRequestActivity</string>
 </resources>

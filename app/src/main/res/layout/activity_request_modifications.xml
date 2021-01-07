@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="com.milkyway.milkyway.ui.modify.request.RequestModificationsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/bar_modification_request"
+            layout="@layout/topbar_with_back_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_modify_sentence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/request_modifications_sentence"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            app:layout_constraintStart_toStartOf="@+id/et_modifications"
+            app:layout_constraintTop_toBottomOf="@+id/bar_modification_request" />
+
+        <TextView
+            android:id="@+id/tv_modify_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/modify_desc"
+            android:textColor="@color/gray_9a9792"
+            android:textSize="12dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_modify_sentence"
+            app:layout_constraintTop_toBottomOf="@+id/tv_modify_sentence" />
+
+        <EditText
+            android:id="@+id/et_modifications"
+            android:layout_width="0dp"
+            android:layout_height="186dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/border_white_f6_fill_round_8"
+            android:gravity="start|top"
+            android:hint="@string/modify_hint"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="16dp"
+            android:text="@={vm.modifications}"
+            android:inputType="textMultiLine"
+            android:maxLines="7"
+            android:padding="16dp"
+            android:textColorHint="@color/gray_97"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_modify_desc" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_request"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:padding="15dp"
+            android:text="@string/request_modifications_word"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:backgroundTint="@drawable/selector_btn_active_color"
+            app:cornerRadius="40dp"
+            app:isBtnActive="@{vm.isActiveRequest}"
+            app:layout_constraintEnd_toEndOf="@+id/et_modifications"
+            app:layout_constraintStart_toStartOf="@+id/et_modifications"
+            app:layout_constraintTop_toBottomOf="@+id/et_modifications" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

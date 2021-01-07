@@ -16,6 +16,9 @@
 
         <item name="textAppearanceCaption">@font/roboto_regular</item>
 
+        <item name="colorAccent">@color/blue_3320a6</item>
+
+
     </style>
 
 
