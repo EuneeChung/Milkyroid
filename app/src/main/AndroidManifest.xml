@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.milkyway.milkyway">
+package="com.milkyway.milkyway">
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,9 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="" />
+        <activity
+            android:name=".ui.report.detail.CafeDetailActivity"
+            android:label="@string/title_activity_cafe_detail"/>
         <activity android:name=".ui.nickname.NicknameActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -20,10 +23,9 @@
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
 
 </manifest>
