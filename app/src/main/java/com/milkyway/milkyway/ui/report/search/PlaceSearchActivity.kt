@@ -69,9 +69,12 @@ class PlaceSearchActivity : AppCompatActivity() {
         })
 
         deletebutton.setOnClickListener {
-            searchbox.text.clear()
+            searchbox.text.clear() //ok 돼
+            placeSearchAdapter.clearData() //전혀안돼
+            viewModel.makeApiCall(searchbox.text.toString())
         }
 
+        //키보드 검색버튼
         searchbox.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {

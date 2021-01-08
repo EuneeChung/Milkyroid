@@ -37,21 +37,23 @@ class PlaceSearchAdapter : RecyclerView.Adapter<PlaceSearchAdapter.PlaceSearchVi
             placeName.text = placeSearchData.placeName
             placeLocation.text = placeSearchData.placeLocation
 
-
             if (placeSearchData.alreadyIn) { // 이미 등록된 view만 보이게
                 placeName.setTextColor(Color.parseColor("#E6E6E6"))
                 placeLocation.setTextColor(Color.parseColor("#E6E6E6"))
                 layout.isEnabled = false
             }
 
-
             if (!placeSearchData.alreadyIn) { // 등록 안된 view
                 placeName.setTextColor(Color.parseColor("#363636"))
                 placeLocation.setTextColor(Color.parseColor("#CDCDCD"))
                 layout.isEnabled = true
             }
-
         }
+    }
+
+    fun clearData(){
+        datas.clear()
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

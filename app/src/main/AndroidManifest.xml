@@ -31,6 +31,8 @@
             android:name=".ui.report.detail.CafeDetailActivity"
             android:label="@string/title_activity_cafe_detail" />
 
+        <activity android:name=".ui.report.CafeReportMenuActivity"/>
+
         <activity
             android:name=".ui.nickname.NicknameActivity"
             android:windowSoftInputMode="adjustResize" />
