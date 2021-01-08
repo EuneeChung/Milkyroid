@@ -124,6 +124,7 @@
             setLengthText="@{nicknameViewModel.nickname}" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sign_up"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
