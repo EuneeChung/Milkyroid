@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.milkyway.milkyway.ui.modify.dialog.ModifyDialogViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_white_fill_round_8">
+
+        <TextView
+            android:id="@+id/tv_reason_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_white_e5_bottom_line"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingVertical="23dp"
+            android:text="@string/reason_delete"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fadingEdge="none"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/btn_dialog_confirm"
+            app:layout_constraintEnd_toEndOf="@+id/btn_dialog_confirm"
+            app:layout_constraintStart_toStartOf="@+id/btn_dialog_confirm"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reason_delete"
+            app:layout_constraintVertical_bias="1.0"
+            tools:fadingEdge="none">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tv_error_gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableStart="@drawable/selector_ic_checkbox"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start|center_vertical"
+                android:includeFontPadding="false"
+                android:paddingVertical="13dp"
+                android:paddingStart="16dp"
+                android:text="@string/error_gone"
+                android:textColor="@drawable/selector_checked_active_color"
+                android:textSize="16dp"
+                android:checked="@={vm.isSelectedList[1]}"
+                android:onClick="@{()->vm.chooseDeleteReasons(1)}"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tv_error_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableStart="@drawable/selector_ic_checkbox"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start|center_vertical"
+                android:includeFontPadding="false"
+                android:paddingVertical="13dp"
+                android:paddingStart="16dp"
+                android:text="@string/error_location"
+                android:textColor="@drawable/selector_checked_active_color"
+                android:textSize="16dp"
+                android:checked="@={vm.isSelectedList[2]}"
+                android:onClick="@{()->vm.chooseDeleteReasons(2)}"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tv_error_duplicated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableStart="@drawable/selector_ic_checkbox"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start|center_vertical"
+                android:includeFontPadding="false"
+                android:paddingVertical="13dp"
+                android:paddingStart="16dp"
+                android:text="@string/error_duplicated"
+                android:textColor="@drawable/selector_checked_active_color"
+                android:textSize="16dp"
+                android:checked="@={vm.isSelectedList[3]}"
+                android:onClick="@{()->vm.chooseDeleteReasons(3)}"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/tv_not_suitable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableStart="@drawable/selector_ic_checkbox"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start|center_vertical"
+                android:includeFontPadding="false"
+                android:paddingVertical="13dp"
+                android:paddingStart="16dp"
+                android:text="@string/error_not_suitable"
+                android:textColor="@drawable/selector_checked_active_color"
+                android:textSize="16dp"
+                android:checked="@={vm.isSelectedList[4]}"
+                android:onClick="@{()->vm.chooseDeleteReasons(4)}"/>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_dialog_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:padding="16dp"
+            android:text="@string/complete"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:backgroundTint="@drawable/selector_btn_active_color"
+            app:cornerRadius="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:isBtnActive="@{vm.isActive}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

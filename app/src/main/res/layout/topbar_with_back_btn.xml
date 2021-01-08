@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="topBarTxt"
+            type="String" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bar_modifify"
+        android:id="@+id/top_bar_with_back"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/border_white_e5_bottom_line"
@@ -18,7 +23,7 @@
             android:layout_marginEnd="50dp"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
-            android:text="@string/request_modifications_word"
+            android:text="@{topBarTxt}"
             android:textColor="@color/black"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"

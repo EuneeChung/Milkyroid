@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MilkyWay">
 
+        <activity android:name=".ui.modify.ModifyActivity">
+        </activity>
         <activity
             android:name=".ui.modify.request.RequestModificationsActivity"
             android:label="@string/title_activity_modification_request">

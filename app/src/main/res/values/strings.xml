@@ -17,10 +17,27 @@
     <string name="nickname_btn_next">밀키웨이 시작하기</string>
 
 
-    <!-- in ModificationRequestActivity edited by eun -->
+    <!-- in Modify edited by eun -->
     <string name="request_modifications_word">정보 수정 요청</string>
+    <string name="modify_question">제공받으신 정보와 다른 점이 있나요?</string>
+    <string name="modify_apology">불편을 드려 죄송합니다. 요청해 주시면 불편하셨던 만큼\n저희가 꼼꼼히 확인하여 다시 반영하도록 하겠습니다.</string>
+    <string name="modify_information">정보 수정</string>
+    <string name="delete_location">장소 삭제</string>
+
     <string name="request_modifications_sentence">수정할 정보를 작성해주세요</string>
     <string name="modify_desc">*최소 5글자 이상 입력해 주세요.</string>
     <string name="modify_hint">두유 옵션만 가능해요!\n콜드브루만 디카페인이래요.</string>
     <string name="title_activity_modification_request">ModificationRequestActivity</string>
+
+    <string name="confirm_request">요청이 접수 되었습니다</string>
+    <string name="greatful_request">꼼꼼히 검토 후 적용하도록 하겠습니다.\n감사합니다!</string>
+    <string name="confirm">확인</string>
+
+    <string name="reason_delete">삭제를 요청하시는 이유를 알려주세요</string>
+    <string name="error_gone">없어진 가게에요</string>
+    <string name="error_location">위치가 잘못됐어요</string>
+    <string name="error_duplicated">중복 제보된 가게에요</string>
+    <string name="error_not_suitable">적합한 카페가 아니에요</string>
+    <string name="complete">선택 완료</string>
+
 </resources>
