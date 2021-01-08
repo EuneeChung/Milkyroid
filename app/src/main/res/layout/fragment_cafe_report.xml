@@ -18,9 +18,9 @@
         android:id="@+id/btn_cafe_report_clean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F6F5F2"
+        android:background="@drawable/border_white_fill_round_30"
         android:text="초기화"
-        android:textColor="#9A9792"
+        android:textColor="@color/gray_9a9792"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="16dp"
         android:paddingVertical="7dp"
@@ -35,26 +35,28 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="43dp"
         android:text="카페명"
+        android:fontFamily="@font/roboto_regular"
         android:textSize="16dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_go_to_cafe_search"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="4dp"
         android:onClick="@{CafeReportFragment::onCafeSearchClick}"
-        android:id="@+id/cl_go_to_cafe_search"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" >
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_home_24"
             android:layout_marginStart="20dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -65,11 +67,68 @@
             android:layout_height="wrap_content"
             android:text="카페 검색하기"
             android:textSize="14dp"
+            android:visibility="visible"
             android:textColor="@color/black"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_launcher_foreground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_cafe_report_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="라떼는 말이야"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView13"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:text="서울시 종로구 2-12"
+                android:textColor="@color/gray_9a9792"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_cafe_report_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cafe_report_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="카페 재검색"
+                android:textColor="#9A9792"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -84,19 +143,40 @@
         app:layout_constraintTop_toBottomOf="@+id/cl_go_to_cafe_search" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
+            tools:listitem="@layout/item_cafe_report_menu"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_add_cafe_menu"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
+        android:onClick="@{CafeReportFragment::onAddMenuClick}"
         app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/ic_home_24"
+            android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -219,7 +299,7 @@
         android:text="제보 완료"
         android:textColor="@color/white"
         android:paddingVertical="15dp"
-        android:background="#3320A6"
+        android:background="@drawable/border_navy_fill_round_40"
         android:layout_marginHorizontal="20dp"
         android:textAlignment="center"
         android:textSize="15dp"

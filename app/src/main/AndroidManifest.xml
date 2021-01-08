@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MilkyWay">
-        <activity android:name=".ui.nickname.NicknameActivity"
+        <activity android:name=".ui.report.CafeReportMenuActivity"></activity>
+        <activity
+            android:name=".ui.nickname.NicknameActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.report.search.PlaceSearchActivity"

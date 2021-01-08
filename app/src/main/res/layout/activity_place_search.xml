@@ -38,10 +38,10 @@
 
     <ImageView
         android:id="@+id/btn_place_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_setting_24"
+        android:src="@drawable/ic_launcher_foreground"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/et_place_search"
         app:layout_constraintEnd_toEndOf="@+id/et_place_search"
@@ -49,10 +49,10 @@
 
     <ImageView
         android:id="@+id/btn_place_search_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_home_24"
+        android:src="@drawable/ic_launcher_foreground"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/et_place_search"
         app:layout_constraintEnd_toEndOf="@+id/et_place_search"

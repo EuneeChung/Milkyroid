@@ -14,16 +14,22 @@ import com.milkyway.milkyway.ui.report.search.PlaceSearchActivity
 class CafeReportFragment : Fragment() {
     private lateinit var binding: FragmentCafeReportBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cafe_report, container, false)
         binding.cafeReportFragment=this
         binding.lifecycleOwner=this
-
         return binding.root
     }
 
     fun onCafeSearchClick(view: View){
-        val placesarchIntent = Intent(activity,PlaceSearchActivity::class.java)
-        startActivity(placesarchIntent)
+        val placeSearchIntent = Intent(activity,PlaceSearchActivity::class.java)
+        startActivity(placeSearchIntent)
     }
+
+    fun onAddMenuClick(view: View){
+        val addMenuIntent = Intent(activity,CafeReportMenuActivity::class.java)
+        startActivity(addMenuIntent)
+    }
+
+
 }
