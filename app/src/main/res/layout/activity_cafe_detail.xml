@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.milkyway.milkyway.ui.report.detail.CafeDetailViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/btn_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/btn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_detail_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/font_roboto"
+            android:text="카페 상세정보"
+            android:textColor="@color/black"
+            android:textFontWeight="700"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_detail_universe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/selector_cafedetail_ic_universe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_detail_universe_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/font_roboto"
+            android:gravity="center"
+            android:text="325"
+            android:textColor="@color/blue_3320a6"
+            android:textFontWeight="700"
+            android:textSize="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_detail_universe"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/btn_detail_universe"
+            app:layout_constraintTop_toBottomOf="@+id/btn_detail_universe" />
+
+        <View
+            android:id="@+id/view_detail_1"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="19dp"
+            android:background="@color/white_e5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_top"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_detail_1"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_detail_cafe"
+                    android:layout_width="152dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:letterSpacing="-0.01"
+                    android:lineSpacingExtra="12sp"
+                    android:text="혜리의 17학번이 뭘잘못했는디카페"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btn_detail_fixrequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginEnd="11dp"
+                    android:background="@drawable/btn_request"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_detail_fixrequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center_horizontal"
+                    android:text="정보수정요청"
+                    android:textColor="@color/gray_9a9792"
+                    android:textFontWeight="400"
+                    android:textSize="12dp"
+                    app:layout_constraintRight_toLeftOf="@+id/btn_detail_fixrequest"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/border_gray_fill_round_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_cafe">
+
+                    <TextView
+                        android:id="@+id/tv_detail_showcount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/font_roboto"
+                        android:gravity="center"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="13dp"
+                        android:text="325명의 밀키들이 유니버스에 추가했어요"
+                        android:textColor="@color/blue_3320a6"
+                        android:textFontWeight="400"
+                        app:drawableStartCompat="@drawable/ic_universe"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/ic_detail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+                <TextView
+                    android:id="@+id/tv_detail_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:text="서울시 종로구"
+                    android:textColor="@color/black"
+                    android:textFontWeight="400"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_detail_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ic_detail_location"
+                    app:layout_constraintTop_toTopOf="@+id/ic_detail_location" />
+
+                <ImageView
+                    android:id="@+id/ic_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_detail_location" />
+
+                <TextView
+                    android:id="@+id/tv_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:text="운영시간"
+                    android:textColor="@color/black"
+                    android:textFontWeight="400"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_detail_time"
+                    app:layout_constraintStart_toEndOf="@+id/ic_detail_time"
+                    app:layout_constraintTop_toTopOf="@+id/ic_detail_time" />
+
+
+                <ImageView
+                    android:id="@+id/btn_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_cafedetail_btn_time"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_detail_time"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_detail_time"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_time" />
+
+
+                <TextView
+                    android:id="@+id/tv_detail_time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="58dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:includeFontPadding="false"
+                    android:text="월"
+                    android:textColor="@color/black"
+                    android:textFontWeight="400"
+                    android:textSize="12dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_time" />
+
+                <ImageView
+                    android:id="@+id/ic_detail_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_phone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_time2" />
+
+                <TextView
+                    android:id="@+id/tv_detail_call"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="0902155789"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_detail_call"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ic_detail_call"
+                    app:layout_constraintTop_toTopOf="@+id/ic_detail_call" />
+
+                <ImageView
+                    android:id="@+id/ic_detail_web"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_web"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_detail_call" />
+
+                <TextView
+                    android:id="@+id/tv_detail_web"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="www.latte.com"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_detail_web"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ic_detail_location"
+                    app:layout_constraintTop_toTopOf="@+id/ic_detail_web" />
+
+                <View
+                    android:id="@+id/view_detail_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="29dp"
+                    android:background="@color/white_e5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_detail_web"
+                    tools:layout_editor_absoluteY="57dp" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:text="밀키의 꿀팁"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_detail_2" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border_white_honeytip"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="11dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="11dp"
+                    android:paddingBottom="6dp"
+                    android:text="#전메뉴두유가능"
+                    android:textColor="@color/blue_3320a6"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_tip" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/border_white_honeytip"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="11dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="11dp"
+                    android:paddingBottom="6dp"
+                    android:text="#옵션추가비용500원"
+                    android:textColor="@color/blue_3320a6"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_detail_tip1"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_tip1" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_white_honeytip"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="11dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="11dp"
+                    android:paddingBottom="6dp"
+                    android:text="#제로웨이스트가능"
+                    android:textColor="@color/blue_3320a6"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_tip2" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/border_white_honeytip"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="11dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="11dp"
+                    android:paddingBottom="6dp"
+                    android:text="#두유가져가면받아줌"
+                    android:textColor="@color/blue_3320a6"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_detail_tip3"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_tip3" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_white_honeytip"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="11dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="11dp"
+                    android:paddingBottom="6dp"
+                    android:text="#지점마다다름"
+                    android:textColor="@color/blue_3320a6"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_tip4" />
+
+                <TextView
+                    android:id="@+id/tv_detail_tip6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/border_white_honeytip"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="11dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="11dp"
+                    android:paddingBottom="6dp"
+                    android:text="#메뉴에모든재료표기"
+                    android:textColor="@color/blue_3320a6"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_detail_tip5"
+                    app:layout_constraintTop_toTopOf="@+id/tv_detail_tip5" />
+
+                <View
+                    android:id="@+id/view_detail_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/white_e5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_tip5"
+                    tools:layout_editor_absoluteY="57dp" />
+
+                <TextView
+                    android:id="@+id/tv_detail_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:text="메뉴"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_detail_3"
+                    tools:layout_editor_absoluteY="466dp" />
+
+                <TextView
+                    android:id="@+id/tv_detail_updateday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/font_roboto"
+                    android:text="업데이트 "
+                    android:textColor="@color/gray_9a9792"
+                    android:textFontWeight="400"
+                    android:textSize="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_detail_3" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_detail_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_detail_menu"
+                    tools:listitem="@layout/item_detailmenu" />
+
+                <TextView
+                    android:id="@+id/tv_detail_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/border_gray_fill_round_8"
+                    android:fontFamily="@font/font_roboto"
+                    android:gravity="center"
+                    android:paddingStart="41dp"
+                    android:paddingLeft="41dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="41dp"
+                    android:paddingRight="41dp"
+                    android:paddingBottom="10dp"
+                    android:text="메뉴의 타입은 제보를 기반으로 합니다.\n카페 방문 시 한번 더 확인하시기를 추천드립니다."
+                    android:textColor="@color/gray_9a9792"
+                    android:textFontWeight="400"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_detail_menu" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
