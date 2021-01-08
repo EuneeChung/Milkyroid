@@ -12,4 +12,9 @@ interface MilkyWayService {
         @Body body : RequestSign
     ) : ResponseToken
 
+    // SignIn
+    @POST("users/signin")
+    suspend fun signIn(
+        @Body body : RequestSign
+    ) : ResponseToken
 }
