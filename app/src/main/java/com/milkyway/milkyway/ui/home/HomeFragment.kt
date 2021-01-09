@@ -8,15 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
+import com.milkyway.milkyway.util.DataStore
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentHomeBinding
@@ -33,6 +37,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         binding.lifecycleOwner=this
 
         setMap()
+        setNicknameText(binding)
         return binding.root
     }
 
@@ -44,6 +49,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             }
 
         mapFragment.getMapAsync(this@HomeFragment)
+    }
+
+    private fun setNicknameText(binding : FragmentHomeBinding) {
+        lifecycleScope.launch {
+            DataStore(requireContext()).getNickname.collect {
+                binding.tvNickname.text = String.format(requireContext().getString(R.string.home_nickname), it!!)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
