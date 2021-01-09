@@ -13,11 +13,6 @@
         android:theme="@style/Theme.MilkyWay">
 
         <activity android:name=".ui.modify.ModifyActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.modify.request.RequestModificationsActivity"
@@ -30,7 +25,11 @@
             android:name=".ui.report.search.PlaceSearchActivity"
             android:label="@string/title_activity_place_search" />
         <activity android:name=".ui.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

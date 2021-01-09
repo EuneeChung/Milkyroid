@@ -3,17 +3,19 @@ package com.milkyway.milkyway.ui.modify.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogDeleteReasonsBinding
+import com.milkyway.milkyway.ui.modify.ModifyDialogViewModel
 
 
 class DeleteFragmentDialog :  DialogFragment() {
 
     private lateinit var binding: DialogDeleteReasonsBinding
-    private val modifyDialogViewModel : ModifyDialogViewModel by viewModels()
+    private val modifyDialogViewModel : ModifyDialogViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +36,14 @@ class DeleteFragmentDialog :  DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        modifyDialogViewModel.isSelectedList.value= MutableList(5) {false}
         binding.btnDialogConfirm.setOnClickListener {
-            context?.let { context ->
-                ConfirmAlertDialog(context).show(null) }
+            modifyDialogViewModel.apply {
+                isDeleteClick.value = isActive.value!!
+            }
+            if(modifyDialogViewModel.isDeleteClick.value!!) dismiss()
+            Log.e("isDeleteClick",modifyDialogViewModel.isDeleteClick.value.toString())
+
         }
     }
 
