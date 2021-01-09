@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
     private val splashViewModel : SplashViewModel by viewModels()
+    private val dataStore = DataStore(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(p0: Animator?) {
                 lifecycleScope.launch {
-                    DataStore(this@SplashActivity).getNickname.collect {
+                    dataStore.getNickname.collect {
                         splashViewModel.signIn(UUID.uuid(this@SplashActivity), it!!)
                     }
                 }
@@ -56,10 +57,18 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setObserve() {
-        splashViewModel.isSignIn.observe(this, Observer{ isSignIn->
+        splashViewModel.isSignIn.observe(this, Observer { isSignIn ->
             isSignIn?.let {
-                if(isSignIn) startActivity(Intent(this, MainActivity::class.java))
+                if (isSignIn) startActivity(Intent(this, MainActivity::class.java))
                 else startActivity(Intent(this, NicknameActivity::class.java))
+            }
+        })
+
+        splashViewModel.token.observe(this, Observer{ token ->
+            token?.let {
+                lifecycleScope.launch {
+                    dataStore.setToken(token)
+                }
             }
         })
     }
