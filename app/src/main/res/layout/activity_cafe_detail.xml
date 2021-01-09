@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/selector_cafedetail_ic_universe"
+            android:onClick="@{()->viewModel.clickCheck()}"
+            android:background="@drawable/btn_universe"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +56,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="@font/font_roboto"
             android:gravity="center"
-            android:text="325"
+            android:text="@={viewModel.universecount}"
             android:textColor="@color/blue_3320a6"
             android:textFontWeight="700"
             android:textSize="8dp"
@@ -155,7 +156,7 @@
                         android:gravity="center"
                         android:paddingTop="14dp"
                         android:paddingBottom="13dp"
-                        android:text="325명의 밀키들이 유니버스에 추가했어요"
+                        android:text="@={viewModel.tv_detail_showcount}"
                         android:textColor="@color/blue_3320a6"
                         android:textFontWeight="400"
                         app:drawableStartCompat="@drawable/ic_universe"
@@ -219,7 +220,8 @@
                     android:id="@+id/btn_detail_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_cafedetail_btn_time"
+                    android:background="@drawable/btn_open"
+                    android:onClick="@{()->viewModel.clickCheck2()}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_detail_time"
                     app:layout_constraintLeft_toRightOf="@+id/tv_detail_time"
                     app:layout_constraintTop_toTopOf="@+id/tv_detail_time" />
