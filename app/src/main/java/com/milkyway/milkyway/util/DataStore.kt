@@ -15,7 +15,7 @@ class DataStore(context: Context) {
     )
 
     val getNickname: Flow<String?> = dataStore.data.map { preferences ->
-        preferences[nicknameKey]
+        preferences[nicknameKey]?:""
     }
 
     suspend fun setNickname(nickname: String) {
