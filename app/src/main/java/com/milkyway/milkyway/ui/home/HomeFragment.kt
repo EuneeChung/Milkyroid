@@ -38,6 +38,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
+        setVisibility(binding)
         return binding.root
     }
 
@@ -59,6 +60,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun setVisibility(binding : FragmentHomeBinding) {
+        homeViewModel.card.observe(viewLifecycleOwner, Observer { card ->
+            card?.let {
+                if (card) {
+                    binding.layoutHomeCard.visibility = View.VISIBLE
+                    binding.bottomsheetHome.root.visibility = View.INVISIBLE
+                }
+                else {
+                    binding.layoutHomeCard.visibility = View.INVISIBLE
+                    binding.bottomsheetHome.root.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -76,6 +92,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         setCurrentLocationIcon(p0)
         setCurrentLocationObserve(p0)
         setCameraMoveListener(p0)
+        setMapClickListener(p0)
     }
 
     private fun setUiSetting(p0 : NaverMap) {
@@ -107,11 +124,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setCameraMoveListener(p0 : NaverMap) {
-        p0.addOnCameraChangeListener { reason, animated ->
+        p0.addOnCameraChangeListener { _, _ ->
             if(p0.locationTrackingMode == LocationTrackingMode.NoFollow) homeViewModel.notCompassIcon()
         }
     }
 
+    private fun setMapClickListener(p0 : NaverMap) {
+        p0.setOnMapClickListener { _, _ ->
+            homeViewModel.setMapClick()
+        }
+    }
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
