@@ -3,19 +3,25 @@ package com.milkyway.milkyway.ui.modify
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivityModifyBinding
 import com.milkyway.milkyway.ui.main.MainActivity
-import com.milkyway.milkyway.ui.modify.dialog.ConfirmFragmentDialog
+import com.milkyway.milkyway.ui.modify.dialog.ConfirmAlertDialog
 import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.modify.request.RequestModificationsActivity
 
 class ModifyActivity : AppCompatActivity() {
+    private val modifyViewModel: ModifyDialogViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBinding()
+        observeDeleteClick()
 
     }
     private fun initBinding(){
@@ -42,6 +48,14 @@ class ModifyActivity : AppCompatActivity() {
                 supportFragmentManager,"deleteFragmentDialog"
             )
         }
+    }
+    private fun observeDeleteClick(){
+        modifyViewModel.isDeleteClick.observe(this, Observer{ isDeleteClick->
+            Log.e("isDeleteClick",isDeleteClick.toString())
+            if(isDeleteClick) {
+                ConfirmAlertDialog(this).show(null)
+            }
+        })
     }
 
 

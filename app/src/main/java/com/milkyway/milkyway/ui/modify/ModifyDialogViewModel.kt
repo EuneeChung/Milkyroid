@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.modify.dialog
+package com.milkyway.milkyway.ui.modify
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -13,6 +13,8 @@ class ModifyDialogViewModel : ViewModel() {
     var _isActive = MutableLiveData<Boolean>(false)
     val isActive: LiveData<Boolean>
         get() = _isActive
+
+    val isDeleteClick :MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun chooseDeleteReasons(index: Int) {
         val list = isSelectedList.value
