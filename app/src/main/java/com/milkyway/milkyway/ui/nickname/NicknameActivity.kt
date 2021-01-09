@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
 
 class NicknameActivity : AppCompatActivity() {
     private val nicknameViewModel : NicknameViewModel by viewModels()
+    private val dataStore = DataStore(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding : ActivityNicknameBinding = DataBindingUtil.setContentView(this, R.layout.activity_nickname)
@@ -37,9 +39,17 @@ class NicknameActivity : AppCompatActivity() {
             isSignUp?.let {
                 if(isSignUp) {
                     lifecycleScope.launch {
-                        DataStore(this@NicknameActivity).setNickname(nicknameViewModel.nickname.value!!)
+                        dataStore.setNickname(nicknameViewModel.nickname.value!!)
                     }
                     startActivity(Intent(this, MainActivity::class.java))
+                }
+            }
+        })
+
+        nicknameViewModel.token.observe(this, Observer{ token ->
+            token?.let {
+                lifecycleScope.launch {
+                    dataStore.setToken(token)
                 }
             }
         })
