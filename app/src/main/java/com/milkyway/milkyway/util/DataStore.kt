@@ -24,7 +24,18 @@ class DataStore(context: Context) {
         }
     }
 
+    val getToken: Flow<String?> = dataStore.data.map { preferences ->
+        preferences[tokenKey]?:""
+    }
+
+    suspend fun setToken(token: String) {
+        dataStore.edit { preferences ->
+            preferences[tokenKey] = token
+        }
+    }
+
     companion object {
         val nicknameKey = preferencesKey<String>("nickname")
+        val tokenKey = preferencesKey<String>("token")
     }
 }
