@@ -17,6 +17,7 @@
     <string name="nickname_btn_next">밀키웨이 시작하기</string>
 
 
+
     <!-- in Modify edited by eun -->
     <string name="request_modifications_word">정보 수정 요청</string>
     <string name="modify_question">제공받으신 정보와 다른 점이 있나요?</string>
@@ -39,5 +40,14 @@
     <string name="error_duplicated">중복 제보된 가게에요</string>
     <string name="error_not_suitable">적합한 카페가 아니에요</string>
     <string name="complete">선택 완료</string>
+
+    <string name="title_activity_cafe_detail">CafeDetailActivity</string>
+    <!-- in HomeFragment -->
+    <string name="home_suggest">오늘도 \'속\' 편한 탐험을 시작해 볼까요?</string>
+    <string name="decaffeinated">디카페인</string>
+    <string name="soy_milk">두유</string>
+    <string name="low_fat_milk">저지방우유</string>
+    <string name="fat_free_milk">무지방우유</string>
+
 
 </resources>

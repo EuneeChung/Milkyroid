@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.universe.UniverseFragment">
 
-    <TextView
+    <fragment
+        android:id="@+id/universe_map"
+        android:name="com.naver.maps.map.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="유니버스" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
