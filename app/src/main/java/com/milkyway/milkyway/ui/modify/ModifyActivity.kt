@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivityModifyBinding
 import com.milkyway.milkyway.ui.main.MainActivity
-import com.milkyway.milkyway.ui.modify.dialog.ConfirmFragmentDialog
 import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.modify.request.RequestModificationsActivity
 
