@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true" android:drawable="@drawable/border_navy_fill_circle"/>
-    <item android:state_selected="false" android:drawable="@drawable/border_gray_line_circle"/>
+    <item android:state_selected="false" android:drawable="@drawable/border_gray_9a_line_circle"/>
 </selector>
