@@ -23,6 +23,20 @@ object MarkerDrawer {
         for(marker in markers) { marker.icon = OverlayImage.fromResource(R.drawable.ic_marker) }
     }
 
+    fun setClickListener() {
+        for(i in 0 until markers.size) {
+            markers[i].setOnClickListener {
+                markerClick(i)
+                true
+            }
+        }
+    }
+
+    private fun markerClick(index : Int) {
+        setIcon()
+        markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
+    }
+
     fun drawMarkers(map : NaverMap) {
         for(marker in markers) { marker.map = map }
     }
