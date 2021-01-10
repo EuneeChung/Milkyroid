@@ -46,6 +46,7 @@ class CafeDetailActivity : AppCompatActivity() {
         universeAddCancel(binding)
         showDetailTime(binding)
         setTextBold(binding)
+        setBack(binding)
     }
 
     private fun setDetailData(binding: ActivityCafeDetailBinding) {
@@ -117,5 +118,10 @@ class CafeDetailActivity : AppCompatActivity() {
             StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         binding.tvDetailMsg.text = spannableString
+    }
+
+    // 뒤로가기 버튼 이벤트
+    private fun setBack(binding: ActivityCafeDetailBinding){
+        binding.btnDetailBack.setOnClickListener { finish() }
     }
 }
