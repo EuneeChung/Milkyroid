@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.milkyway.milkyway.data.model.AroundCafe
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +20,10 @@ class HomeViewModel : ViewModel() {
     private val _card = MutableLiveData<Boolean>(true)
     val card : LiveData<Boolean>
         get() = _card
+
+    private val _markers = MutableLiveData<List<AroundCafe>>()
+    val markers : LiveData<List<AroundCafe>>
+        get() = _markers
 
     fun compassIcon() {
         _compass.value = !_compass.value!!
@@ -35,7 +40,7 @@ class HomeViewModel : ViewModel() {
     fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val home = RetrofitBuilder.service.home(token)
-            Log.d("request", home.toString())
+            _markers.postValue(home.data.aroundCafe)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
         }
