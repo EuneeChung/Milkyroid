@@ -1,9 +1,13 @@
 package com.milkyway.milkyway.ui.nickname
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +30,7 @@ class NicknameActivity : AppCompatActivity() {
 
         setClickListener(binding)
         setObserve()
+        setStatusBarColor(this@NicknameActivity)
     }
 
     private fun setClickListener(binding : ActivityNicknameBinding) {
@@ -53,5 +58,11 @@ class NicknameActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setStatusBarColor(context: Activity) {
+        val window : Window = context.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(context, R.color.white_f6f5f2)
     }
 }
