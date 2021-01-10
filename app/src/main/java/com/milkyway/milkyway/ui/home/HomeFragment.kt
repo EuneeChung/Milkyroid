@@ -38,6 +38,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
+        setMarkerData()
         return binding.root
     }
 
@@ -55,6 +56,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         lifecycleScope.launch {
             DataStore(requireContext()).getNickname.collect {
                 binding.tvNickname.text = String.format(requireContext().getString(R.string.home_nickname), it!!)
+            }
+        }
+    }
+
+    private fun setMarkerData() {
+        lifecycleScope.launch {
+            DataStore(requireContext()).getToken.collect {
+                homeViewModel.requestHomeData(it!!)
             }
         }
     }
