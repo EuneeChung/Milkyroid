@@ -1,9 +1,11 @@
 package com.milkyway.milkyway.util
 
+import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundCafe
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 
 object MarkerDrawer {
 
@@ -17,7 +19,11 @@ object MarkerDrawer {
         }
     }
 
+    fun setIcon() {
+        for(marker in markers) { marker.icon = OverlayImage.fromResource(R.drawable.ic_marker) }
+    }
+
     fun drawMarkers(map : NaverMap) {
-        for(element in markers) { element.map = map }
+        for(marker in markers) { marker.map = map }
     }
 }
