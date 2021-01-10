@@ -1,15 +1,25 @@
 package com.milkyway.milkyway.ui.report.myreport
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.databinding.DialogShowcancelMyreportBinding
+import com.milkyway.milkyway.generated.callback.OnClickListener
+import com.milkyway.milkyway.ui.modify.dialog.ConfirmAlertDialog
+import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 
 class CancelAdapter(private val context: Context) : RecyclerView.Adapter<CancelAdapter.CancelViewHolder>() {
@@ -37,15 +47,38 @@ class CancelAdapter(private val context: Context) : RecyclerView.Adapter<CancelA
             cafename.text = cancelData.cafename
             date.text = cancelData.price
 
-            // 아이템 클릭 이벤트
-            item_cl_cancel.setOnClickListener(object :View.OnClickListener {
-                override fun onClick(view: View?) {
-//                    val context: Context = view!!.context
-//                    val intent = Intent(view.context, CafeDetailActivity::class.java)
-//
-//                    context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))
-                }
-            })
+
+            // 아이템 클릭 팝업
+            item_cl_cancel.setOnClickListener {
+                ShowCancelDialog(context).show(null)
+            }
+
+
+
+//            // 바인딩 썼을때 (닫기는 안됨 - ShowCancelDialog 내용 18-23 bind()위에 써야함)
+//            item_cl_cancel.setOnClickListener {
+//                val dialog = builder.create()
+//                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_showcancel_myreport,null)
+//                binding.btnShowcancelConfirm.setOnClickListener{
+//                    dialog.dismiss()
+//                }
+//                dialog.setView(dialogView)
+//                dialog.show()
+//            }
+
+
+//            // 바인딩 안썼을 때
+//            item_cl_cancel.setOnClickListener {
+//                val builder = AlertDialog.Builder(context)
+//                val dialog = builder.create()
+//                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_showcancel_myreport,null)
+//                val yes = dialogView.findViewById<MaterialButton>(R.id.btn_showcancel_confirm)
+//                yes.setOnClickListener{
+//                    dialog.dismiss()
+//                }
+//                dialog.setView(dialogView)
+//                dialog.show()
+//            }
         }
     }
 }
