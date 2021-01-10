@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_cl_done"
+    android:background="@drawable/border_white_f6_fillshadow_round_8"
+    android:layout_marginBottom="12dp"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/item_myreport_done_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:includeFontPadding="false"
+        android:text="2020.12.13"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_myreport_done_cafename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="혜리의 라떼는카페"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.01"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_myreport_done_date" />
+
+    <TextView
+        android:id="@+id/item_myreport_done_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="서울시 종로구 21-9(1층)"
+        android:textColor="@color/gray_97"
+        android:textSize="12dp"
+        android:includeFontPadding="false"
+        android:letterSpacing="-0.02"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_myreport_done_cafename" />
+
+    <TextView
+        android:id="@+id/item_myreport_done_tag1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_white_fill_round_40"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:paddingStart="11dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="6dp"
+        android:text="디카페인"
+        android:textColor="@color/blue_3320a6"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_myreport_done_location" />
+
+    <TextView
+        android:id="@+id/item_myreport_done_tag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/border_white_fill_round_40"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:paddingStart="11dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="6dp"
+        android:text="두유"
+        android:textColor="@color/blue_3320a6"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/item_myreport_done_tag1"
+        app:layout_constraintTop_toTopOf="@+id/item_myreport_done_tag1" />
+
+    <TextView
+        android:id="@+id/item_myreport_done_tag3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/border_white_fill_round_40"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:paddingStart="11dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="6dp"
+        android:text="무지방우유"
+        android:textColor="@color/blue_3320a6"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/item_myreport_done_tag2"
+        app:layout_constraintTop_toTopOf="@+id/item_myreport_done_tag2" />
+
+    <TextView
+        android:id="@+id/item_myreport_done_tag4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/border_white_fill_round_40"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:paddingStart="11dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="6dp"
+        android:text="저지방우유"
+        android:textColor="@color/blue_3320a6"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/item_myreport_done_tag3"
+        app:layout_constraintTop_toTopOf="@+id/item_myreport_done_tag3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
