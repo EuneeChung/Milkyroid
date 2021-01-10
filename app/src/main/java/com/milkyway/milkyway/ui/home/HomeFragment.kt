@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.milkyway.milkyway.util.DataStore
+import com.milkyway.milkyway.util.MarkerDrawer
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -86,6 +87,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         setCurrentLocationObserve(p0)
         setCameraMoveListener(p0)
         setMapClickListener(p0)
+        drawMarkers(p0)
     }
 
     private fun setUiSetting(p0 : NaverMap) {
@@ -127,6 +129,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             homeViewModel.setMapClick()
         }
     }
+
+    private fun drawMarkers(p0 : NaverMap) {
+        homeViewModel.markers.observe(this, Observer{ markers->
+            markers?.let {
+                MarkerDrawer.apply{
+                    setMarkers(markers)
+                    drawMarkers(p0)
+                }
+            }
+        })
+    }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
