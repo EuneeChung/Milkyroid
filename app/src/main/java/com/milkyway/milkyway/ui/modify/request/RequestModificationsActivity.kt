@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivityRequestModificationsBinding
-import com.milkyway.milkyway.ui.modify.dialog.ConfirmFragmentDialog
+import com.milkyway.milkyway.ui.modify.dialog.ConfirmAlertDialog
 
 class RequestModificationsActivity : AppCompatActivity() {
     private val requestModificationsViewModel : RequestModificationsViewModel by viewModels()
@@ -36,9 +36,7 @@ class RequestModificationsActivity : AppCompatActivity() {
 
     private fun clickBtnRequest(binding:ActivityRequestModificationsBinding){
         binding.btnRequest.setOnClickListener {
-            val confirmAlertDialog = ConfirmFragmentDialog().show(
-                supportFragmentManager,"btnModifyInformationDialog"
-            )
+            ConfirmAlertDialog(this).show(null)
         }
     }
     private fun clickBtnBack(binding:ActivityRequestModificationsBinding){

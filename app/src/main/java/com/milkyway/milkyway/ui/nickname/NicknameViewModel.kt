@@ -18,11 +18,18 @@ class NicknameViewModel : ViewModel() {
     val isSignUp : LiveData<Boolean>
         get() = _isSignUp
 
+    private val _token = MutableLiveData<String>()
+    val token : LiveData<String>
+        get() = _token
+
     fun signUp(uuid : String) = viewModelScope.launch(Dispatchers.IO) {
         if (Pattern.matches("^[0-9가-힣ㄱ-ㅎㅏ-ㅣ\u318D\u119E\u11A2\u2022\u2025a\u00B7\uFE55]+$", nickname.value!!)) {
             try {
                 val signUp = RetrofitBuilder.service.signUp(RequestSign(uuid = uuid, nickName = nickname.value!!))
-                if (signUp.status == 200) _isSignUp.postValue(true)
+                if (signUp.status == 200) {
+                    _token.postValue(signUp.data.refreshToken)
+                    _isSignUp.postValue(true)
+                }
             } catch (e: HttpException) {
                 _isSignUp.postValue(false)
             }
