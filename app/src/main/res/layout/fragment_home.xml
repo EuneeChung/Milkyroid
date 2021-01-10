@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="homeViewModel"
             type="com.milkyway.milkyway.ui.home.HomeViewModel">
@@ -113,6 +114,7 @@
                     android:id="@+id/layout_home_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{homeViewModel.card? View.VISIBLE : View.INVISIBLE}"
                     android:background="@drawable/border_white_fill_round_8"
                     android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginStart="20dp"
-                        android:text="혜리의라뗴는카페"
+                        android:text="혜리의라떼는카페"
                         android:textSize="16dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/roboto_bold"
@@ -254,7 +256,8 @@
 
         <include
             android:id="@+id/bottomsheet_home"
-            layout="@layout/bottom_sheet_home" />
+            layout="@layout/bottom_sheet_home"
+            android:visibility="@{homeViewModel.card? View.INVISIBLE : View.VISIBLE}"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

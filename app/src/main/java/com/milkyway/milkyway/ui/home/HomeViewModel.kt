@@ -1,8 +1,15 @@
 package com.milkyway.milkyway.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.milkyway.milkyway.data.model.AroundCafe
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class HomeViewModel : ViewModel() {
 
@@ -14,6 +21,10 @@ class HomeViewModel : ViewModel() {
     val card : LiveData<Boolean>
         get() = _card
 
+    private val _markers = MutableLiveData<List<AroundCafe>>()
+    val markers : LiveData<List<AroundCafe>>
+        get() = _markers
+
     fun compassIcon() {
         _compass.value = !_compass.value!!
     }
@@ -24,5 +35,14 @@ class HomeViewModel : ViewModel() {
 
     fun setMapClick() {
         _card.value = !_card.value!!
+    }
+
+    fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val home = RetrofitBuilder.service.home(token)
+            _markers.postValue(home.data.aroundCafe)
+        } catch (e: HttpException) {
+            Log.d("request", e.toString())
+        }
     }
 }
