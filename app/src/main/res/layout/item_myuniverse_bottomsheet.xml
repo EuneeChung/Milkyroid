@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_cl_universe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/border_white_f6_fillshadow_round_8"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/item_tv_cafename_myuniverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:text="혜리의 라떼는카페"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_tv_address_myuniverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_regular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.02"
+            android:text="서울시 종로구 21-9(1층)"
+            android:textColor="@color/gray_97"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/item_tv_cafename_myuniverse"
+            app:layout_constraintTop_toBottomOf="@+id/item_tv_cafename_myuniverse" />
+
+        <TextView
+            android:id="@+id/item_btn_delete_myuniverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/roboto_regular"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.02"
+            android:padding="15dp"
+            android:text="@string/delete"
+            android:textColor="@color/gray_97"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

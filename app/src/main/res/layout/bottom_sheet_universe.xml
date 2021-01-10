@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:behavior_peekHeight="84dp"
+        android:background="@drawable/border_white_fill_round_12"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <ImageView
+            android:id="@+id/img_bar"
+            android:layout_width="26dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="23dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_universe_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/my_universe"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/img_bar"
+            app:layout_constraintStart_toStartOf="@+id/img_bar"
+            app:layout_constraintTop_toBottomOf="@+id/img_bar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_universe_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="356dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_universe_bottom_sheet"
+            tools:listitem="@layout/item_myuniverse_bottomsheet" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_universe_no_selected"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_universe_bottom_sheet">
+
+            <ImageView
+                android:id="@+id/img_no_selected_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="108dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_logo_no_selected_items" />
+
+            <TextView
+                android:id="@+id/tv_no_selected_items"
+                android:layout_width="212dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="153dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text=""
+                android:textColor="@color/gray_9a9792"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/img_no_selected_items"
+                app:layout_constraintStart_toStartOf="@+id/img_no_selected_items"
+                app:layout_constraintTop_toBottomOf="@+id/img_no_selected_items" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
