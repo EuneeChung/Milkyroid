@@ -39,7 +39,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
-        setMarkerData()
+        //setMarkerData()
         return binding.root
     }
 
@@ -84,7 +84,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         setUiSetting(p0)
         setLocation(p0)
         setCurrentLocationIcon(p0)
-        setCurrentLocationObserve(p0)
         setCameraMoveListener(p0)
         setMapClickListener(p0)
         drawMarkers(p0)
@@ -107,16 +106,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val locationOverlay = p0.locationOverlay
         locationOverlay.isVisible = true
         locationOverlay.icon = OverlayImage.fromResource(R.drawable.ic_current_location)
-    }
+        locationOverlay.circleRadius = 0
 
-    private fun setCurrentLocationObserve(p0 : NaverMap) {
         homeViewModel.compass.observe(this, Observer { compass->
             compass?.let {
-                if(compass) p0.locationTrackingMode = LocationTrackingMode.Face
-                else p0.locationTrackingMode = LocationTrackingMode.NoFollow
+                if(compass) {
+                    p0.locationTrackingMode = LocationTrackingMode.Face
+                    locationOverlay.subIcon = OverlayImage.fromResource(R.drawable.ic_location_face)
+                }
+                else {
+                    p0.locationTrackingMode = LocationTrackingMode.NoFollow
+                    locationOverlay.subIcon = OverlayImage.fromResource(R.drawable.ic_location_no_follow)
+                }
             }
         })
     }
+
 
     private fun setCameraMoveListener(p0 : NaverMap) {
         p0.addOnCameraChangeListener { _, _ ->
