@@ -38,7 +38,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
-        setVisibility(binding)
         return binding.root
     }
 
@@ -58,21 +57,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 binding.tvNickname.text = String.format(requireContext().getString(R.string.home_nickname), it!!)
             }
         }
-    }
-
-    private fun setVisibility(binding : FragmentHomeBinding) {
-        homeViewModel.card.observe(viewLifecycleOwner, Observer { card ->
-            card?.let {
-                if (card) {
-                    binding.layoutHomeCard.visibility = View.VISIBLE
-                    binding.bottomsheetHome.root.visibility = View.INVISIBLE
-                }
-                else {
-                    binding.layoutHomeCard.visibility = View.INVISIBLE
-                    binding.bottomsheetHome.root.visibility = View.VISIBLE
-                }
-            }
-        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
