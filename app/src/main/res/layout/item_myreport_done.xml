@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_cl_done"
-    android:background="@drawable/border_white_f6_fillshadow_round_8"
-    android:layout_marginBottom="12dp"
-    android:padding="16dp"
+    android:background="@drawable/myreport_list"
+    android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -55,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/border_white_fill_round_40"
         android:fontFamily="@font/roboto_bold"
         android:gravity="center"
@@ -68,7 +67,8 @@
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_myreport_done_location" />
+        app:layout_constraintTop_toBottomOf="@+id/item_myreport_done_location"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/item_myreport_done_tag2"
