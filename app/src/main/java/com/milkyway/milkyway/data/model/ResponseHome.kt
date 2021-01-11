@@ -7,16 +7,17 @@ data class ResponseHome(
 )
 
 data class HomeCafe(
-    val aroundCafe: List<AroundCafe>,
+    val result: List<AroundCafe>,
     val nickName: String
 )
 
 data class AroundCafe(
     val id: Int,
     val cafeName: String,
-    val cafeAddress: String,
-    val businessHours: String,
+    val universeCount : Int,
     val cafeMapX: Double,
     val cafeMapY: Double,
-    val isReal: Boolean
+    val cafeAddress: String,
+    val businessHours: String,
+    val isUniversed: Boolean
 )
