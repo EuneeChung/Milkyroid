@@ -1,20 +1,12 @@
 package com.milkyway.milkyway.ui.report.myreport
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogShowcancelMyreportBinding
 import com.milkyway.milkyway.generated.callback.OnClickListener
