@@ -1,6 +1,8 @@
 package com.milkyway.milkyway.ui.report
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +39,13 @@ class ReportFragment : Fragment() {
         tab?.apply {
             getTabAt(0)?.text="카페 제보"
             getTabAt(1)?.text="나의 제보"
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == CafeReportFragment.SEARCH_RESULT) {
+            Log.d("reportFragment","리폴트 프래그먼트에서 호출")
         }
     }
 }

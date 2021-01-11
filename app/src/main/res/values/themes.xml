@@ -33,4 +33,11 @@
         <item name="android:textSize">12dp</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
+
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textSize">12dp</item>
+        <item name="android:listPreferredItemPaddingLeft">5dp</item>
+        <item name="android:listPreferredItemPaddingRight">5dp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
 </resources>

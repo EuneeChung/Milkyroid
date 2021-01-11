@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/btn_back_search"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="12dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/btn_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_search"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/et_place_search"
         app:layout_constraintEnd_toEndOf="@+id/et_place_search"
@@ -52,7 +52,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/btn_clear"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/et_place_search"
         app:layout_constraintEnd_toEndOf="@+id/et_place_search"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="245dp"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/img_noresult"
             app:layout_constraintEnd_toEndOf="@+id/tv_empty_place_search"
             app:layout_constraintStart_toStartOf="@+id/tv_empty_place_search"
             app:layout_constraintTop_toTopOf="parent" />

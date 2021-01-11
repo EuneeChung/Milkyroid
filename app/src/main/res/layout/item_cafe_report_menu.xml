@@ -7,7 +7,7 @@
     android:background="@drawable/border_lightgray_fill_line_8">
 
     <TextView
-        android:id="@+id/tb_cafe_report_menu_name"
+        android:id="@+id/tv_cafe_report_menu_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tb_cafe_report_select_milk1"
+        android:id="@+id/tv_cafe_report_select_milk1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -30,46 +30,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView8"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/tb_cafe_report_menu_name"
-        app:layout_constraintTop_toBottomOf="@+id/tb_cafe_report_menu_name" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="두유"
-        android:textColor="@color/gray_9a9792"
-        android:textSize="12dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tb_cafe_report_select_milk1"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
-        app:layout_constraintStart_toEndOf="@+id/tb_cafe_report_select_milk1"
-        app:layout_constraintTop_toTopOf="@+id/tb_cafe_report_select_milk1" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="무지방우유"
-        android:textColor="@color/gray_9a9792"
-        android:textSize="12dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toStartOf="@+id/textView10"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="하나뭐더라"
-        android:textColor="@color/gray_9a9792"
-        android:textSize="12dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView9"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
+        app:layout_constraintStart_toStartOf="@+id/tv_cafe_report_menu_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cafe_report_menu_name" />
 
     <TextView
         android:id="@+id/tv_cafe_report_money"
@@ -77,9 +39,9 @@
         android:layout_height="wrap_content"
         android:text="4000"
         android:textColor="@color/blue_3320a6"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_cafe_report_edit_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cafe_report_edit_delete"
         app:layout_constraintEnd_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/sp_cafe_report_edit_delete" />
+        app:layout_constraintTop_toTopOf="@+id/btn_cafe_report_edit_delete" />
 
     <TextView
         android:id="@+id/textView12"
@@ -87,15 +49,15 @@
         android:layout_height="wrap_content"
         android:text="원"
         android:textColor="@color/blue_3320a6"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_cafe_report_edit_delete"
-        app:layout_constraintEnd_toStartOf="@+id/sp_cafe_report_edit_delete"
-        app:layout_constraintTop_toTopOf="@+id/sp_cafe_report_edit_delete" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cafe_report_edit_delete"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cafe_report_edit_delete"
+        app:layout_constraintTop_toTopOf="@+id/btn_cafe_report_edit_delete" />
 
-    <Spinner
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:id="@+id/sp_cafe_report_edit_delete"
-        android:spinnerMode="dropdown"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cafe_report_edit_delete"
+        android:background="@drawable/btn_menu_three_dots"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
