@@ -23,10 +23,11 @@ object MarkerDrawer {
         for(marker in markers) { marker.icon = OverlayImage.fromResource(R.drawable.ic_marker) }
     }
 
-    fun setClickListener() {
+    fun setClickListener(onClick : () -> Unit) {
         for(i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
+                onClick()
                 true
             }
         }
