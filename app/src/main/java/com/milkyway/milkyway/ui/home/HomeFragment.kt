@@ -1,6 +1,8 @@
 package com.milkyway.milkyway.ui.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
+import com.milkyway.milkyway.ui.home.homesearch.CafeSearchActivity
+import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer
@@ -77,6 +81,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         binding.bottomsheetHome.viewModel=homeViewModel
         homeBottomSheetBehavior=BottomSheetBehavior.from(binding.bottomsheetHome.root)
+
+        binding.btnSearch.setOnClickListener {
+            val placeSearchIntent = Intent(context as MainActivity, CafeSearchActivity::class.java)
+            startActivityForResult(placeSearchIntent, CafeSearchActivity.REQUEST_CODE)
+        }
+
     }
 
     override fun onMapReady(p0: NaverMap) {
@@ -122,7 +132,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
-
     private fun setCameraMoveListener(p0 : NaverMap) {
         p0.addOnCameraChangeListener { _, _ ->
             if(p0.locationTrackingMode == LocationTrackingMode.NoFollow) homeViewModel.notCompassIcon()
@@ -164,7 +173,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         Location.cameraMove(p0, index)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == SEARCH_RESULT_HOME) {
+
+            val cafeName = data?.getStringExtra("cafeName")
+            val cafeLocation = data?.getStringExtra("cafeLocation")
+            Log.d("아주시발같내ㅔ요",cafeName.toString())
+            Log.d("아주시발같내ㅔ요",cafeLocation.toString())
+        }
+    }
+
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+        const val SEARCH_RESULT_HOME = 3
     }
 }
