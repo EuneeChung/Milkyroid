@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.milkyway.milkyway.util.DataStore
+import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
@@ -87,6 +88,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         setCameraMoveListener(p0)
         setMapClickListener(p0)
         drawMarkers(p0)
+        locationClickListener(p0)
     }
 
     private fun setUiSetting(p0 : NaverMap) {
@@ -149,6 +151,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         })
+    }
+
+    private fun locationClickListener(p0 : NaverMap) {
+        binding.bottomsheetHome.tvMangwondong.setOnClickListener { bottomSheetSelected(p0,0) }
+        binding.bottomsheetHome.tvYeonnamdong.setOnClickListener { bottomSheetSelected(p0,1) }
+        binding.bottomsheetHome.tvHannamdong.setOnClickListener { bottomSheetSelected(p0,2) }
+        binding.bottomsheetHome.tvSinsadong.setOnClickListener { bottomSheetSelected(p0,3) }
+        binding.bottomsheetHome.tvYeoksamdong.setOnClickListener { bottomSheetSelected(p0,4) }
+    }
+
+    private fun bottomSheetSelected(p0 : NaverMap, index : Int) {
+        homeBottomSheetViewModel.chooseLocation(index)
+        Location.cameraMove(p0, index)
     }
 
     companion object {
