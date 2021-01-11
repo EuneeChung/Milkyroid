@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
-        //setMarkerData()
+        setMarkerData()
         return binding.root
     }
 
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun setMarkerData() {
         lifecycleScope.launch {
             DataStore(requireContext()).getToken.collect {
-                //homeViewModel.requestHomeData(it!!)
+                homeViewModel.requestHomeData(it!!)
             }
         }
     }
