@@ -54,5 +54,7 @@
     <string name="my_universe">마이 유니버스</string>
     <string name="delete">삭제</string>
     <string name="universe_no_selected_itmes">아직 유니버스에 담긴 카페가 없어요.\n마음에 드는 카페를 담으면\n릴리님의 빛나는 유니버스를 만날 수 있어요!</string>
+    <string name="delete_my_universe">내 유니버스에서 삭제하시겠습니까?</string>
+    <string name="delete_confirm">삭제되었습니다</string>
 
 </resources>
