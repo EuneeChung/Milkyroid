@@ -10,8 +10,6 @@ import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogAlertWithTitleBinding
 import com.milkyway.milkyway.databinding.DialogAlertWithoutTitleBinding
 import com.milkyway.milkyway.databinding.DialogDeleteUniverseBinding
-import com.milkyway.milkyway.generated.callback.OnClickListener
-import com.milkyway.milkyway.ui.universe.UniverseFragment
 
 class ConfirmAlertDialog(context: Context, val type:Int) {
 
@@ -55,13 +53,14 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
         dialog = builder.create()
     }
 
-    fun show(listener: OnClickListener?) {
+    fun show(listener: View.OnClickListener?):ConfirmAlertDialog {
         setWindow()
         dialog = builder.create()
 //        dialog?.setCancelable(false)
 //        dialog?.setCanceledOnTouchOutside(false)
         setPositiveButton(listener)
         dialog?.show()
+        return this
     }
 
     fun dismiss() {
@@ -69,7 +68,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
     }
 
 
-    fun setPositiveButton(listener: OnClickListener?): ConfirmAlertDialog {
+    fun setPositiveButton(listener: View.OnClickListener?) {
         when(type){
             MODIFY_CONFIRM -> {
                 bindingWithTitle.btnDialogConfirm.apply {
@@ -78,7 +77,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
             }
             UNIVERSE_CONFIRM -> {
                 bindingWithoutTitle.btnDialogConfirm.apply {
-                    setOnClickListener { dismiss() }
+                    setOnClickListener { listener }
                 }
             }
             UNIVERSE_DELETE -> {
@@ -86,11 +85,10 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
                     setOnClickListener { dismiss() }
                 }
                 bindingDeleteUniverse.btnPositive.apply {
-                    setOnClickListener { dismiss() }
+                    setOnClickListener { listener }
                 }
             }
         }
-        return this
     }
 
     companion object {

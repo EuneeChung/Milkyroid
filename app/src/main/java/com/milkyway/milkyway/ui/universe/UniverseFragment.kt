@@ -1,10 +1,14 @@
 package com.milkyway.milkyway.ui.universe
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
@@ -19,6 +23,10 @@ import kotlinx.coroutines.launch
 class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentUniverseBinding
     private lateinit var universeBottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var deleteUniverseDialog: ConfirmAlertDialog
+    private lateinit var confirmDeleteDialog: ConfirmAlertDialog
+
+    private val universeBottomSheetViewModel: UniverseBottomSheetViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,13 +44,19 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initMyUniverseListView()
+        initMyUniverseListView(requireContext())
+
 
         binding.universeView.setOnClickListener {
             universeBottomSheetBehavior.state= BottomSheetBehavior.STATE_COLLAPSED
         }
 
         universeBottomSheetBehavior= BottomSheetBehavior.from(binding.bottomSheetUniverse.root)
+
+        observeItemClick(requireContext())
+        observeItemDelete(requireContext())
+
+        universeBottomSheetViewModel.setDeleteUniverseClick()
     }
 
     private fun setMap() {
@@ -80,10 +94,44 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         p0.lightness = -0.7f
     }
 
-    private fun initMyUniverseListView() {
-        val myUniverseListAdapter = MyUniverseListAdapter()
+    private fun initMyUniverseListView(context: Context) {
+        val myUniverseListAdapter = MyUniverseListAdapter(context)
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
-        myUniverseListAdapter.data= mutableListOf("혜리는 카페","혜리는 귀염뽀잒 카페")
+        val listener = View.OnClickListener {
+            universeBottomSheetViewModel.setDeleteUniverseClick()
+            //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
+            Log.e("deleteUniverse2",universeBottomSheetViewModel.deleteUniverse.toString())
+        }
+        myUniverseListAdapter.onClickListener= listener
+        myUniverseListAdapter.data= mutableListOf("혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페")
         myUniverseListAdapter.notifyDataSetChanged()
     }
+
+    private fun observeItemClick(context: Context){
+        universeBottomSheetViewModel.deleteUniverse.observe(viewLifecycleOwner, Observer { deleteUniverse->
+            Log.e("deleteUniverse1",deleteUniverse.toString())
+            if(deleteUniverse) {
+                deleteUniverseDialog = ConfirmAlertDialog(context = context, type = 3)
+                   .show(View.OnClickListener { universeBottomSheetViewModel.setConfirmDeleteClick() })
+                Log.e("deleteUniverse",deleteUniverse.toString())
+                Log.e("confirmDelete",universeBottomSheetViewModel.confirmDelete.value.toString())
+                universeBottomSheetViewModel.setDeleteUniverseClick()
+            }
+
+        })
+    }
+    private fun observeItemDelete(context: Context){
+        universeBottomSheetViewModel.confirmDelete.observe(viewLifecycleOwner, Observer { confirmDelete->
+            if(confirmDelete){
+                deleteUniverseDialog.dismiss()
+                confirmDeleteDialog = ConfirmAlertDialog(context = context, type = 2)
+                    .show(View.OnClickListener {
+                        //통신
+                    })
+                universeBottomSheetViewModel.setConfirmDeleteClick()
+                Log.e("confirmDelete",confirmDelete.toString())
+            }
+        })
+    }
+
 }
