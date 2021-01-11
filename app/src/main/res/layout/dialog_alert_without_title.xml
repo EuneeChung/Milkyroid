@@ -11,38 +11,26 @@
             android:id="@+id/tv_dialog_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="52dp"
+            android:layout_marginBottom="47dp"
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@string/confirm_request"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/delete_confirm"
             android:textColor="@color/black"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_dialog_greatful_request"
-            app:layout_constraintStart_toStartOf="@+id/tv_dialog_greatful_request"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_dialog_greatful_request"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/greatful_request"
-            android:textColor="@color/black_50555c"
-            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_dialog_confirm"
             app:layout_constraintEnd_toEndOf="@+id/btn_dialog_confirm"
             app:layout_constraintStart_toStartOf="@+id/btn_dialog_confirm"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_confirm" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_confirm"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/roboto_bold"
@@ -56,6 +44,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_greatful_request" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_confirm" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
