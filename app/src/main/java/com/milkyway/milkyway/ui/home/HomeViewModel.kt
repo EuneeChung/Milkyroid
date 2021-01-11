@@ -17,7 +17,7 @@ class HomeViewModel : ViewModel() {
     val compass : LiveData<Boolean>
         get() = _compass
 
-    private val _card = MutableLiveData<Boolean>(true)
+    private val _card = MutableLiveData<Boolean>(false)
     val card : LiveData<Boolean>
         get() = _card
 
@@ -34,7 +34,11 @@ class HomeViewModel : ViewModel() {
     }
 
     fun setMapClick() {
-        _card.value = !_card.value!!
+        _card.value = false
+    }
+
+    fun setMarkerClick() {
+        _card.value = true
     }
 
     fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {

@@ -141,7 +141,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 MarkerDrawer.apply{
                     setMarkers(markers)
                     setIcon()
-                    setClickListener()
+                    setClickListener{
+                        homeViewModel.setMarkerClick()
+                    }
                     drawMarkers(p0)
                 }
             }
