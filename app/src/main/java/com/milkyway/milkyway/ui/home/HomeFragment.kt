@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -26,7 +25,6 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentHomeBinding
-    private val homeBottomSheetViewModel:HomeBottomSheetViewModel by viewModels()
     private lateinit var homeBottomSheetBehavior: BottomSheetBehavior<View>
     private val homeViewModel : HomeViewModel by activityViewModels()
 
@@ -77,7 +75,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             homeBottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        binding.bottomsheetHome.vm=homeBottomSheetViewModel
+        binding.bottomsheetHome.viewModel=homeViewModel
         homeBottomSheetBehavior=BottomSheetBehavior.from(binding.bottomsheetHome.root)
     }
 
@@ -162,7 +160,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun bottomSheetSelected(p0 : NaverMap, index : Int) {
-        homeBottomSheetViewModel.chooseLocation(index)
+        homeViewModel.chooseLocation(index)
         Location.cameraMove(p0, index)
     }
 
