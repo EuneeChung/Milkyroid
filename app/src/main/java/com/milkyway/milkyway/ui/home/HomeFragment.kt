@@ -139,7 +139,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         homeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
                 MarkerDrawer.apply{
-                    setMarkers(markers)
+                    init(binding, markers)
+                    setMarkers()
                     setIcon()
                     setClickListener{
                         homeViewModel.setMarkerClick()
