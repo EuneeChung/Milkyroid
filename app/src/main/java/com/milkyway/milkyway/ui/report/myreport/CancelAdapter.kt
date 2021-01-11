@@ -18,7 +18,6 @@ import com.google.android.material.button.MaterialButton
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogShowcancelMyreportBinding
 import com.milkyway.milkyway.generated.callback.OnClickListener
-import com.milkyway.milkyway.ui.modify.dialog.ConfirmAlertDialog
 import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 

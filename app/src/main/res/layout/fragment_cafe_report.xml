@@ -6,7 +6,7 @@
     <data>
         <variable
             name="CafeReportFragment"
-            type="com.milkyway.milkyway.ui.report.CafeReportFragment" />
+            type="com.milkyway.milkyway.ui.report.cafereport.CafeReportFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -20,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.report.CafeReportFragment"
+    tools:context=".ui.report.cafereport.CafeReportFragment"
         android:id="@+id/fragment_cafe_report">
 
         <TextView

@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report
+package com.milkyway.milkyway.ui.report.cafereport
 
 import android.view.View
 import android.widget.ImageView
