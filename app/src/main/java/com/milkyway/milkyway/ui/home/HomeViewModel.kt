@@ -52,7 +52,7 @@ class HomeViewModel : ViewModel() {
     fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val home = RetrofitBuilder.service.home(token)
-            _markers.postValue(home.data.aroundCafe)
+            _markers.postValue(home.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
         }

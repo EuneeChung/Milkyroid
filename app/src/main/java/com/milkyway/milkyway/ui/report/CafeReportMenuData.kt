@@ -1,6 +1,7 @@
 package com.milkyway.milkyway.ui.report
 
 data class CafeReportMenuData(
-    val cafeMenuName: String,
-    val chooseMilkName: String
+    var cafeMenuName: String,
+    var cafeMenuPrice: String,
+    var cafeMenuCategory: String
 )
