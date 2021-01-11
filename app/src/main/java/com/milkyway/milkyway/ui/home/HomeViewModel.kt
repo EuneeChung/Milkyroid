@@ -17,7 +17,7 @@ class HomeViewModel : ViewModel() {
     val compass : LiveData<Boolean>
         get() = _compass
 
-    private val _card = MutableLiveData<Boolean>(false)
+    private val _card = MutableLiveData<Boolean>(true)
     val card : LiveData<Boolean>
         get() = _card
 
