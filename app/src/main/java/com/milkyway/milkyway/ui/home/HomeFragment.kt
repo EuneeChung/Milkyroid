@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.milkyway.milkyway.util.DataStore
+import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
@@ -25,7 +25,6 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentHomeBinding
-    private val homeBottomSheetViewModel:HomeBottomSheetViewModel by viewModels()
     private lateinit var homeBottomSheetBehavior: BottomSheetBehavior<View>
     private val homeViewModel : HomeViewModel by activityViewModels()
 
@@ -39,7 +38,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
-        setMarkerData()
+        //setMarkerData()
         return binding.root
     }
 
@@ -76,7 +75,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             homeBottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        binding.bottomsheetHome.vm=homeBottomSheetViewModel
+        binding.bottomsheetHome.viewModel=homeViewModel
         homeBottomSheetBehavior=BottomSheetBehavior.from(binding.bottomsheetHome.root)
     }
 
@@ -84,10 +83,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         setUiSetting(p0)
         setLocation(p0)
         setCurrentLocationIcon(p0)
-        setCurrentLocationObserve(p0)
         setCameraMoveListener(p0)
         setMapClickListener(p0)
         drawMarkers(p0)
+        locationClickListener(p0)
     }
 
     private fun setUiSetting(p0 : NaverMap) {
@@ -107,16 +106,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val locationOverlay = p0.locationOverlay
         locationOverlay.isVisible = true
         locationOverlay.icon = OverlayImage.fromResource(R.drawable.ic_current_location)
-    }
+        locationOverlay.circleRadius = 0
 
-    private fun setCurrentLocationObserve(p0 : NaverMap) {
         homeViewModel.compass.observe(this, Observer { compass->
             compass?.let {
-                if(compass) p0.locationTrackingMode = LocationTrackingMode.Face
-                else p0.locationTrackingMode = LocationTrackingMode.NoFollow
+                if(compass) {
+                    p0.locationTrackingMode = LocationTrackingMode.Face
+                    locationOverlay.subIcon = OverlayImage.fromResource(R.drawable.ic_location_face)
+                }
+                else {
+                    p0.locationTrackingMode = LocationTrackingMode.NoFollow
+                    locationOverlay.subIcon = OverlayImage.fromResource(R.drawable.ic_location_no_follow)
+                }
             }
         })
     }
+
 
     private fun setCameraMoveListener(p0 : NaverMap) {
         p0.addOnCameraChangeListener { _, _ ->
@@ -134,13 +139,29 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         homeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
                 MarkerDrawer.apply{
-                    setMarkers(markers)
+                    init(binding, markers)
+                    setMarkers()
                     setIcon()
-                    setClickListener()
+                    setClickListener{
+                        homeViewModel.setMarkerClick()
+                    }
                     drawMarkers(p0)
                 }
             }
         })
+    }
+
+    private fun locationClickListener(p0 : NaverMap) {
+        binding.bottomsheetHome.tvMangwondong.setOnClickListener { bottomSheetSelected(p0,0) }
+        binding.bottomsheetHome.tvYeonnamdong.setOnClickListener { bottomSheetSelected(p0,1) }
+        binding.bottomsheetHome.tvHannamdong.setOnClickListener { bottomSheetSelected(p0,2) }
+        binding.bottomsheetHome.tvSinsadong.setOnClickListener { bottomSheetSelected(p0,3) }
+        binding.bottomsheetHome.tvYeoksamdong.setOnClickListener { bottomSheetSelected(p0,4) }
+    }
+
+    private fun bottomSheetSelected(p0 : NaverMap, index : Int) {
+        homeViewModel.chooseLocation(index)
+        Location.cameraMove(p0, index)
     }
 
     companion object {

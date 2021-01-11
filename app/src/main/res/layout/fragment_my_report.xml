@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="myreportviewModel"
             type="com.milkyway.milkyway.ui.report.myreport.MyReportViewModel" />
@@ -81,6 +80,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
                     android:visibility="visible"
+                    android:overScrollMode="never"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_myreport_cancel"
                     tools:listitem="@layout/item_myreport_cancel" />
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_bold"
                     android:letterSpacing="-0.01"
                     android:text="진행중인 제보"
@@ -107,6 +107,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
                     android:visibility="visible"
+                    android:overScrollMode="never"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_myreport_ing"
                     tools:listitem="@layout/item_myreport_ing" />
@@ -116,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_bold"
                     android:letterSpacing="-0.01"
                     android:text="완료된 제보"
@@ -132,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="12dp"
                     android:nestedScrollingEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

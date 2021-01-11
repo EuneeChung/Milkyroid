@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="vm"
-            type="com.milkyway.milkyway.ui.home.HomeBottomSheetViewModel" />
+            name="viewModel"
+            type="com.milkyway.milkyway.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,11 +53,10 @@
             android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:onClick="@{()->vm.chooseLocation(0)}"
             android:text="망원동"
             android:textColor="@drawable/selector_home_bottomsheet_text_color"
             android:textSize="12dp"
-            app:isSelected="@{vm.isSelectedList[0]}"
+            app:isSelected="@{viewModel.isSelectedList[0]}"
             app:layout_constraintEnd_toStartOf="@+id/tv_yeonnamdong"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_bottomsheet_desc" />
@@ -69,13 +68,12 @@
             android:background="@drawable/selector_home_bottomsheet_location"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="@{()->vm.chooseLocation(1)}"
             android:text="연남동"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
             android:textSize="12dp"
             android:textColor="@drawable/selector_home_bottomsheet_text_color"
-            app:isSelected="@{vm.isSelectedList[1]}"
+            app:isSelected="@{viewModel.isSelectedList[1]}"
             app:layout_constraintEnd_toStartOf="@+id/tv_hannamdong"
             app:layout_constraintStart_toEndOf="@+id/tv_mangwondong"
             app:layout_constraintTop_toTopOf="@+id/tv_mangwondong" />
@@ -88,13 +86,12 @@
             android:background="@drawable/selector_home_bottomsheet_location"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="@{()->vm.chooseLocation(2)}"
             android:text="한남동"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
             android:textSize="12dp"
             android:textColor="@drawable/selector_home_bottomsheet_text_color"
-            app:isSelected="@{vm.isSelectedList[2]}"
+            app:isSelected="@{viewModel.isSelectedList[2]}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_yeonnamdong"
             app:layout_constraintTop_toTopOf="@+id/tv_yeonnamdong" />
@@ -109,13 +106,12 @@
             android:background="@drawable/selector_home_bottomsheet_location"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="@{()->vm.chooseLocation(3)}"
             android:text="신사동"
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
             android:textSize="12dp"
             android:textColor="@drawable/selector_home_bottomsheet_text_color"
-            app:isSelected="@{vm.isSelectedList[3]}"
+            app:isSelected="@{viewModel.isSelectedList[3]}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_yeoksamdong"
             app:layout_constraintStart_toStartOf="@+id/tv_mangwondong"
@@ -132,10 +128,9 @@
             android:fontFamily="@font/roboto_regular"
             android:includeFontPadding="false"
             android:textSize="12dp"
-            android:onClick="@{()->vm.chooseLocation(4)}"
             android:text="역삼동"
             android:textColor="@drawable/selector_home_bottomsheet_text_color"
-            app:isSelected="@{vm.isSelectedList[4]}"
+            app:isSelected="@{viewModel.isSelectedList[4]}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_sinsadong"
             app:layout_constraintEnd_toEndOf="@+id/tv_hannamdong"
             app:layout_constraintStart_toEndOf="@+id/tv_sinsadong"

@@ -17,13 +17,17 @@ class HomeViewModel : ViewModel() {
     val compass : LiveData<Boolean>
         get() = _compass
 
-    private val _card = MutableLiveData<Boolean>(true)
+    private val _card = MutableLiveData<Boolean>(false)
     val card : LiveData<Boolean>
         get() = _card
 
     private val _markers = MutableLiveData<List<AroundCafe>>()
     val markers : LiveData<List<AroundCafe>>
         get() = _markers
+
+    private val _isSelectedList: MutableLiveData<MutableList<Boolean>> = MutableLiveData()
+    val isSelectedList: LiveData<MutableList<Boolean>>
+        get() = _isSelectedList
 
     fun compassIcon() {
         _compass.value = !_compass.value!!
@@ -34,7 +38,15 @@ class HomeViewModel : ViewModel() {
     }
 
     fun setMapClick() {
-        _card.value = !_card.value!!
+        _card.value = false
+    }
+
+    fun setMarkerClick() {
+        _card.value = true
+    }
+
+    fun chooseLocation(index: Int) {
+        _isSelectedList.value = MutableList(5) { i-> index == i }
     }
 
     fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {
