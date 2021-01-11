@@ -15,8 +15,8 @@ data class AroundCafe(
     val id: Int,
     val cafeName: String,
     val universeCount : Int,
-    val cafeMapX: Double,
-    val cafeMapY: Double,
+    val longitude: Double,
+    val latitude: Double,
     val cafeAddress: String,
     val businessHours: String,
     val isUniversed: Boolean
