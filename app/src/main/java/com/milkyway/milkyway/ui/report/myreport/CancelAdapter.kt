@@ -8,6 +8,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.databinding.DialogShowcancelMyreportBinding
+import com.milkyway.milkyway.generated.callback.OnClickListener
+import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
+import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 
 class CancelAdapter(private val context: Context) : RecyclerView.Adapter<CancelAdapter.CancelViewHolder>() {
     var data = mutableListOf<CancelData>()
