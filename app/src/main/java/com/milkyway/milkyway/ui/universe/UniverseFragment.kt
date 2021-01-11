@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
+import com.milkyway.milkyway.util.DataStore
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentUniverseBinding
@@ -25,6 +29,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         //뷰모델 연결
 
         setMap()
+        setNicknameText(binding)
         return binding.root
     }
 
@@ -48,6 +53,14 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
             }
 
         mapFragment.getMapAsync(this@UniverseFragment)
+    }
+
+    private fun setNicknameText(binding : FragmentUniverseBinding) {
+        lifecycleScope.launch {
+            DataStore(requireContext()).getNickname.collect {
+                binding.tvNickname.text = it!!
+            }
+        }
     }
 
     override fun onMapReady(p0: NaverMap) {
