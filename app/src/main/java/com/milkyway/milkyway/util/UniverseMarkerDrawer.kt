@@ -42,6 +42,7 @@ object UniverseMarkerDrawer {
         for (i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
+                cardData(i)
                 onClick()
                 true
             }
@@ -51,6 +52,12 @@ object UniverseMarkerDrawer {
     private fun markerClick(index: Int) {
         setIcon()
         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_universe_marker_selected)
+    }
+
+    private fun cardData(index: Int) {
+        binding.tvCafeName.text = universeList[index].cafeName
+        binding.tvAddress.text = universeList[index].cafeAddress
+        binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), universeList[index].businessHours)
     }
 
     fun drawMarkers(map: NaverMap) {
