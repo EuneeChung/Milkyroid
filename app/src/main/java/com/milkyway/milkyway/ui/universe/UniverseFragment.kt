@@ -1,10 +1,13 @@
 package com.milkyway.milkyway.ui.universe
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
@@ -19,17 +22,20 @@ import kotlinx.coroutines.launch
 class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentUniverseBinding
     private lateinit var universeBottomSheetBehavior: BottomSheetBehavior<View>
+    private val universeViewModel : UniverseViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUniverseBinding.inflate(layoutInflater, container, false)
+        binding.universeViewModel = universeViewModel
         binding.lifecycleOwner = this
         //뷰모델 연결
 
         setMap()
         setNicknameText(binding)
+        setMarkerData()
         return binding.root
     }
 
@@ -63,9 +69,18 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun setMarkerData() {
+        lifecycleScope.launch {
+            DataStore(requireContext()).getToken.collect {
+                universeViewModel.requestUniverseData(it!!)
+            }
+        }
+    }
+
     override fun onMapReady(p0: NaverMap) {
         setUiSetting(p0)
         setLightness(p0)
+        drawMarkers(p0)
     }
 
     private fun setUiSetting(p0: NaverMap) {
@@ -85,5 +100,13 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
         myUniverseListAdapter.data= mutableListOf("혜리는 카페","혜리는 귀염뽀잒 카페")
         myUniverseListAdapter.notifyDataSetChanged()
+    }
+
+    private fun drawMarkers(p0 : NaverMap) {
+        universeViewModel.markers.observe(this, Observer{ markers->
+            markers?.let {
+                Log.d("tag", markers.toString())
+            }
+        })
     }
 }
