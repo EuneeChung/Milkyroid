@@ -80,6 +80,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(p0: NaverMap) {
         setUiSetting(p0)
         setLightness(p0)
+        setMapClickListener(p0)
         drawMarkers(p0)
     }
 
@@ -93,6 +94,12 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
 
     private fun setLightness(p0: NaverMap) {
         p0.lightness = -0.7f
+    }
+
+    private fun setMapClickListener(p0 : NaverMap) {
+        p0.setOnMapClickListener { _, _ ->
+            universeViewModel.setMapClick()
+        }
     }
 
     private fun initMyUniverseListView() {
@@ -109,7 +116,9 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
                     init(binding, markers)
                     setMarkers()
                     setIcon()
-                    setClickListener()
+                    setClickListener{
+                        universeViewModel.setMarkerClick()
+                    }
                     drawMarkers(p0)
                 }
             }

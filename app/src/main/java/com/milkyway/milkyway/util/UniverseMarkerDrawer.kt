@@ -39,10 +39,11 @@ object UniverseMarkerDrawer {
         for(i in universeList.indices) markers[i].icon = OverlayImage.fromResource(R.drawable.ic_universe_marker)
     }
 
-    fun setClickListener() {
+    fun setClickListener(onClick : () -> Unit) {
         for(i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
+                onClick()
                 true
             }
         }

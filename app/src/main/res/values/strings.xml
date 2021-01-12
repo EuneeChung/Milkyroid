@@ -59,6 +59,7 @@
     <string name="delete_confirm">삭제되었습니다</string>
     <string name="universe_title">유니버스가 빛나고 있어요.\n오늘은 어떤 밀키웨이를 탐험해 볼까요?</string>
     <string name="universe_nickname">님의</string>
+    <string name="universe_delete">삭제</string>
 
 
 </resources>
