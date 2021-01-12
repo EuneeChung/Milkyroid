@@ -50,13 +50,15 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
 
     }
 
-    fun create() {
+    fun create():ConfirmAlertDialog {
+        setWindow()
         dialog = builder.create()
+        return this
     }
 
     fun show(listener: ()->Unit):ConfirmAlertDialog{
-        setWindow()
-        dialog = builder.create()
+        //setWindow()
+        //dialog = builder.create()
 //        dialog?.setCancelable(false)
 //        dialog?.setCanceledOnTouchOutside(false)
         setPositiveButton(listener)
@@ -78,7 +80,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
             }
             UNIVERSE_CONFIRM -> {
                 bindingWithoutTitle.btnDialogConfirm.apply {
-                    setOnClickListener { dismiss() }
+                    setOnClickListener { listener() }
                 }
             }
             UNIVERSE_DELETE -> {
