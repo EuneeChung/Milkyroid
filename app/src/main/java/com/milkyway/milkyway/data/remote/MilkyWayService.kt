@@ -3,6 +3,7 @@ package com.milkyway.milkyway.data.remote
 import com.milkyway.milkyway.data.model.RequestSign
 import com.milkyway.milkyway.data.model.ResponseHome
 import com.milkyway.milkyway.data.model.ResponseToken
+import com.milkyway.milkyway.data.model.ResponseUniverse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -27,4 +28,10 @@ interface MilkyWayService {
     suspend fun home(
         @Header("token") token : String
     ) : ResponseHome
+
+    // UniverseFragment
+    @GET("universe/universeHome")
+    suspend fun universe(
+        @Header("token") token : String
+    ) : ResponseUniverse
 }

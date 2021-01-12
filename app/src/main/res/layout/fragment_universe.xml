@@ -5,6 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.universe.UniverseFragment">
 
+    <data>
+        <variable
+            name="universeViewModel"
+            type="com.milkyway.milkyway.ui.universe.UniverseViewModel">
+        </variable>
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/universe_view"
         android:layout_width="match_parent"
