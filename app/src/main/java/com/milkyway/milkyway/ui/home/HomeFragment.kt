@@ -141,6 +141,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun setMapClickListener(p0 : NaverMap) {
         p0.setOnMapClickListener { _, _ ->
             homeViewModel.setMapClick()
+            MarkerDrawer.setIcon()
         }
     }
 
