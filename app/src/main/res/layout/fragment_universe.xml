@@ -6,6 +6,7 @@
     tools:context=".ui.universe.UniverseFragment">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="universeViewModel"
             type="com.milkyway.milkyway.ui.universe.UniverseViewModel">
@@ -36,7 +37,8 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/img_universe_logo"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_nickname"
@@ -69,10 +71,69 @@
                 android:fontFamily="@font/roboto_regular"
                 app:layout_constraintTop_toBottomOf="@id/tv_nickname"
                 app:layout_constraintStart_toStartOf="@id/tv_nickname"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_universe_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{universeViewModel.card? View.VISIBLE : View.GONE}"
+                android:background="@drawable/border_white_fill_top_round_8"
+                android:paddingBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" >
+
+                <TextView
+                    android:id="@+id/tv_cafe_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12dp"
+                    android:textColor="@color/gray_97"
+                    android:fontFamily="@font/roboto_regular"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cafe_name"
+                    app:layout_constraintStart_toStartOf="@id/tv_cafe_name"/>
+
+                <TextView
+                    android:id="@+id/tv_cafe_hour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_regular"
+                    app:layout_constraintTop_toBottomOf="@id/tv_address"
+                    app:layout_constraintStart_toStartOf="@id/tv_cafe_name"/>
+
+                <TextView
+                    android:id="@+id/tv_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/universe_delete"
+                    android:textSize="12dp"
+                    android:textColor="@color/gray_97"
+                    android:fontFamily="@font/roboto_regular"
+                    app:layout_constraintTop_toTopOf="@id/tv_cafe_name"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_cafe_name"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
             android:id="@+id/bottom_sheet_universe"
-            layout="@layout/bottom_sheet_universe" />
+            layout="@layout/bottom_sheet_universe"
+            android:visibility="@{universeViewModel.card? View.INVISIBLE : View.VISIBLE}"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
