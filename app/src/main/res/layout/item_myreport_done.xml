@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_cl_done"
-    android:background="@drawable/border_white_f6_fillshadow_round_8"
+    android:background="@drawable/border_white_f6_line_e5_round_8"
     android:layout_marginBottom="12dp"
     android:padding="16dp"
     android:layout_width="match_parent"
