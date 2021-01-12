@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.util.DataStore
-import com.milkyway.milkyway.util.MarkerDrawer
+import com.milkyway.milkyway.util.UniverseMarkerDrawer
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
@@ -105,10 +105,11 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun drawMarkers(p0 : NaverMap) {
         universeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
-                MarkerDrawer.apply {
-                    universeInit(binding, markers)
-                    setUniverseMarkers()
-                    setUniverseIcon()
+                UniverseMarkerDrawer.apply {
+                    init(binding, markers)
+                    setMarkers()
+                    setIcon()
+                    setClickListener()
                     drawMarkers(p0)
                 }
             }
