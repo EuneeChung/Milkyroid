@@ -125,4 +125,9 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        universeViewModel.setMapClick()
+    }
 }

@@ -185,9 +185,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         const val SEARCH_RESULT_HOME = 3
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.setMapClick()
+        homeViewModel.chooseLocation(-1) // RESET
     }
 }
