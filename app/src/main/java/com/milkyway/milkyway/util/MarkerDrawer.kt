@@ -4,7 +4,9 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundCafe
+import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
+import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
@@ -15,10 +17,26 @@ object MarkerDrawer {
     private val markers = mutableListOf<Marker>()
     private lateinit var cafeList : List<AroundCafe>
     private lateinit var binding : FragmentHomeBinding
+    private lateinit var universeBinding : FragmentUniverseBinding
+    private lateinit var universeList : List<AroundUniverse>
 
     fun init(initBinding : FragmentHomeBinding, list : List<AroundCafe>) {
         binding = initBinding
         cafeList = list
+        clear()
+    }
+
+    fun universeInit(initBinding : FragmentUniverseBinding, list : List<AroundUniverse>) {
+        universeBinding = initBinding
+        universeList = list
+        clear()
+    }
+
+    private fun clear() {
+        for (marker in markers) {
+            marker.map = null
+        }
+        markers.clear()
     }
 
     fun setMarkers() {
@@ -29,11 +47,23 @@ object MarkerDrawer {
         }
     }
 
+    fun setUniverseMarkers() {
+        for(i in universeList.indices) {
+            val marker = Marker()
+            marker.position = LatLng(universeList[i].latitude, universeList[i].longitude)
+            markers.add(marker)
+        }
+    }
+
     fun setIcon() {
         for(i in cafeList.indices) {
             if(cafeList[i].isUniversed) markers[i].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe)
             else markers[i].icon = OverlayImage.fromResource(R.drawable.ic_marker)
         }
+    }
+
+    fun setUniverseIcon() {
+        for(i in universeList.indices) markers[i].icon = OverlayImage.fromResource(R.drawable.ic_universe_marker)
     }
 
     fun setClickListener(onClick : () -> Unit) {
