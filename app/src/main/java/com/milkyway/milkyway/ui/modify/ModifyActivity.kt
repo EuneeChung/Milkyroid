@@ -1,18 +1,21 @@
 package com.milkyway.milkyway.ui.modify
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivityModifyBinding
 import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.modify.request.RequestModificationsActivity
-import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
+import com.milkyway.milkyway.util.DataStore
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class ModifyActivity : AppCompatActivity() {
     private val modifyViewModel: ModifyDialogViewModel by viewModels()
@@ -28,6 +31,7 @@ class ModifyActivity : AppCompatActivity() {
         val binding: ActivityModifyBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_modify)
         binding.lifecycleOwner=this
+
         setTopBar(binding)
         clickBtn(binding)
     }
@@ -53,9 +57,18 @@ class ModifyActivity : AppCompatActivity() {
         modifyViewModel.isDeleteClick.observe(this, Observer{ isDeleteClick->
             Log.e("isDeleteClick",isDeleteClick.toString())
             if(isDeleteClick) {
-                ConfirmAlertDialog(this,1).show(null)
+//                ConfirmAlertDialog(this,1).show()
             }
         })
+    }
+
+    private fun deleteLocation() {
+        lifecycleScope.launch {
+            DataStore(this@ModifyActivity).getToken.collect {
+
+//                modifyViewModel.requestDeleteLocation(it!!,cafeId = 10,reason = )
+            }
+        }
     }
 
 

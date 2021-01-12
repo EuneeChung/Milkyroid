@@ -1,12 +1,7 @@
 package com.milkyway.milkyway.data.remote
 
-import com.milkyway.milkyway.data.model.RequestSign
-import com.milkyway.milkyway.data.model.ResponseHome
-import com.milkyway.milkyway.data.model.ResponseToken
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import com.milkyway.milkyway.data.model.*
+import retrofit2.http.*
 
 
 interface MilkyWayService {
@@ -27,4 +22,21 @@ interface MilkyWayService {
     suspend fun home(
         @Header("token") token : String
     ) : ResponseHome
+
+    // ModifyActivity - Delete
+    @POST("report/{cafeId}/deleteCafe")
+    suspend fun delete(
+        @Header("token") token : String,
+        @Body body :DeleteModify,
+        @Path("cafeId") cafeId:Int
+    ) : ResponseModify
+
+    // RequestModificationsActivity
+    @POST("report/{cafeId}/editCafe")
+    suspend fun modify(
+        @Header("token") token : String,
+        @Body body :RequestModify,
+        @Path("cafeId") cafeId:Int
+    ):ResponseModify
+
 }

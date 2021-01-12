@@ -4,6 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.milkyway.milkyway.data.model.DeleteModify
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class ModifyDialogViewModel : ViewModel() {
 
@@ -28,6 +34,15 @@ class ModifyDialogViewModel : ViewModel() {
         }
 
         Log.e("chooseDelete", isSelectedList.value.toString())
+    }
+
+    fun requestDeleteLocation(token : String,reason:Int,cafeId:Int) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val delete = RetrofitBuilder.service.delete(token,DeleteModify(reason),cafeId)
+
+        } catch (e: HttpException) {
+            Log.d("request", e.toString())
+        }
     }
 
 }

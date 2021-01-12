@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.universe
+package com.milkyway.milkyway.ui.util
 
 import android.app.AlertDialog
 import android.content.Context
@@ -11,7 +11,7 @@ import com.milkyway.milkyway.databinding.DialogAlertWithTitleBinding
 import com.milkyway.milkyway.databinding.DialogAlertWithoutTitleBinding
 import com.milkyway.milkyway.databinding.DialogDeleteUniverseBinding
 import com.milkyway.milkyway.generated.callback.OnClickListener
-import com.milkyway.milkyway.ui.universe.UniverseFragment
+
 
 class ConfirmAlertDialog(context: Context, val type:Int) {
 
