@@ -48,10 +48,10 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
 
 
         binding.universeView.setOnClickListener {
-            universeBottomSheetBehavior.state= BottomSheetBehavior.STATE_COLLAPSED
+            universeBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        universeBottomSheetBehavior= BottomSheetBehavior.from(binding.bottomSheetUniverse.root)
+        universeBottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetUniverse.root)
 
         observeItemClick(requireContext())
         observeItemDelete(requireContext())
@@ -69,7 +69,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this@UniverseFragment)
     }
 
-    private fun setNicknameText(binding : FragmentUniverseBinding) {
+    private fun setNicknameText(binding: FragmentUniverseBinding) {
         lifecycleScope.launch {
             DataStore(requireContext()).getNickname.collect {
                 binding.tvNickname.text = it!!
@@ -100,38 +100,57 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         val listener = View.OnClickListener {
             universeBottomSheetViewModel.setDeleteUniverseClick()
             //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
-            Log.e("deleteUniverse2",universeBottomSheetViewModel.deleteUniverse.toString())
+            Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.toString())
         }
-        myUniverseListAdapter.onClickListener= listener
-        myUniverseListAdapter.data= mutableListOf("혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페","혜리는 카페","혜리는 귀염뽀잒 카페")
+        myUniverseListAdapter.onClickListener = listener
+        myUniverseListAdapter.data = mutableListOf(
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페"
+        )
         myUniverseListAdapter.notifyDataSetChanged()
     }
 
-    private fun observeItemClick(context: Context){
-        universeBottomSheetViewModel.deleteUniverse.observe(viewLifecycleOwner, Observer { deleteUniverse->
-            Log.e("deleteUniverse1",deleteUniverse.toString())
-            if(deleteUniverse) {
-                deleteUniverseDialog = ConfirmAlertDialog(context = context, type = 3)
-                   .show(View.OnClickListener { universeBottomSheetViewModel.setConfirmDeleteClick() })
-                Log.e("deleteUniverse",deleteUniverse.toString())
-                Log.e("confirmDelete",universeBottomSheetViewModel.confirmDelete.value.toString())
-                universeBottomSheetViewModel.setDeleteUniverseClick()
-            }
+    private fun observeItemClick(context: Context) {
+        universeBottomSheetViewModel.deleteUniverse.observe(
+            viewLifecycleOwner,
+            Observer { deleteUniverse ->
+                Log.e("deleteUniverse1", deleteUniverse.toString())
+                if (deleteUniverse) {
+                    deleteUniverseDialog = ConfirmAlertDialog(context = context, type = 3)
+                        .show {
+                            universeBottomSheetViewModel.setConfirmDeleteClick()
+                            universeBottomSheetViewModel.setDeleteUniverseClick()
+                        }
+                }
+                else deleteUniverseDialog.dismiss()
+//                Log.e("deleteUniverse",deleteUniverse.toString())
+//                Log.e("confirmDelete",universeBottomSheetViewModel.confirmDelete.value.toString())
 
-        })
+            })
     }
-    private fun observeItemDelete(context: Context){
-        universeBottomSheetViewModel.confirmDelete.observe(viewLifecycleOwner, Observer { confirmDelete->
-            if(confirmDelete){
-                deleteUniverseDialog.dismiss()
-                confirmDeleteDialog = ConfirmAlertDialog(context = context, type = 2)
-                    .show(View.OnClickListener {
-                        //통신
-                    })
-                universeBottomSheetViewModel.setConfirmDeleteClick()
-                Log.e("confirmDelete",confirmDelete.toString())
-            }
-        })
+
+    private fun observeItemDelete(context: Context) {
+        universeBottomSheetViewModel.confirmDelete.observe(viewLifecycleOwner,
+            Observer { confirmDelete ->
+                if (confirmDelete) {
+                    deleteUniverseDialog.dismiss()
+                    confirmDeleteDialog = ConfirmAlertDialog(context = context, type = 2)
+                        .show{
+                            universeBottomSheetViewModel.setConfirmDeleteClick()
+                            confirmDeleteDialog.dismiss()
+                        }
+                    Log.e("confirmDelete", confirmDelete.toString())
+                }
+
+            })
     }
 
 }

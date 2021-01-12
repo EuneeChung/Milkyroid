@@ -4,7 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Window
 import androidx.databinding.DataBindingUtil
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogAlertWithTitleBinding
@@ -53,7 +54,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
         dialog = builder.create()
     }
 
-    fun show(listener: View.OnClickListener?):ConfirmAlertDialog {
+    fun show(listener: ()->Unit):ConfirmAlertDialog{
         setWindow()
         dialog = builder.create()
 //        dialog?.setCancelable(false)
@@ -68,7 +69,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
     }
 
 
-    fun setPositiveButton(listener: View.OnClickListener?) {
+    fun setPositiveButton(listener:()->Unit) {
         when(type){
             MODIFY_CONFIRM -> {
                 bindingWithTitle.btnDialogConfirm.apply {
@@ -77,7 +78,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
             }
             UNIVERSE_CONFIRM -> {
                 bindingWithoutTitle.btnDialogConfirm.apply {
-                    setOnClickListener { listener }
+                    setOnClickListener { dismiss() }
                 }
             }
             UNIVERSE_DELETE -> {
@@ -85,7 +86,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
                     setOnClickListener { dismiss() }
                 }
                 bindingDeleteUniverse.btnPositive.apply {
-                    setOnClickListener { listener }
+                    setOnClickListener { listener() }
                 }
             }
         }
