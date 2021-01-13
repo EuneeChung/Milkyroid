@@ -62,7 +62,6 @@ object UniverseMarkerDrawer {
 
     fun drawMarkers(map: NaverMap) {
         for (marker in markers) {
-            marker.isHideCollidedMarkers = true
             marker.map = map
         }
     }
