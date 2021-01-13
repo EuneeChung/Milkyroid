@@ -23,11 +23,31 @@ interface MilkyWayService {
         @Header("token") token : String
     ) : ResponseHome
 
+    // HomeFragment Category Select
+    @GET("home/{categoryId}")
+    suspend fun homeCategory(
+        @Header("token") token : String,
+        @Path("categoryId") categoryId : Int
+    ) : ResponseHome
+
+    // UniverseFragment
+    @GET("universe/universeHome")
+    suspend fun universe(
+        @Header("token") token : String
+    ) : ResponseUniverse
+
+    // CafeDetailFragment
+//    @GET("cafe/{cafeId}")
+    @GET("cafe/17")
+    suspend fun cafeDetail(
+        @Header("token") token : String
+    ) : ResponseCafeDetail
+
     // ModifyActivity - Delete
     @POST("report/{cafeId}/deleteCafe")
     suspend fun delete(
         @Header("token") token : String,
-        @Body body :DeleteModify,
+        @Body body : DeleteModify,
         @Path("cafeId") cafeId:Int
     ) : ResponseModify
 
@@ -35,8 +55,7 @@ interface MilkyWayService {
     @POST("report/{cafeId}/editCafe")
     suspend fun modify(
         @Header("token") token : String,
-        @Body body :RequestModify,
+        @Body body : RequestModify,
         @Path("cafeId") cafeId:Int
-    ):ResponseModify
-
+    ): ResponseModify
 }

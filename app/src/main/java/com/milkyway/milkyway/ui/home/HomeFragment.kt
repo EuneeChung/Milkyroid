@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.milkyway.milkyway.ui.home.homesearch.CafeSearchActivity
@@ -43,6 +44,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         setMap()
         setNicknameText(binding)
         setMarkerData()
+        chipSelect(binding)
         return binding.root
     }
 
@@ -141,6 +143,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun setMapClickListener(p0 : NaverMap) {
         p0.setOnMapClickListener { _, _ ->
             homeViewModel.setMapClick()
+            MarkerDrawer.setIcon()
         }
     }
 
@@ -173,6 +176,23 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         Location.cameraMove(p0, index)
     }
 
+    private fun chipSelect(binding : FragmentHomeBinding) {
+        val list = mutableListOf<Int>()
+        for (index in 0 until binding.chipGroup.childCount) {
+            val chip: Chip = binding.chipGroup.getChildAt(index) as Chip
+            chip.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) list.add(index+1)
+                else list.remove(index+1)
+                lifecycleScope.launch {
+                    DataStore(requireContext()).getToken.collect {
+                        if(list.size==1) homeViewModel.requestCategoryData(it!!, list[0])
+                        else if(list.size==0) homeViewModel.requestHomeData(it!!)
+                    }
+                }
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == SEARCH_RESULT_HOME) {
@@ -184,9 +204,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         const val SEARCH_RESULT_HOME = 3
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.setMapClick()
+        homeViewModel.chooseLocation(-1) // RESET
     }
 }

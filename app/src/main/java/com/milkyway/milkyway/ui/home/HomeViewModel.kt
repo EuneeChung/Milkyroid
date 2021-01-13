@@ -57,4 +57,13 @@ class HomeViewModel : ViewModel() {
             Log.d("request", e.toString())
         }
     }
+
+    fun requestCategoryData(token: String, categoryId : Int) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val homeCategory = RetrofitBuilder.service.homeCategory(token, categoryId)
+            _markers.postValue(homeCategory.data.result)
+        } catch (e: HttpException) {
+            Log.d("request", e.toString())
+        }
+    }
 }

@@ -15,10 +15,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.CafeInfo
+import com.milkyway.milkyway.data.model.CafeMenu
 import com.milkyway.milkyway.databinding.ActivityCafeDetailBinding
+import com.milkyway.milkyway.util.DataStore
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class CafeDetailActivity : AppCompatActivity() {
@@ -28,8 +34,8 @@ class CafeDetailActivity : AppCompatActivity() {
     private val cafedetailViewModel : CafeDetailViewModel by viewModels()
 
     // 리사이클러뷰 적용
-    lateinit var menuAdapter: MenuAdapter
-    val datas = mutableListOf<MenuData>()
+    val datas = mutableListOf<CafeMenu>()
+    var num = 1 // 비동기 처리 때문에 일단 초기화
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,44 +48,66 @@ class CafeDetailActivity : AppCompatActivity() {
         binding.viewModel = cafedetailViewModel
         binding.lifecycleOwner = this
 
-        setDetailData(binding)
+        setMenuData(binding)
         universeAddCancel(binding)
         showDetailTime(binding)
         setTextBold(binding)
         setBack(binding)
     }
 
-    private fun setDetailData(binding: ActivityCafeDetailBinding) {
-//        var datas: MutableList<MenuData> = mutableListOf<MenuData>()
-//        val datass = MutableLiveData<MutableList<MenuData>>()
-
-        // 어댑터에 context 객체를 파라미터로 전달 (더미)
-        menuAdapter = MenuAdapter(this)
-//        menuAdapter = MenuAdapter(view.context)   // 더미 프래그먼트일때
-//        menuAdapter= MenuAdapter(view.context, datas) // 서버 프래그먼트
+    private fun setMenuData(binding: ActivityCafeDetailBinding) {
+        // 어댑터에 context 객체를 파라미터로 전달
+        val menuAdapter= MenuAdapter(this, datas)
 
         binding.rvDetailMenu.adapter = menuAdapter
         binding.rvDetailMenu.layoutManager = LinearLayoutManager(this)
 
+        // 토큰값 얻어오며 서버요청
+        lifecycleScope.launch {
+            DataStore(this@CafeDetailActivity).getToken.collect {
+                cafedetailViewModel.requestDetailData(it!!)
+            }
+        }
         cafedetailViewModel.recyclerListData.observe(this, Observer {
-            menuAdapter.data = it   // 더미데이터 들어감
+            menuAdapter.datas = it   // 서버데이터 들어감
             menuAdapter.notifyDataSetChanged()
         })
+
+        // 옵저버가 굳이 필요하진 않다
+        cafedetailViewModel.cafeInfoData.observe(this, Observer {
+//            binding.tvDetailCafe.text = cafedetailViewModel.tv_detail_cafename.value.toString() // xml에서 바인딩 썼을때(value로 접근해야함)
+            binding.tvDetailCafe.text = it.cafeName
+            binding.tvDetailLocation.text = it.cafeAddress
+            binding.tvDetailTime2.text = it.businessHours
+            binding.tvDetailCall.text = it.cafePhoneNum
+            binding.tvDetailWeb.text = it.cafeLink
+        })
+
+        cafedetailViewModel.universeCount.observe(this, Observer {
+            binding.tvDetailUniverseCount.text = it.toString()
+            binding.tvDetailShowcount.text = it.toString() + "명의 밀키들이 유니버스에 추가했어요"
+            Log.d("확인", "${binding.tvDetailUniverseCount.text}")
+            num = it
+            Log.d("카운트1", "$num")
+        })
+
     }
 
-
-    var num = 0
     // 유니버스 추가,취소 -> 뷰모델에 있는 isSelected값을 관찰하여 유니버스 카운트 증감
     private fun universeAddCancel(binding: ActivityCafeDetailBinding) {
+//        var num = cafedetailViewModel.universecount.value!!.toInt()    // 이런식으로 하면 값 안들어감(androidx.lifecycle.MutableLiveData@3042ba0)
+        Log.d("카운트11", "$num")
         cafedetailViewModel.isSelected.observe(this, Observer { isSelected ->
             isSelected?.let {
                 if (isSelected) {
+                    num += 1
                     binding.tvDetailUniverseCount.text = num.toString()
-                    num = "${binding.tvDetailUniverseCount.text}".toInt() - 1
-                    binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added)
+                    binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
+                    Log.d("카운트2", "$num")
                 } else {
+                    num -= 1
                     binding.tvDetailUniverseCount.text = num.toString()
-                    num = "${binding.tvDetailUniverseCount.text}".toInt() + 1
+                    Log.d("카운트22", "$num")
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
                 }
                 binding.tvDetailShowcount.text =
