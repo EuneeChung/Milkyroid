@@ -29,6 +29,10 @@ class HomeViewModel : ViewModel() {
     val isSelectedList: LiveData<MutableList<Boolean>>
         get() = _isSelectedList
 
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading : LiveData<Boolean>
+        get() = _loading
+
     fun compassIcon() {
         _compass.value = !_compass.value!!
     }
@@ -45,6 +49,10 @@ class HomeViewModel : ViewModel() {
         _card.value = true
     }
 
+    fun isLoading() {
+        _loading.value = true
+    }
+
     fun chooseLocation(index: Int) {
         _isSelectedList.value = MutableList(5) { i-> index == i }
     }
@@ -52,6 +60,7 @@ class HomeViewModel : ViewModel() {
     fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val home = RetrofitBuilder.service.home(token)
+            _loading.postValue(false)
             _markers.postValue(home.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
@@ -61,6 +70,7 @@ class HomeViewModel : ViewModel() {
     fun requestCategoryData(token: String, categoryId : Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val homeCategory = RetrofitBuilder.service.homeCategory(token, categoryId)
+            _loading.postValue(false)
             _markers.postValue(homeCategory.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
