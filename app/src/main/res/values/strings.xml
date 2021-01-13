@@ -3,10 +3,6 @@
     <string name="home">홈</string>
     <string name="report">제보하기</string>
     <string name="setting">설정</string>
-    <string name="title_activity_place_search">PlaceSearchActivity</string>
-    <string name="hello_world">Hello Square World!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- in NicknameActivity -->
     <string name="nickname_setting">밀키웨이에서 사용할 닉네임을 설정해주세요.</string>
@@ -15,7 +11,6 @@
     <string name="nickname_fail">사용 불가한 닉네임 입니다.</string>
     <string name="nickname_max_length">/10</string>
     <string name="nickname_btn_next">밀키웨이 시작하기</string>
-
 
     <!-- in Modify edited by eun -->
     <string name="request_modifications_word">정보 수정 요청</string>
@@ -27,7 +22,6 @@
     <string name="request_modifications_sentence">수정할 정보를 작성해주세요</string>
     <string name="modify_desc">*최소 5글자 이상 입력해 주세요.</string>
     <string name="modify_hint">두유 옵션만 가능해요!\n콜드브루만 디카페인이래요.</string>
-    <string name="title_activity_modification_request">ModificationRequestActivity</string>
 
     <string name="confirm_request">요청이 접수 되었습니다</string>
     <string name="greatful_request">꼼꼼히 검토 후 적용하도록 하겠습니다.\n감사합니다!</string>
@@ -39,8 +33,6 @@
     <string name="error_duplicated">중복 제보된 가게에요</string>
     <string name="error_not_suitable">적합한 카페가 아니에요</string>
     <string name="complete">선택 완료</string>
-
-    <string name="title_activity_cafe_detail">CafeDetailActivity</string>
 
     <!-- in HomeFragment -->
     <string name="home_suggest">오늘도 \'속\' 편한 탐험을 시작해 볼까요?</string>
@@ -54,13 +46,11 @@
     <!-- UniverseFragment-->
     <string name="my_universe">마이 유니버스</string>
     <string name="delete">삭제</string>
-    <string name="universe_no_selected_itmes">아직 유니버스에 담긴 카페가 없어요.\n마음에 드는 카페를 담으면\n %s님의 빛나는 유니버스를 만날 수 있어요!</string>
+    <string name="universe_no_selected_items">아직 유니버스에 담긴 카페가 없어요.\n마음에 드는 카페를 담으면\n %s님의 빛나는 유니버스를 만날 수 있어요!</string>
     <string name="delete_my_universe">내 유니버스에서 삭제하시겠습니까?</string>
     <string name="delete_confirm">삭제되었습니다</string>
     <string name="universe_title">유니버스가 빛나고 있어요.\n오늘은 어떤 밀키웨이를 탐험해 볼까요?</string>
     <string name="universe_nickname">님의</string>
     <string name="universe_delete">삭제</string>
-
-
 
 </resources>
