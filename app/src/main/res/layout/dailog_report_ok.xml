@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_white_fill_round_8">
+
+        <ImageView
+            android:id="@+id/img_show_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/group_544"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_show_report_nicknname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="밀키수정"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_report_title"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_show_report" />
+
+        <TextView
+            android:id="@+id/tv_report_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:text="님 덕분에"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_show_report_nicknname"
+            app:layout_constraintTop_toTopOf="@+id/tv_show_report_nicknname" />
+
+        <TextView
+            android:id="@+id/tv_showreport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:text="밀키웨이가 한층 밝아졌어요!"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_report_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_show_report_nicknname"
+            app:layout_constraintTop_toBottomOf="@+id/tv_show_report_nicknname" />
+
+        <TextView
+            android:id="@+id/tv_showreport_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.02"
+            android:text="밀키웨이가 검토 후 추가 내용과 \n함께 등록할게요. 감사합니다!"
+            android:textColor="@color/black_50555c"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_showreport"
+           />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_show_report_confirm"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.01"
+            android:padding="16dp"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:backgroundTint="@color/blue_3320a6"
+            app:cornerRadius="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_showreport_msg" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

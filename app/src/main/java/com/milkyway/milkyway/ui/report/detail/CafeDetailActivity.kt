@@ -1,5 +1,6 @@
 package com.milkyway.milkyway.ui.report.detail
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -13,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -73,7 +75,6 @@ class CafeDetailActivity : AppCompatActivity() {
             menuAdapter.notifyDataSetChanged()
         })
 
-        // 옵저버가 굳이 필요하진 않다
         cafedetailViewModel.cafeInfoData.observe(this, Observer {
 //            binding.tvDetailCafe.text = cafedetailViewModel.tv_detail_cafename.value.toString() // xml에서 바인딩 썼을때(value로 접근해야함)
             binding.tvDetailCafe.text = it.cafeName
@@ -81,6 +82,39 @@ class CafeDetailActivity : AppCompatActivity() {
             binding.tvDetailTime2.text = it.businessHours
             binding.tvDetailCall.text = it.cafePhoneNum
             binding.tvDetailWeb.text = it.cafeLink
+
+            val tips:List<Int> = it.honeyTip
+
+            if(it.honeyTip.any { it == 1 }){
+                binding.tvDetailTip1.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip1.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 2 }){
+                binding.tvDetailTip2.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip2.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 3 }){
+                binding.tvDetailTip3.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip3.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 4 }){
+                binding.tvDetailTip4.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip4.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 5 }){
+                binding.tvDetailTip5.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip5.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 6 }){
+                binding.tvDetailTip6.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip6.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
         })
 
         cafedetailViewModel.universeCount.observe(this, Observer {

@@ -32,22 +32,15 @@ class CafeSearchAdapter : RecyclerView.Adapter<CafeSearchAdapter.CafeSearchViewH
         private val layout = itemView.findViewById<ConstraintLayout>(R.id.cl_item_place_search)
         private val cafeName = itemView.findViewById<TextView>(R.id.tv_place_name)
         private val cafeLocation = itemView.findViewById<TextView>(R.id.tv_place_location)
+        private val cafeEmptyView = itemView.findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
 
         fun bind(cafeSearchData: CafeSearchData) {
             cafeName.text = cafeSearchData.cafeName
-            cafeLocation.text = cafeSearchData.cafeLocation
+            cafeLocation.text = cafeSearchData.cafeAddress
 
-            if (cafeSearchData.alreadyIn) { // 이미 등록된 view만 보이게
-                cafeName.setTextColor(Color.parseColor("#363636"))
-                cafeLocation.setTextColor(Color.parseColor("#CDCDCD"))
-                layout.isEnabled = true
-            }
-
-            if (!cafeSearchData.alreadyIn) { // 등록 안된 view
-                cafeName.setTextColor(Color.parseColor("#E6E6E6"))
-                cafeLocation.setTextColor(Color.parseColor("#E6E6E6"))
-                layout.isEnabled = false
-            }
+            cafeName.setTextColor(Color.parseColor("#000000"))
+            cafeLocation.setTextColor(Color.parseColor("#000000"))
+            layout.isEnabled = true
         }
     }
 

@@ -11,13 +11,16 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.util.DataStore
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class CafeSearchActivity : AppCompatActivity() {
 
@@ -26,7 +29,7 @@ class CafeSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_place_search)
+        setContentView(R.layout.activity_cafe_search)
 
         val rv = findViewById<RecyclerView>(R.id.rv_place_search)
         val btn_back = findViewById<ImageView>(R.id.btn_back_search)
@@ -43,7 +46,9 @@ class CafeSearchActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int) {
                 val intent = Intent()
                 intent.putExtra("cafeName",cafeSearchAdapter.datas[position].cafeName)
-                intent.putExtra("cafeLocation",cafeSearchAdapter.datas[position].cafeLocation)
+                intent.putExtra("cafeAddress",cafeSearchAdapter.datas[position].cafeAddress)
+                intent.putExtra("longitude",cafeSearchAdapter.datas[position].longitude)
+                intent.putExtra("latitude",cafeSearchAdapter.datas[position].latitude)
                 setResult(3,intent)
                 finish()
             }
@@ -55,18 +60,25 @@ class CafeSearchActivity : AppCompatActivity() {
         val deleteButton: ImageView = findViewById<ImageView>(R.id.btn_place_search_delete)
         val searchBox: EditText = findViewById<EditText>(R.id.et_place_search)
         val emptyView: ConstraintLayout = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_place_search)
 
         val viewModel = ViewModelProvider(this).get(CafeSearchViewModel::class.java)
-        viewModel.recyclerListData.observe(this, Observer<MutableList<CafeSearchData>> {
-            Log.d("d", it.toString())
-            if (it != null) {
-                cafeSearchAdapter.datas = it
-                cafeSearchAdapter.notifyDataSetChanged()
-            } else {
-                Toast.makeText(this, "에라", Toast.LENGTH_SHORT).show()
+        viewModel.recyclerListData.observe(this, Observer<MutableList<CafeSearchData>> {recyclerListData->
+            recyclerListData?.let {
+                Log.d("d", it.toString())
+                if (it.size>0) {
+                    emptyView.visibility=View.INVISIBLE
+                    recyclerView.visibility=View.VISIBLE
+                    cafeSearchAdapter.datas = it
+                    cafeSearchAdapter.notifyDataSetChanged()
+                } else {
+                    emptyView.visibility=View.VISIBLE
+                    recyclerView.visibility=View.INVISIBLE
+                }
             }
         })
 
+        //검색 -> x 로 변경
         searchBox.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchButton.visibility = View.VISIBLE
@@ -82,17 +94,21 @@ class CafeSearchActivity : AppCompatActivity() {
             }
         })
 
+        //검색어 삭제
         deleteButton.setOnClickListener {
             searchBox.text.clear()
-            viewModel.makeApiCall(searchBox.text.toString())
+            cafeSearchAdapter.clearData()
         }
 
         //키보드 검색버튼
         searchBox.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    emptyView.visibility = View.GONE
-                    viewModel.makeApiCall(searchBox.text.toString())
+                    lifecycleScope.launch {
+                        DataStore(this@CafeSearchActivity).getToken.collect {
+                            viewModel.makeApiCall(searchBox.text.toString(),it!!)
+                        }
+                    }
                     return true
                 }
                 return false

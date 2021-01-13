@@ -11,18 +11,22 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.util.DataStore
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class PlaceSearchActivity : AppCompatActivity() {
 
     lateinit var placeSearchAdapter: PlaceSearchAdapter
     val placeDatas: MutableList<PlaceSearchData> = mutableListOf()
+    private val dataStore = DataStore(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +42,15 @@ class PlaceSearchActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        //recycler 에서 아이템 클릭
+
         placeSearchAdapter.itemClick=object :PlaceSearchAdapter.ItemClick{
             override fun onClick(view: View, position: Int) {
-                Toast.makeText(this@PlaceSearchActivity,placeSearchAdapter.datas[position].placeLocation,Toast.LENGTH_SHORT).show()
                 val intent = Intent()
-                intent.putExtra("placeName",placeSearchAdapter.datas[position].placeName)
-                intent.putExtra("placeLocation",placeSearchAdapter.datas[position].placeLocation)
+                intent.putExtra("placeName",placeSearchAdapter.datas[position].cafeName)
+                intent.putExtra("placeAddress",placeSearchAdapter.datas[position].cafeAddress)
+                intent.putExtra("placeLongitude",placeSearchAdapter.datas[position].longitude)
+                intent.putExtra("placeLatitude",placeSearchAdapter.datas[position].latitude)
                 setResult(2,intent)
                 finish()
             }
@@ -55,6 +62,7 @@ class PlaceSearchActivity : AppCompatActivity() {
         val deleteButton: ImageView = findViewById<ImageView>(R.id.btn_place_search_delete)
         val searchBox: EditText = findViewById<EditText>(R.id.et_place_search)
         val emptyView: ConstraintLayout = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_place_search)
 
         val viewModel = ViewModelProvider(this).get(PlaceSearchActivityViewModel::class.java)
         viewModel.recyclerListData.observe(this, Observer<MutableList<PlaceSearchData>> {
@@ -63,10 +71,11 @@ class PlaceSearchActivity : AppCompatActivity() {
                 placeSearchAdapter.datas = it
                 placeSearchAdapter.notifyDataSetChanged()
             } else {
-                Toast.makeText(this, "에라", Toast.LENGTH_SHORT).show()
+
             }
         })
 
+        //검색 -> x 로 변경
         searchBox.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchButton.visibility = View.VISIBLE
@@ -82,17 +91,21 @@ class PlaceSearchActivity : AppCompatActivity() {
             }
         })
 
+        //검색어 삭제
         deleteButton.setOnClickListener {
             searchBox.text.clear()
-            viewModel.makeApiCall(searchBox.text.toString())
+            placeSearchAdapter.clearData()
         }
 
         //키보드 검색버튼
         searchBox.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    emptyView.visibility = View.GONE
-                    viewModel.makeApiCall(searchBox.text.toString())
+                    lifecycleScope.launch {
+                        DataStore(this@PlaceSearchActivity).getToken.collect {
+                            viewModel.makeApiCall(searchBox.text.toString(),it!!)
+                        }
+                    }
                     return true
                 }
                 return false
