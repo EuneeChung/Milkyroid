@@ -198,9 +198,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         if (resultCode == SEARCH_RESULT_HOME) {
 
             val cafeName = data?.getStringExtra("cafeName")
-            val cafeLocation = data?.getStringExtra("cafeLocation")
-            Log.d("아주시발같내ㅔ요",cafeName.toString())
-            Log.d("아주시발같내ㅔ요",cafeLocation.toString())
+            val cafeAddress = data?.getStringExtra("cafeAddress")
+            val longitude = data?.getStringExtra("longitude")
+            val latitude = data?.getStringExtra("latitude")
+            Log.d("agwegawegw",cafeName.toString()+cafeAddress.toString()+longitude.toString()+latitude.toString())
         }
     }
 

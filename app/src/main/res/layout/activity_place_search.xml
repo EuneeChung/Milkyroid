@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="12dp"
-        android:background="#F6F5F2"
+        android:background="@drawable/border_white_fill_round_20"
         android:hint="카페 검색하기"
         android:imeOptions="actionSearch"
         android:inputType="text"
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="12dp"
-        android:background="#E5E5E5"
+        android:background="@color/white_e5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_place_search" />
 
@@ -85,6 +85,7 @@
         android:id="@+id/cl_empty_place_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
