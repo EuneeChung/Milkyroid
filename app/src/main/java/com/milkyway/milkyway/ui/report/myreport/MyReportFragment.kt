@@ -1,12 +1,15 @@
 package com.milkyway.milkyway.ui.report.myreport
 
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +18,21 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.CafeMenu
+import com.milkyway.milkyway.data.model.CancelReport
+import com.milkyway.milkyway.data.model.DoneReport
+import com.milkyway.milkyway.data.model.IngReport
+import com.milkyway.milkyway.databinding.ActivityCafeDetailBinding
 import com.milkyway.milkyway.databinding.FragmentMyReportBinding
+import com.milkyway.milkyway.ui.report.detail.MenuAdapter
+import com.milkyway.milkyway.util.DataStore
+import com.milkyway.milkyway.util.UUID
+import com.milkyway.milkyway.util.UUID.uuid
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class MyReportFragment : Fragment() {
@@ -29,6 +44,11 @@ class MyReportFragment : Fragment() {
     lateinit var cancelAdapter: CancelAdapter
     lateinit var ingAdapter: IngAdapter
     lateinit var doneAdapter: DoneAdapter
+
+    val canceldatas = mutableListOf<CancelReport>()
+    val ingdatas = mutableListOf<IngReport>()
+    val donedatas = mutableListOf<DoneReport>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,38 +69,72 @@ class MyReportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        var datas: MutableList<CancelData> = mutableListOf<CancelData>()
-
-        // 어댑터에 context 객체를 파라미터로 전달 (더미)
-        cancelAdapter = CancelAdapter(view.context)
-        ingAdapter = IngAdapter(view.context)
-        doneAdapter = DoneAdapter(view.context)
+        // 어댑터에 context 객체를 파라미터로 전달
+//        cancelAdapter = CancelAdapter(view.context)   // 더미
+        cancelAdapter = CancelAdapter(view.context, canceldatas)
+        ingAdapter = IngAdapter(view.context, ingdatas)
+        doneAdapter= DoneAdapter(view.context, donedatas)
 
         binding.rvMyreportCancel.adapter = cancelAdapter
         binding.rvMyreportIng.adapter = ingAdapter
         binding.rvMyreportDone.adapter = doneAdapter
+
 
 //        binding.rvMyreportCancel.layoutManager = LinearLayoutManager(binding.rvMyreportCancel.context)    // 이것도 가능
         binding.rvMyreportCancel.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvMyreportIng.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvMyreportDone.layoutManager = LinearLayoutManager(view.context)
 
-        myReportViewModel.RVCancel()
-        myReportViewModel.RVIng()
-        myReportViewModel.RVDone()
+//        myReportViewModel.RVCancel()
+//        myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
+//            cancelAdapter.data = it   // 더미데이터 들어감
+//            cancelAdapter.notifyDataSetChanged()
+//        })
+
+        setReportData(binding)
+    }
 
 
+    private fun setReportData(binding: FragmentMyReportBinding) {
+        // 어댑터에 context 객체를 파라미터로 전달 (view.context 때문에 위로 올렸음)
+        // 토큰값 얻어오며 서버요청
+        lifecycleScope.launch {
+            DataStore(requireContext()).getToken.collect {
+                myReportViewModel.requestReportData(it!!) // 아래는 서버테스트용
+//                myReportViewModel.requestReportData("")
+            }
+        }
         myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
-            cancelAdapter.data = it   // 더미데이터 들어감
-            cancelAdapter.notifyDataSetChanged()
-        })
-        myReportViewModel.recyclerListData2.observe(viewLifecycleOwner, Observer {
-            ingAdapter.data = it   // 더미데이터 들어감
-            ingAdapter.notifyDataSetChanged()
-        })
-        myReportViewModel.recyclerListData3.observe(viewLifecycleOwner, Observer {
-            doneAdapter.data = it   // 더미데이터 들어감
-            doneAdapter.notifyDataSetChanged()
+//            if(it.cancel.isEmpty()&&it.cancel.isEmpty()&&it.cancel.isEmpty()){
+//                binding.clMyreport.visibility = View.GONE
+//                binding.clMyreportEmpty.visibility = View.VISIBLE
+//                Log.d("로그", "전체 없음")
+//            }
+//            else{
+                cancelAdapter.datas = it.cancel   // 서버데이터 들어감
+                if(it.cancel.isEmpty()){
+                    binding.tvMyreportCancel.visibility = View.GONE
+                    binding.rvMyreportCancel.visibility = View.GONE
+                    Log.d("로그취소", "취소 없음")
+                }
+                cancelAdapter.notifyDataSetChanged()
+
+                ingAdapter.datas = it.ing
+                if(it.ing.isEmpty()){
+                    binding.rvMyreportIng.visibility = View.GONE
+                    binding.tvMyreportIngEmpty.visibility = View.VISIBLE
+                    Log.d("로그", "진행중 없음")
+                }
+                ingAdapter.notifyDataSetChanged()
+
+                doneAdapter.datas = it.done
+                if (it.done.isEmpty()) {
+                    binding.rvMyreportDone.visibility = View.GONE
+                    binding.tvMyreportDoneEmpty.visibility = View.VISIBLE
+                    Log.d("로그", "완료 없음")
+                }
+                doneAdapter.notifyDataSetChanged()
+//            }
         })
     }
 
@@ -101,7 +155,6 @@ class MyReportFragment : Fragment() {
         spannableString.setSpan(
             R.font.roboto_regular, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
         binding.tvMyreportTitle.text = spannableString
     }
 }

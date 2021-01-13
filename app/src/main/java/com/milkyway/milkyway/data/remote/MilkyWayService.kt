@@ -37,7 +37,7 @@ interface MilkyWayService {
         @Header("token") token : String
     ) : ResponseUniverse
 
-    // CafeDetailFragment
+    // CafeDetailActivity
 //    @GET("cafe/{cafeId}")
     @GET("cafe/17")
     suspend fun cafeDetail(
@@ -57,5 +57,11 @@ interface MilkyWayService {
         @Header("token") token: String,
         @Path("toString") toString: String
     ): Call<CafeSearchResponse>
+
+    // MyReportFragment
+    @GET("report")
+    suspend fun myReport(
+        @Header("token") token : String
+    ) : ResponseMyReport
 
 }
