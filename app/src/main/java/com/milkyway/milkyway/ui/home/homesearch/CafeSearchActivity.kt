@@ -49,6 +49,7 @@ class CafeSearchActivity : AppCompatActivity() {
                 intent.putExtra("cafeAddress",cafeSearchAdapter.datas[position].cafeAddress)
                 intent.putExtra("longitude",cafeSearchAdapter.datas[position].longitude)
                 intent.putExtra("latitude",cafeSearchAdapter.datas[position].latitude)
+                intent.putExtra("businessHours",cafeSearchAdapter.datas[position].businessHours)
                 setResult(3,intent)
                 finish()
             }

@@ -160,8 +160,8 @@ class CafeReportFragment : Fragment() {
 
             val placeName = data?.getStringExtra("placeName")
             val placeAddress = data?.getStringExtra("placeAddress")
-            val placeLongitude = data?.getStringExtra("placeLongitude")
-            val placeLatitude = data?.getStringExtra("placeLatitude")
+            val placeLongitude = data?.getDoubleExtra("placeLongitude",-1.1)
+            val placeLatitude = data?.getDoubleExtra("placeLatitude",-1.1)
 
             Log.d("tgggfffw",placeName.toString()+placeAddress.toString()+placeLongitude.toString()+placeLatitude.toString())
 
