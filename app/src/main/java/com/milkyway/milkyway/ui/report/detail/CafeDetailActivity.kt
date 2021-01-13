@@ -73,7 +73,6 @@ class CafeDetailActivity : AppCompatActivity() {
             menuAdapter.notifyDataSetChanged()
         })
 
-        // 옵저버가 굳이 필요하진 않다
         cafedetailViewModel.cafeInfoData.observe(this, Observer {
 //            binding.tvDetailCafe.text = cafedetailViewModel.tv_detail_cafename.value.toString() // xml에서 바인딩 썼을때(value로 접근해야함)
             binding.tvDetailCafe.text = it.cafeName
@@ -81,6 +80,23 @@ class CafeDetailActivity : AppCompatActivity() {
             binding.tvDetailTime2.text = it.businessHours
             binding.tvDetailCall.text = it.cafePhoneNum
             binding.tvDetailWeb.text = it.cafeLink
+
+            val tips:List<Int> = it.honeyTip
+
+            val tip1 = binding.tvDetailTip1.text
+            val tip2 = binding.tvDetailTip2.text
+            val tip3 = binding.tvDetailTip3.text
+            val tip4 = binding.tvDetailTip4.text
+            val tip5 = binding.tvDetailTip5.text
+            val tip6 = binding.tvDetailTip6.text
+
+            for (i in 1..tips.size+1){
+                val items = "tip$i"
+//                if(it.honeyTip.any { it == 1 })
+//                    "${tip$i}" = "${menutag.text}디카페인  "
+            }
+            binding.tvDetailTip1.text = tips[0].toString()
+            Log.d("팁", "${binding.tvDetailTip1.text}")
         })
 
         cafedetailViewModel.universeCount.observe(this, Observer {
