@@ -1,48 +1,48 @@
 package com.milkyway.milkyway.ui.report.myreport
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.milkyway.milkyway.data.model.*
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class MyReportViewModel : ViewModel() {
 
-    private val _recyclerListData = MutableLiveData<MutableList<CancelData>>()
-    val recyclerListData: LiveData<MutableList<CancelData>>
+    private val _recyclerListData = MutableLiveData<MyReport>()
+    val recyclerListData: LiveData<MyReport>
         get() = _recyclerListData
 
-    private val _recyclerListData2 = MutableLiveData<MutableList<IngData>>()
-    val recyclerListData2: LiveData<MutableList<IngData>>
-        get() = _recyclerListData2
+    // 더미
+//    private val _recyclerListData = MutableLiveData<MutableList<DoneData>>()
+//    val recyclerListData: LiveData<MutableList<DoneData>>
+//        get() = _recyclerListData
 
-    private val _recyclerListData3 = MutableLiveData<MutableList<DoneData>>()
-    val recyclerListData3: LiveData<MutableList<DoneData>>
-        get() = _recyclerListData3
-
-
-    fun RVCancel() {
-        val cancelDatas = mutableListOf<CancelData>()
-
-        cancelDatas.add(CancelData("현빈스빈스카페", "2021.01.01"))
-        cancelDatas.add(CancelData("현빈스빈스카페", "2021.01.02"))
-        cancelDatas.add(CancelData("현빈스빈스카페", "2021.01.03"))
-        _recyclerListData.postValue(cancelDatas)
-    }
-
-    fun RVIng() {
-        val ingDatas = mutableListOf<IngData>()
-
-        ingDatas.add(IngData("혜리의라떼카페", "2021.01.01"))
-        ingDatas.add(IngData("혜리의라떼카페", "2021.01.02"))
-        ingDatas.add(IngData("혜리의라떼카페", "2021.01.03"))
-        _recyclerListData2.postValue(ingDatas)
-    }
+//    fun RVCancel() {
+//        val cancelDatas = mutableListOf<CancelData>()
+//
+//        cancelDatas.add(CancelData("현빈스빈스카페", "2021.01.01"))
+//        cancelDatas.add(CancelData("현빈스빈스카페", "2021.01.02"))
+//        cancelDatas.add(CancelData("현빈스빈스카페", "2021.01.03"))
+//        _recyclerListData.postValue(cancelDatas)
+//    }
 
 
-    fun RVDone() {
-        val doneDatas = mutableListOf<DoneData>()
+    // 서버 비동기 통신
+    fun requestReportData(token : String) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val myReport = RetrofitBuilder.service.myReport(token)
+            _recyclerListData.postValue(myReport.data)
+            Log.d("테스트cancel", "${myReport.data.cancel}")
+            Log.d("테스트ing", "${myReport.data.ing}")
+            Log.d("테스트done", "${myReport.data.done}")
 
-        doneDatas.add(DoneData("2021.01.01","현빈스빈스카페", "서울시 종로구 21-9"))
-        doneDatas.add(DoneData("2021.01.01","현빈스빈스카페", "서울시 종로구 21-9(2층)"))
-        _recyclerListData3.postValue(doneDatas)
+        } catch (e: HttpException) {
+            Log.d("requestmyreport", e.toString())
+        }
     }
 }

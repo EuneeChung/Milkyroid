@@ -451,7 +451,7 @@
                     android:layout_marginTop="26dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="업데이트 "
+                    android:text="업데이트 2020.12.25"
                     android:textColor="@color/gray_9a9792"
                     android:textSize="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
