@@ -1,10 +1,10 @@
 package com.milkyway.milkyway.ui.modify
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +13,7 @@ import com.milkyway.milkyway.databinding.ActivityModifyBinding
 import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.modify.request.RequestModificationsActivity
+import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -57,7 +58,9 @@ class ModifyActivity : AppCompatActivity() {
         modifyViewModel.isDeleteClick.observe(this, Observer{ isDeleteClick->
             Log.e("isDeleteClick",isDeleteClick.toString())
             if(isDeleteClick) {
-//                ConfirmAlertDialog(this,1).show()
+                 ConfirmAlertDialog(this,1).create().show{
+                     Log.e("옵저버안이다!","여기 함수는 실행되나?")
+                     deleteLocation()}
             }
         })
     }
@@ -65,8 +68,7 @@ class ModifyActivity : AppCompatActivity() {
     private fun deleteLocation() {
         lifecycleScope.launch {
             DataStore(this@ModifyActivity).getToken.collect {
-
-//                modifyViewModel.requestDeleteLocation(it!!,cafeId = 10,reason = )
+                modifyViewModel.requestDeleteLocation(it!!,cafeId = 10,reason = 1)
             }
         }
     }

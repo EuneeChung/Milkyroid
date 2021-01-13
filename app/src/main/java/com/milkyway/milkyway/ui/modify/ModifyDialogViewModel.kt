@@ -39,7 +39,7 @@ class ModifyDialogViewModel : ViewModel() {
     fun requestDeleteLocation(token : String,reason:Int,cafeId:Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val delete = RetrofitBuilder.service.delete(token,DeleteModify(reason),cafeId)
-
+            Log.e("delete",delete.message)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
         }
