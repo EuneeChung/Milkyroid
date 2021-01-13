@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayout
@@ -17,6 +18,9 @@ import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentCafeReportBinding
 import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.ui.report.search.PlaceSearchActivity
+import com.milkyway.milkyway.util.DataStore
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class CafeReportFragment : Fragment() {
@@ -34,6 +38,7 @@ class CafeReportFragment : Fragment() {
 
         cafeReportMenuAdapter = CafeReportMenuAdapter(context as MainActivity)
         binding.rvCafeMenu.adapter = cafeReportMenuAdapter
+
 //        cafeReportMenuAdapter.setEditClickListener(object:CafeReportMenuAdapter.EditClickListener{
 //            override fun onClick(view: View, position: Int) {
 //                val intent = Intent(context, CafeReportMenuActivity::class.java)
@@ -63,32 +68,51 @@ class CafeReportFragment : Fragment() {
                     Toast.makeText(context, "Selected $list", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
 
+            }
+
+        //초기화 버튼
+        binding.btnCafeReportClean.setOnClickListener {
+            //칩 초기화
+            chipGroup.clearCheck()
+            list.clear()
+
+            //카페명 초기화
+            binding.clCafeSearchAfter.visibility=View.INVISIBLE
+            binding.clGoToCafeSearch.visibility=View.VISIBLE
+
+            //카페메뉴 초기화
+            cafeReportMenuAdapter.clearData()
+        }
         return binding.root
     }
 
+    //메뉴 추가
     fun onAddMenuClick(view: View) {
         val addMenuIntent = Intent(context as MainActivity, CafeReportMenuActivity::class.java)
         startActivityForResult(addMenuIntent, CafeReportMenuActivity.REQUEST_CODE)
     }
 
+    //카페 검색
     fun onCafeSearchClick(view: View) {
         val placeSearchIntent = Intent(context as MainActivity, PlaceSearchActivity::class.java)
         startActivityForResult(placeSearchIntent, PlaceSearchActivity.REQUEST_CODE)
     }
 
+    //제보 완료
     fun onReportOkClick(view: View)
     {
-        ShowReportOkDialog(context as MainActivity).show(null)
+        lifecycleScope.launch {
+            DataStore(context as MainActivity).getNickname.collect {
+                if (it!= null) {
+                    Log.d("닉네임로그!!",it)
+                    ShowReportOkDialog(context as MainActivity,it).show(null)
+                }
+            }
+        }
         val tabLayout = activity?.findViewById<TabLayout>(R.id.tab_report)
         tabLayout?.selectTab(tabLayout.getTabAt(1))
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

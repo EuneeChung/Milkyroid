@@ -80,6 +80,11 @@ class CafeReportMenuAdapter(private var context: Context): RecyclerView.Adapter<
         notifyDataSetChanged()
     }
 
+    fun clearData(){
+        data.clear()
+        notifyDataSetChanged()
+    }
+
     private fun editItem(context: Context, position: Int) {
         val intent = Intent(context as MainActivity, CafeReportMenuActivity::class.java)
         //val intent2 = Intent(context as MainActivity, MainActivity::class.java)

@@ -12,7 +12,7 @@ import com.milkyway.milkyway.databinding.DailogReportOkBinding
 import com.milkyway.milkyway.generated.callback.OnClickListener
 
 
-class ShowReportOkDialog(context: Context) {
+class ShowReportOkDialog(context: Context, s: String) {
 
     private lateinit var binding: DailogReportOkBinding
     private lateinit var activity : Activity
@@ -22,6 +22,8 @@ class ShowReportOkDialog(context: Context) {
             LayoutInflater.from(context),
             R.layout.dailog_report_ok, null, false
         )
+
+        binding.tvShowReportNicknname.text = s
         AlertDialog.Builder(context, R.style.AlertDialogRound8).setView(binding.root)
     }
 
