@@ -13,6 +13,7 @@ class CafeReportMenuViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView
     private val cafeMenuPrice: TextView = itemView.findViewById(R.id.tv_cafe_report_money)
     private val cafeMenuCategory: TextView = itemView.findViewById(R.id.tv_cafe_report_select_milk1)
 
+
     fun onBind(data: CafeReportMenuData) {
         cafeMenuName.text = data.cafeMenuName
         cafeMenuPrice.text = data.cafeMenuPrice
