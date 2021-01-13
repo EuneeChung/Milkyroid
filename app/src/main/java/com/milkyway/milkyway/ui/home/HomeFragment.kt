@@ -149,14 +149,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     private fun drawMarkers(p0 : NaverMap) {
         homeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
-                MarkerDrawer.apply{
-                    init(binding, markers)
-                    setMarkers()
-                    setIcon()
-                    setClickListener{
-                        homeViewModel.setMarkerClick()
+                lifecycleScope.launch {
+                    DataStore(requireContext()).getToken.collect {
+                        MarkerDrawer.apply {
+                            init(binding, markers, it!!)
+                            setMarkers()
+                            setIcon()
+                            setClickListener {
+                                homeViewModel.setMarkerClick()
+                            }
+                            drawMarkers(p0)
+                        }
                     }
-                    drawMarkers(p0)
                 }
             }
         })

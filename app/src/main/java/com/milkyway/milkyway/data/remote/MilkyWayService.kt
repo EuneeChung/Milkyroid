@@ -31,6 +31,12 @@ interface MilkyWayService {
         @Path("categoryId") categoryId : Int
     ) : ResponseHome
 
+    @POST("universe/universeOn")
+    fun addMyUniverseHome(
+        @Header("token") token : String,
+        @Body body : RequestCafeId
+    ) : Call<ResponseAddUniverse>
+
     // UniverseFragment
     @GET("universe/universeHome")
     suspend fun universe(
