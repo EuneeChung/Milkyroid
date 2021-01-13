@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.MyUniverse
+import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
@@ -164,19 +164,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
             Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.value.toString())
         }
 
-        myUniverseListAdapter.data = dummyMyUniverse()
         isZeroUniverse(myUniverseListAdapter.data.size)
-        myUniverseListAdapter.notifyDataSetChanged()
-    }
-
-    private fun dummyMyUniverse() :MutableList<MyUniverse>{
-        return  mutableListOf(
-            MyUniverse(2,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(3,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(4,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(7,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(6,"폠슈펨수펨슈너구리","dddd")
-        )
     }
 
     private fun isZeroUniverse(universeCount:Int){
@@ -223,6 +211,8 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun drawMarkers(p0 : NaverMap) {
         universeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
+                myUniverseListAdapter.data = markers as MutableList<AroundUniverse>
+                myUniverseListAdapter.notifyDataSetChanged()
                 UniverseMarkerDrawer.apply {
                     init(binding, markers)
                     setMarkers()
@@ -249,7 +239,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun loading() {
         universeViewModel.isLoading()
         binding.imgLoading.playAnimation()
-
     }
 
     companion object {
