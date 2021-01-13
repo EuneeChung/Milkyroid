@@ -25,6 +25,10 @@ class UniverseViewModel : ViewModel() {
     val markers : LiveData<List<AroundUniverse>>
         get() = _markers
 
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading : LiveData<Boolean>
+        get() = _loading
+
     fun compassIcon() {
         _compass.value = !_compass.value!!
     }
@@ -41,9 +45,14 @@ class UniverseViewModel : ViewModel() {
         _card.value = true
     }
 
+    fun isLoading() {
+        _loading.value = true
+    }
+
     fun requestUniverseData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val universe = RetrofitBuilder.service.universe(token)
+            _loading.postValue(false)
             _markers.postValue(universe.data.aroundUniverse)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
