@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner=this
 
         initBottomNavigation(binding)
-
     }
 
     private fun initBottomNavigation(binding: ActivityMainBinding) {

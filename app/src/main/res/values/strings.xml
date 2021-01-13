@@ -17,7 +17,6 @@
     <string name="nickname_btn_next">밀키웨이 시작하기</string>
 
 
-
     <!-- in Modify edited by eun -->
     <string name="request_modifications_word">정보 수정 요청</string>
     <string name="modify_question">제공받으신 정보와 다른 점이 있나요?</string>
@@ -60,6 +59,7 @@
     <string name="delete_confirm">삭제되었습니다</string>
     <string name="universe_title">유니버스가 빛나고 있어요.\n오늘은 어떤 밀키웨이를 탐험해 볼까요?</string>
     <string name="universe_nickname">님의</string>
+    <string name="universe_delete">삭제</string>
 
 
 </resources>

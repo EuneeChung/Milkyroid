@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.milkyway.milkyway">
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,24 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MilkyWay"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ui.modify.ModifyActivity">
-        </activity>
+        <activity android:name=".ui.home.homesearch.CafeSearchActivity" />
+        <activity android:name=".ui.modify.ModifyActivity" />
         <activity
             android:name=".ui.modify.request.RequestModificationsActivity"
-            android:label="@string/title_activity_modification_request">
-        </activity>
+            android:label="@string/title_activity_modification_request" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="" />
-        <activity android:name=".ui.splash.SplashActivity"/>
+
+        <activity android:name=".ui.splash.SplashActivity" />
         <activity
             android:name=".ui.report.detail.CafeDetailActivity"
             android:label="@string/title_activity_cafe_detail" />
-
-        <activity android:name=".ui.report.CafeReportMenuActivity"/>
-
+        <activity android:name=".ui.report.cafereport.CafeReportMenuActivity" />
         <activity
             android:name=".ui.nickname.NicknameActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -42,6 +37,7 @@
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

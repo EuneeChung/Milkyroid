@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="@{homeViewModel.card? View.VISIBLE : View.GONE}"
-                    android:background="@drawable/border_white_fill_round_8"
+                    android:background="@drawable/border_white_fill_top_round_8"
                     android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" >
@@ -160,7 +160,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/btn_universe"
                         android:layout_marginEnd="20dp"
                         app:layout_constraintTop_toTopOf="@id/tv_cafe_name"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -180,19 +179,15 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.chip.ChipGroup
+            <LinearLayout
                 android:id="@+id/chip_group"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:weightSum="4"
                 android:layout_marginTop="12dp"
                 app:layout_constraintTop_toBottomOf="@id/layout_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="4">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_decaffeinated"
@@ -253,7 +248,6 @@
                         app:chipBackgroundColor="@color/selector_home_chip_color"
                         app:rippleColor="@android:color/transparent" />
                 </LinearLayout>
-            </com.google.android.material.chip.ChipGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include

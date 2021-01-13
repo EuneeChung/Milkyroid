@@ -7,13 +7,13 @@
     <data>
         <variable
             name="CafeReportMenuActivity"
-            type="com.milkyway.milkyway.ui.report.CafeReportMenuActivity" />
+            type="com.milkyway.milkyway.ui.report.cafereport.CafeReportMenuActivity" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.report.CafeReportMenuActivity">
+    tools:context=".ui.report.cafereport.CafeReportMenuActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
