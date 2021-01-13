@@ -80,6 +80,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         lifecycleScope.launch {
             DataStore(requireContext()).getNickname.collect {
                 binding.tvNickname.text = it!!
+                binding.bottomSheetUniverse.tvNoSelectedItems.text = String.format(requireContext().getString(R.string.universe_no_selected_itmes), it!!)
             }
         }
     }
