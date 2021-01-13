@@ -119,6 +119,7 @@ object MarkerDrawer {
                         binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()
+                        markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
                         cafeList[index].isUniversed = true
                         cafeList[index].universeCount = it.data.universeCount
                     } ?: Log.d("request", response.body().toString())
@@ -141,9 +142,10 @@ object MarkerDrawer {
                     ?.body()
                     ?.let {
                         binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe)
-                        binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
+                        binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.gray_97))
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()
+                        markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
                         cafeList[index].isUniversed = false
                         cafeList[index].universeCount = it.data.universeCount
                     } ?: Log.d("request", response.body().toString())
