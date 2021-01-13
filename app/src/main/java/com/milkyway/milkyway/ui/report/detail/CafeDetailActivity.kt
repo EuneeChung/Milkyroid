@@ -1,5 +1,6 @@
 package com.milkyway.milkyway.ui.report.detail
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -13,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -83,20 +85,36 @@ class CafeDetailActivity : AppCompatActivity() {
 
             val tips:List<Int> = it.honeyTip
 
-            val tip1 = binding.tvDetailTip1.text
-            val tip2 = binding.tvDetailTip2.text
-            val tip3 = binding.tvDetailTip3.text
-            val tip4 = binding.tvDetailTip4.text
-            val tip5 = binding.tvDetailTip5.text
-            val tip6 = binding.tvDetailTip6.text
-
-            for (i in 1..tips.size+1){
-                val items = "tip$i"
-//                if(it.honeyTip.any { it == 1 })
-//                    "${tip$i}" = "${menutag.text}디카페인  "
+            if(it.honeyTip.any { it == 1 }){
+                binding.tvDetailTip1.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip1.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
-            binding.tvDetailTip1.text = tips[0].toString()
-            Log.d("팁", "${binding.tvDetailTip1.text}")
+            if(it.honeyTip.any { it == 2 }){
+                binding.tvDetailTip2.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip2.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 3 }){
+                binding.tvDetailTip3.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip3.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 4 }){
+                binding.tvDetailTip4.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip4.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 5 }){
+                binding.tvDetailTip5.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip5.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
+            if(it.honeyTip.any { it == 6 }){
+                binding.tvDetailTip6.setTextColor(
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                binding.tvDetailTip6.setBackgroundResource(R.drawable.border_blue_honeytip)
+            }
         })
 
         cafedetailViewModel.universeCount.observe(this, Observer {
