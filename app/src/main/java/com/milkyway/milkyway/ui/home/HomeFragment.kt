@@ -181,10 +181,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         for (index in 0 until binding.chipGroup.childCount) {
             val chip: Chip = binding.chipGroup.getChildAt(index) as Chip
             chip.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    list.add(index+1)
-                } else {
-                    list.remove(index+1)
+                if (isChecked) list.add(index+1)
+                else list.remove(index+1)
+                lifecycleScope.launch {
+                    DataStore(requireContext()).getToken.collect {
+                        if(list.size==1) homeViewModel.requestCategoryData(it!!, list[0])
+                        else if(list.size==0) homeViewModel.requestHomeData(it!!)
+                    }
                 }
             }
         }

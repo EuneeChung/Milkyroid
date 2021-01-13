@@ -1,10 +1,7 @@
 package com.milkyway.milkyway.data.remote
 
 import com.milkyway.milkyway.data.model.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface MilkyWayService {
@@ -24,6 +21,13 @@ interface MilkyWayService {
     @GET("home/milkyHome")
     suspend fun home(
         @Header("token") token : String
+    ) : ResponseHome
+
+    // HomeFragment Category Select
+    @GET("home/{categoryId}")
+    suspend fun homeCategory(
+        @Header("token") token : String,
+        @Path("categoryId") categoryId : Int
     ) : ResponseHome
 
     // UniverseFragment
