@@ -1,6 +1,7 @@
 package com.milkyway.milkyway.data.remote
 
 import com.milkyway.milkyway.data.model.*
+import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -42,4 +43,19 @@ interface MilkyWayService {
     suspend fun cafeDetail(
         @Header("token") token : String
     ) : ResponseCafeDetail
+
+    //ReportPlaceSearch
+    @GET("/search/report/cafe")
+    fun requestPlaceSearch(
+        @Header("token") token: String,
+        @Query("query") query: String
+    ): Call<PlaceSearchResponse>
+
+    //HomeCafeSearch
+    @GET("/search/{toString}")
+    fun requestCafeSearch(
+        @Header("token") token: String,
+        @Path("toString") toString: String
+    ): Call<CafeSearchResponse>
+
 }

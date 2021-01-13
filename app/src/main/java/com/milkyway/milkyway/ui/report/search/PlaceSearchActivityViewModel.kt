@@ -1,30 +1,64 @@
 package com.milkyway.milkyway.ui.report.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.milkyway.milkyway.data.model.PlaceSearchResponse
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PlaceSearchActivityViewModel : ViewModel() {
+    private val milkyService = RetrofitBuilder.service
     private val _recyclerListData = MutableLiveData<MutableList<PlaceSearchData>>()
     val recyclerListData: LiveData<MutableList<PlaceSearchData>>
         get() = _recyclerListData
 
-    fun makeApiCall(toString: String?) {
-        //reecyclerListData.postValue(null)
-        val placeDatas: MutableList<PlaceSearchData> = mutableListOf()
-        placeDatas.clear()
-        //나중에 서버 붙이면 빈 리스트를 보내서 []리스트를 넣으면된다.
-        //클라에서 x누를때 clear로 처리해줘도 돼 -> 끊길 경우에 ,.,, ㅋ
-        if(toString!="")
-        {
-            placeDatas.add(PlaceSearchData("dwegegw", "d", true))
-            placeDatas.add(PlaceSearchData("안녕클레오파트라세상에서제일가는포테이토칩", "d", true))
-            placeDatas.add(PlaceSearchData("d", "d", false))
-            placeDatas.add(PlaceSearchData("d", "d", true))
-            placeDatas.add(PlaceSearchData("d", "d", false))
-            placeDatas.add(PlaceSearchData("d", "d", false))
-            placeDatas.add(PlaceSearchData("d", "d", false))
+
+    fun makeApiCall(toString: String?,token : String) {
+        if (toString!="") {
+            val search =
+                RetrofitBuilder.service.requestPlaceSearch(
+                    token = token,
+                    query = toString.toString()
+                )
+            val placeDatas: MutableList<PlaceSearchData> = mutableListOf()
+            search.enqueue(
+                object : Callback<PlaceSearchResponse> {
+                    override fun onResponse(
+                        call: Call<PlaceSearchResponse>,
+                        response: Response<PlaceSearchResponse>
+                    ) {
+                        Log.d("typeCheck", "통신성공")
+                        if (response.isSuccessful) {
+                            placeDatas.clear()
+
+                            for (i in response.body()?.data?.indices!!) {
+                                placeDatas.apply {
+                                    add(
+                                        PlaceSearchData(
+                                            cafeName = response.body()!!.data[i].cafeName,
+                                            cafeAddress = response.body()!!.data[i].cafeAddress,
+                                            longitude = response.body()!!.data[i].longitude,
+                                            latitude = response.body()!!.data[i].latitude,
+                                            isReported = response.body()!!.data[i].isReported
+                                        )
+                                    )
+                                }
+                            }
+                            Log.d("print check", placeDatas.toString())
+                            _recyclerListData.postValue(placeDatas)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
+                        Log.d("typeCheck", t.message.toString())
+                        _recyclerListData.postValue(null)
+                    }
+                }
+            )
         }
-        _recyclerListData.postValue(placeDatas)
     }
 }

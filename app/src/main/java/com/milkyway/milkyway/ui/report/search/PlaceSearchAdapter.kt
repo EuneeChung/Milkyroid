@@ -32,20 +32,23 @@ class PlaceSearchAdapter : RecyclerView.Adapter<PlaceSearchAdapter.PlaceSearchVi
         private val layout = itemView.findViewById<ConstraintLayout>(R.id.cl_item_place_search)
         private val placeName = itemView.findViewById<TextView>(R.id.tv_place_name)
         private val placeLocation = itemView.findViewById<TextView>(R.id.tv_place_location)
+        private val alreadyCafe = itemView.findViewById<TextView>(R.id.tv_already_cafe)
 
         fun bind(placeSearchData: PlaceSearchData) {
-            placeName.text = placeSearchData.placeName
-            placeLocation.text = placeSearchData.placeLocation
+            placeName.text = placeSearchData.cafeName
+            placeLocation.text = placeSearchData.cafeAddress
 
-            if (placeSearchData.alreadyIn) { // 이미 등록된 view만 보이게
-                placeName.setTextColor(Color.parseColor("#E6E6E6"))
-                placeLocation.setTextColor(Color.parseColor("#E6E6E6"))
+            if (placeSearchData.isReported) { // 이미 등록된 view
+                placeName.setTextColor(Color.parseColor("#9a9792"))
+                placeLocation.setTextColor(Color.parseColor("#9a9792"))
+                alreadyCafe.visibility=View.VISIBLE
                 layout.isEnabled = false
             }
 
-            if (!placeSearchData.alreadyIn) { // 등록 안된 view
-                placeName.setTextColor(Color.parseColor("#363636"))
-                placeLocation.setTextColor(Color.parseColor("#CDCDCD"))
+            if (!placeSearchData.isReported) { // 등록 안된 view
+                placeName.setTextColor(Color.parseColor("#000000"))
+                placeLocation.setTextColor(Color.parseColor("#9a9792"))
+                alreadyCafe.visibility=View.INVISIBLE
                 layout.isEnabled = true
             }
         }
