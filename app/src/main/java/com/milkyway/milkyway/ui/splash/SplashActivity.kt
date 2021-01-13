@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenResumed
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivitySplashBinding
 import com.milkyway.milkyway.ui.main.MainActivity
@@ -42,8 +43,10 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(p0: Animator?) {
                 lifecycleScope.launch {
-                    dataStore.getNickname.collect {
-                        splashViewModel.signIn(UUID.uuid(this@SplashActivity), it!!)
+                    whenResumed {
+                        dataStore.getNickname.collect {
+                            splashViewModel.signIn(UUID.uuid(this@SplashActivity), it!!)
+                        }
                     }
                 }
             }
