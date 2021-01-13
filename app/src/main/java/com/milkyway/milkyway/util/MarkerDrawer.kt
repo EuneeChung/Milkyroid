@@ -24,11 +24,13 @@ object MarkerDrawer {
     private lateinit var cafeList: List<AroundCafe>
     private lateinit var binding: FragmentHomeBinding
     private lateinit var token : String
+    private lateinit var clickListener: () -> Unit
 
-    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String) {
+    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String, onClick: () -> Unit) {
         binding = initBinding
         cafeList = list
         token = initToken
+        clickListener = onClick
         clear()
     }
 
@@ -53,12 +55,12 @@ object MarkerDrawer {
         }
     }
 
-    fun setClickListener(onClick: () -> Unit) {
+    fun setClickListener() {
         for (i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
                 cardData(i)
-                onClick()
+                clickListener()
                 true
             }
         }
@@ -111,11 +113,13 @@ object MarkerDrawer {
                 call: Call<ResponseAddUniverse>,
                 response: Response<ResponseAddUniverse>
             ) {
-                Log.d("request", response.body().toString())
                 response.takeIf { it.isSuccessful }
                     ?.body()
                     ?.let {
                         binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
+                        binding.btnAddUniverse.setOnClickListener{
+                            deleteUniverse(index)
+                        }
                         binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()
@@ -137,11 +141,13 @@ object MarkerDrawer {
                 call: Call<ResponseDeleteUniverse>,
                 response: Response<ResponseDeleteUniverse>
             ) {
-                Log.d("request", response.body().toString())
                 response.takeIf { it.isSuccessful }
                     ?.body()
                     ?.let {
                         binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe)
+                        binding.btnAddUniverse.setOnClickListener{
+                            addUniverse(index)
+                        }
                         binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.gray_97))
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()

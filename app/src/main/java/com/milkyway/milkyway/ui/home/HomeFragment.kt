@@ -152,12 +152,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 lifecycleScope.launch {
                     DataStore(requireContext()).getToken.collect {
                         MarkerDrawer.apply {
-                            init(binding, markers, it!!)
-                            setMarkers()
-                            setIcon()
-                            setClickListener {
+                            init(binding, markers, it!!) {
                                 homeViewModel.setMarkerClick()
                             }
+                            setMarkers()
+                            setIcon()
+                            setClickListener()
                             drawMarkers(p0)
                         }
                     }
