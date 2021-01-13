@@ -1,7 +1,6 @@
 package com.milkyway.milkyway.ui.splash
 
 import android.animation.Animator
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +13,7 @@ import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.ui.nickname.NicknameActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UUID
+import com.milkyway.milkyway.util.startActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -59,8 +59,8 @@ class SplashActivity : AppCompatActivity() {
     private fun setObserve() {
         splashViewModel.isSignIn.observe(this, Observer { isSignIn ->
             isSignIn?.let {
-                if (isSignIn) startActivity(Intent(this, MainActivity::class.java))
-                else startActivity(Intent(this, NicknameActivity::class.java))
+                if (isSignIn) startActivity<MainActivity>()
+                else startActivity<NicknameActivity>()
             }
         })
 

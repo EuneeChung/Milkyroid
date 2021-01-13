@@ -46,7 +46,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
-        setMarkerData()
         return binding.root
     }
 
@@ -229,6 +228,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
+
     private fun requestDeleteMyUniverse(){
         lifecycleScope.launch {
             DataStore(requireContext()).getToken.collect {
@@ -238,12 +238,20 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun loading() {
+        universeViewModel.isLoading()
+        binding.imgLoading.playAnimation()
+
+    }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
 
     override fun onResume() {
         super.onResume()
+        loading()
+        setMarkerData()
         universeViewModel.setMapClick()
     }
 

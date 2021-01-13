@@ -43,7 +43,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         setMap()
         setNicknameText(binding)
-        setMarkerData()
         chipSelect(binding)
         return binding.root
     }
@@ -185,8 +184,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 else list.remove(index+1)
                 lifecycleScope.launch {
                     DataStore(requireContext()).getToken.collect {
-                        if(list.size==1) homeViewModel.requestCategoryData(it!!, list[0])
-                        else if(list.size==0) homeViewModel.requestHomeData(it!!)
+                        if(list.size==1) {
+                            loading()
+                            homeViewModel.requestCategoryData(it!!, list[0])
+                        }
+                        else if(list.size==0) {
+                            loading()
+                            homeViewModel.requestHomeData(it!!)
+                        }
                     }
                 }
             }
@@ -205,6 +210,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun loading() {
+        homeViewModel.isLoading()
+        binding.imgLoading.playAnimation()
+    }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         const val SEARCH_RESULT_HOME = 3
@@ -212,6 +222,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
+        loading()
+        setMarkerData()
         homeViewModel.setMapClick()
         homeViewModel.chooseLocation(-1) // RESET
     }

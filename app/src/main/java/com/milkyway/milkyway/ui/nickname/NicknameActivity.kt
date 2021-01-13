@@ -1,7 +1,6 @@
 package com.milkyway.milkyway.ui.nickname
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -16,6 +15,7 @@ import com.milkyway.milkyway.databinding.ActivityNicknameBinding
 import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UUID
+import com.milkyway.milkyway.util.startActivity
 import kotlinx.coroutines.launch
 
 class NicknameActivity : AppCompatActivity() {
@@ -46,7 +46,7 @@ class NicknameActivity : AppCompatActivity() {
                     lifecycleScope.launch {
                         dataStore.setNickname(nicknameViewModel.nickname.value!!)
                     }
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity<MainActivity>()
                 }
             }
         })
