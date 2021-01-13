@@ -85,7 +85,6 @@
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:text=""
                 android:textColor="@color/gray_9a9792"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
