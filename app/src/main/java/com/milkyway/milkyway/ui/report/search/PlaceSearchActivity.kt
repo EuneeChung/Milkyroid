@@ -57,7 +57,6 @@ class PlaceSearchActivity : AppCompatActivity() {
         emptyView.setOnClickListener {
             hideKeyboard()
         }
-
         rv.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 hideKeyboard()
@@ -68,7 +67,6 @@ class PlaceSearchActivity : AppCompatActivity() {
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
             }
         })
-
 
         //recycler 에서 아이템 클릭
         placeSearchAdapter.itemClick=object :PlaceSearchAdapter.ItemClick{

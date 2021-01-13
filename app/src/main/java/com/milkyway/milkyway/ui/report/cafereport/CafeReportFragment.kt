@@ -1,5 +1,6 @@
 package com.milkyway.milkyway.ui.report.cafereport
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -64,9 +65,6 @@ class CafeReportFragment : Fragment() {
                 } else {
                     list.remove(index+1)
                 }
-                if (list.isNotEmpty()) {
-                    Toast.makeText(context, "Selected $list", Toast.LENGTH_SHORT).show()
-                }
             }
 
             }
@@ -87,6 +85,15 @@ class CafeReportFragment : Fragment() {
         return binding.root
     }
 
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
     //메뉴 추가
     fun onAddMenuClick(view: View) {
         val addMenuIntent = Intent(context as MainActivity, CafeReportMenuActivity::class.java)
@@ -105,7 +112,6 @@ class CafeReportFragment : Fragment() {
         lifecycleScope.launch {
             DataStore(context as MainActivity).getNickname.collect {
                 if (it!= null) {
-                    Log.d("닉네임로그!!",it)
                     ShowReportOkDialog(context as MainActivity,it).show(null)
                 }
             }
