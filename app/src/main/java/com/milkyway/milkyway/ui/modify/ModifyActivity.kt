@@ -24,8 +24,11 @@ class ModifyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val cafeId = intent.getIntExtra("cafeId",0)
+        Log.e("M-CafeId",cafeId.toString())
         initBinding()
-        observeDeleteClick()
+        observeDeleteClick(cafeId)
+
 
     }
     private fun initBinding(){
@@ -54,21 +57,22 @@ class ModifyActivity : AppCompatActivity() {
             )
         }
     }
-    private fun observeDeleteClick(){
+
+    private fun observeDeleteClick(cafeId:Int){
         modifyViewModel.isDeleteClick.observe(this, Observer{ isDeleteClick->
             Log.e("isDeleteClick",isDeleteClick.toString())
             if(isDeleteClick) {
                  ConfirmAlertDialog(this,1).create().show{
                      Log.e("옵저버안이다!","여기 함수는 실행되나?")
-                     deleteLocation()}
+                     deleteLocation(cafeId)}
             }
         })
     }
 
-    private fun deleteLocation() {
+    private fun deleteLocation(cafeId:Int) {
         lifecycleScope.launch {
             DataStore(this@ModifyActivity).getToken.collect {
-                modifyViewModel.requestDeleteLocation(it!!,cafeId = 10)
+                modifyViewModel.requestDeleteLocation(it!!,cafeId)
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.milkyway.milkyway.ui.report.detail
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.CafeMenu
 import com.milkyway.milkyway.databinding.ActivityCafeDetailBinding
+import com.milkyway.milkyway.ui.modify.ModifyActivity
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -38,7 +39,7 @@ class CafeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // ->Activity이름Binding = DataBindingUitl.setContentView(this, R.layout.레이아웃이름) eg) ActivityNickNameBinding
         // ->Fragment이름Binding = DataBindingUitl.setContentView(this, R.layout.레이아웃이름) eg) FragmentNickNameBinding
-        val binding = DataBindingUtil.setContentView<ActivityCafeDetailBinding>(this, R.layout.activity_cafe_detail)
+        val binding :ActivityCafeDetailBinding= DataBindingUtil.setContentView(this, R.layout.activity_cafe_detail)
 
         // layout에서 <data>에 선언한 viewModel에 연결
         binding.viewModel = cafedetailViewModel
@@ -49,6 +50,8 @@ class CafeDetailActivity : AppCompatActivity() {
         showDetailTime(binding)
         setTextBold(binding)
         setBack(binding)
+
+        clickGoToModify(binding)
     }
 
     private fun setMenuData(binding: ActivityCafeDetailBinding) {
@@ -179,5 +182,13 @@ class CafeDetailActivity : AppCompatActivity() {
     // 뒤로가기 버튼 이벤트
     private fun setBack(binding: ActivityCafeDetailBinding){
         binding.btnDetailBack.setOnClickListener { finish() }
+    }
+
+    private fun clickGoToModify(binding: ActivityCafeDetailBinding){
+        binding.btnDetailFixrequest.setOnClickListener {
+            val intent = Intent(this, ModifyActivity::class.java)
+                intent.putExtra("cafeId",2)
+            startActivity(intent)
+        }
     }
 }
