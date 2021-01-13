@@ -68,7 +68,7 @@ class ModifyActivity : AppCompatActivity() {
     private fun deleteLocation() {
         lifecycleScope.launch {
             DataStore(this@ModifyActivity).getToken.collect {
-                modifyViewModel.requestDeleteLocation(it!!,cafeId = 10,reason = 1)
+                modifyViewModel.requestDeleteLocation(it!!,cafeId = 10)
             }
         }
     }
