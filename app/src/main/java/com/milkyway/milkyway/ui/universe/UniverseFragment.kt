@@ -97,6 +97,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         setUiSetting(p0)
         setLocation(p0)
         setCurrentLocationIcon(p0)
+        setCameraMoveListener(p0)
         setLightness(p0)
         setMapClickListener(p0)
         drawMarkers(p0)
@@ -137,6 +138,12 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
                 }
             }
         })
+    }
+
+    private fun setCameraMoveListener(p0 : NaverMap) {
+        p0.addOnCameraChangeListener { _, _ ->
+            if(p0.locationTrackingMode == LocationTrackingMode.NoFollow) universeViewModel.notCompassIcon()
+        }
     }
 
     private fun setMapClickListener(p0 : NaverMap) {
