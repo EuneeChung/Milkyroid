@@ -4,14 +4,13 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Window
 import androidx.databinding.DataBindingUtil
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogAlertWithTitleBinding
 import com.milkyway.milkyway.databinding.DialogAlertWithoutTitleBinding
 import com.milkyway.milkyway.databinding.DialogDeleteUniverseBinding
-import com.milkyway.milkyway.generated.callback.OnClickListener
-import com.milkyway.milkyway.ui.universe.UniverseFragment
 
 class ConfirmAlertDialog(context: Context, val type:Int) {
 
@@ -51,17 +50,20 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
 
     }
 
-    fun create() {
-        dialog = builder.create()
-    }
-
-    fun show(listener: OnClickListener?) {
+    fun create():ConfirmAlertDialog {
         setWindow()
         dialog = builder.create()
+        return this
+    }
+
+    fun show(listener: ()->Unit):ConfirmAlertDialog{
+        //setWindow()
+        //dialog = builder.create()
 //        dialog?.setCancelable(false)
 //        dialog?.setCanceledOnTouchOutside(false)
         setPositiveButton(listener)
         dialog?.show()
+        return this
     }
 
     fun dismiss() {
@@ -69,7 +71,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
     }
 
 
-    fun setPositiveButton(listener: OnClickListener?): ConfirmAlertDialog {
+    fun setPositiveButton(listener:()->Unit) {
         when(type){
             MODIFY_CONFIRM -> {
                 bindingWithTitle.btnDialogConfirm.apply {
@@ -78,7 +80,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
             }
             UNIVERSE_CONFIRM -> {
                 bindingWithoutTitle.btnDialogConfirm.apply {
-                    setOnClickListener { dismiss() }
+                    setOnClickListener { listener() }
                 }
             }
             UNIVERSE_DELETE -> {
@@ -86,11 +88,10 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
                     setOnClickListener { dismiss() }
                 }
                 bindingDeleteUniverse.btnPositive.apply {
-                    setOnClickListener { dismiss() }
+                    setOnClickListener { listener() }
                 }
             }
         }
-        return this
     }
 
     companion object {

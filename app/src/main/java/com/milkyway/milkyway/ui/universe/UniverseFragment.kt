@@ -1,6 +1,8 @@
 package com.milkyway.milkyway.ui.universe
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +15,24 @@ import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
+import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.FusedLocationSource
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentUniverseBinding
     private lateinit var universeBottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var deleteUniverseDialog: ConfirmAlertDialog
+    private lateinit var confirmDeleteDialog: ConfirmAlertDialog
+
+    private val universeBottomSheetViewModel: UniverseBottomSheetViewModel by activityViewModels()
     private val universeViewModel : UniverseViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +54,19 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
 
         initMyUniverseListView()
 
+
         binding.universeView.setOnClickListener {
-            universeBottomSheetBehavior.state= BottomSheetBehavior.STATE_COLLAPSED
+            universeBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
 
-        universeBottomSheetBehavior= BottomSheetBehavior.from(binding.bottomSheetUniverse.root)
+        universeBottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetUniverse.root)
+
+        deleteUniverseDialog= ConfirmAlertDialog(requireContext(),3).create()
+        confirmDeleteDialog= ConfirmAlertDialog(requireContext(),2).create()
+
+        observeItemClick(requireContext())
+        observeItemDelete(requireContext())
+
     }
 
     private fun setMap() {
@@ -61,7 +79,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this@UniverseFragment)
     }
 
-    private fun setNicknameText(binding : FragmentUniverseBinding) {
+    private fun setNicknameText(binding: FragmentUniverseBinding) {
         lifecycleScope.launch {
             DataStore(requireContext()).getNickname.collect {
                 binding.tvNickname.text = it!!
@@ -79,6 +97,8 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
         setUiSetting(p0)
+        setLocation(p0)
+        setCurrentLocationIcon(p0)
         setLightness(p0)
         setMapClickListener(p0)
         drawMarkers(p0)
@@ -96,6 +116,31 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         p0.lightness = -0.7f
     }
 
+    private fun setLocation(p0 : NaverMap) {
+        val locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        p0.locationSource = locationSource
+    }
+
+    private fun setCurrentLocationIcon(p0 : NaverMap) {
+        val locationOverlay = p0.locationOverlay
+        locationOverlay.isVisible = true
+        locationOverlay.icon = OverlayImage.fromResource(R.drawable.ic_current_location_universe)
+        locationOverlay.circleRadius = 0
+
+        universeViewModel.compass.observe(this, Observer { compass->
+            compass?.let {
+                if(compass) {
+                    p0.locationTrackingMode = LocationTrackingMode.Face
+                    locationOverlay.subIcon = OverlayImage.fromResource(R.drawable.ic_universe_location_face)
+                }
+                else {
+                    p0.locationTrackingMode = LocationTrackingMode.NoFollow
+                    locationOverlay.subIcon = OverlayImage.fromResource(R.drawable.ic_universe_location_no_follow)
+                }
+            }
+        })
+    }
+
     private fun setMapClickListener(p0 : NaverMap) {
         p0.setOnMapClickListener { _, _ ->
             universeViewModel.setMapClick()
@@ -106,8 +151,62 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun initMyUniverseListView() {
         val myUniverseListAdapter = MyUniverseListAdapter()
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
-        myUniverseListAdapter.data= mutableListOf("혜리는 카페","혜리는 귀염뽀잒 카페")
+//        val listener = {
+//            universeBottomSheetViewModel.setDeleteUniverseClick()
+//            //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
+//            Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.toString())
+//        }
+        myUniverseListAdapter.onClickListener = {
+            universeBottomSheetViewModel.setDeleteUniverseClick()
+            //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
+            Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.value.toString())
+        }
+        myUniverseListAdapter.data = mutableListOf(
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페",
+            "혜리는 카페",
+            "혜리는 귀염뽀잒 카페"
+        )
         myUniverseListAdapter.notifyDataSetChanged()
+    }
+
+    private fun observeItemClick(context: Context) {
+        universeBottomSheetViewModel.deleteUniverse.observe(
+            viewLifecycleOwner,
+            Observer { deleteUniverse ->
+
+                if (deleteUniverse) {
+                    Log.e("deleteUniverse1", deleteUniverse.toString())
+                    deleteUniverseDialog
+                        .show {
+                            universeBottomSheetViewModel.setConfirmDeleteClick()
+                            universeBottomSheetViewModel.setDeleteUniverseClick()
+                        }
+                }
+
+            })
+    }
+
+    private fun observeItemDelete(context: Context) {
+        universeBottomSheetViewModel.confirmDelete.observe(viewLifecycleOwner,
+            Observer { confirmDelete ->
+                if (confirmDelete) {
+                    deleteUniverseDialog.dismiss()
+                    confirmDeleteDialog
+                        .show{
+                            universeBottomSheetViewModel.setConfirmDeleteClick()
+                            confirmDeleteDialog.dismiss()
+                        }
+                    Log.e("confirmDelete", confirmDelete.toString())
+                }
+
+            })
     }
 
     private fun drawMarkers(p0 : NaverMap) {
@@ -126,8 +225,13 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+    }
+
     override fun onResume() {
         super.onResume()
         universeViewModel.setMapClick()
     }
+
 }

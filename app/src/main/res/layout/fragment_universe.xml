@@ -72,6 +72,20 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_nickname"
                 app:layout_constraintStart_toStartOf="@id/tv_nickname"/>
 
+            <ImageButton
+                android:id="@+id/btn_current_location"
+                setButtonChange="@{universeViewModel.compass}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/transparent"
+                android:onClick="@{() -> universeViewModel.compassIcon()}"
+                app:layout_constraintBottom_toTopOf="@id/layout_universe_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:marginBottom="@{universeViewModel.card}"
+                tools:ignore="ContentDescription" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_universe_card"
                 android:layout_width="match_parent"
