@@ -1,12 +1,11 @@
 package com.milkyway.milkyway.ui.universe
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.databinding.ItemMyuniverseBottomsheetBinding
 
-class MyUniverseListAdapter(val context: Context) : RecyclerView.Adapter<MyUniverseListAdapter.MyUniverseListViewHolder>(){
+class MyUniverseListAdapter() : RecyclerView.Adapter<MyUniverseListAdapter.MyUniverseListViewHolder>(){
     var data = MutableList(10) {""}
     lateinit var onClickListener: ()->Unit
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyUniverseListViewHolder {

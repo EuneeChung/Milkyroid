@@ -52,7 +52,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initMyUniverseListView(requireContext())
+        initMyUniverseListView()
 
 
         binding.universeView.setOnClickListener {
