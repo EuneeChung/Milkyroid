@@ -42,6 +42,7 @@ interface MilkyWayService {
     @GET("cafe/17")
     suspend fun cafeDetail(
         @Header("token") token : String
+//        @Path("cafeId") cafeId: Int
     ) : ResponseCafeDetail
 
     // ModifyActivity - Delete
@@ -86,4 +87,11 @@ interface MilkyWayService {
         @Header("token") token: String,
         @Path("cafeId") cafeId: Int
     ): ResponseDeleteUniverse
+
+    // myreport cancel delete
+    @DELETE("report/{cafeId}")
+    suspend fun deleteCancel(
+        @Header("token") token: String,
+        @Path("cafeId") cafeId: Int
+    ): ResponseDeleteCancel
 }

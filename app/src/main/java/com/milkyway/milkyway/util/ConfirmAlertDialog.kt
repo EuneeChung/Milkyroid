@@ -11,12 +11,15 @@ import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DialogAlertWithTitleBinding
 import com.milkyway.milkyway.databinding.DialogAlertWithoutTitleBinding
 import com.milkyway.milkyway.databinding.DialogDeleteUniverseBinding
+import com.milkyway.milkyway.databinding.DialogShowcancelMyreportBinding
 
 class ConfirmAlertDialog(context: Context, val type:Int) {
 
     private lateinit var bindingWithTitle: DialogAlertWithTitleBinding
     private lateinit var bindingWithoutTitle: DialogAlertWithoutTitleBinding
     private lateinit var bindingDeleteUniverse: DialogDeleteUniverseBinding
+    private lateinit var bindingDeleteCancel: DialogShowcancelMyreportBinding
+
     private val builder: AlertDialog.Builder by lazy {
         when (type) {
             MODIFY_CONFIRM -> {
@@ -33,6 +36,11 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
                 bindingDeleteUniverse = DataBindingUtil.inflate(
                     LayoutInflater.from(context), R.layout.dialog_delete_universe, null, false)
                 AlertDialog.Builder(context, R.style.AlertDialogRound8).setView(bindingDeleteUniverse.root)
+            }
+            CANCEL_DELETE -> {
+                bindingDeleteCancel = DataBindingUtil.inflate(
+                    LayoutInflater.from(context), R.layout.dialog_showcancel_myreport, null, false)
+                AlertDialog.Builder(context, R.style.AlertDialogRound8).setView(bindingDeleteCancel.root)
             }
             else -> AlertDialog.Builder(context, R.style.AlertDialogRound8).setView(bindingWithoutTitle.root)
         }
@@ -93,6 +101,14 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
                     setOnClickListener { listener() }
                 }
             }
+            CANCEL_DELETE -> {
+                bindingDeleteCancel.btnShowcancelConfirm.apply {
+                    setOnClickListener {
+                        listener()
+//                        dismiss()
+                    }
+                }
+            }
         }
     }
 
@@ -100,6 +116,7 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
         private const val MODIFY_CONFIRM = 1
         private const val UNIVERSE_CONFIRM = 2
         private const val UNIVERSE_DELETE = 3
+        private const val CANCEL_DELETE = 4
     }
 
 }
