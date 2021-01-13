@@ -74,5 +74,12 @@ interface MilkyWayService {
         @Path("toString") toString: String
     ): Call<CafeSearchResponse>
 
+    //universe delete - UniverseBottomSheet
+    @DELETE("universe/{cafeId}")
+    suspend fun deleteUniverse(
+        @Header("token") token: String,
+        @Path("cafeId") cafeId: Int
+    ): ResponseDeleteUniverse
+
 
 }

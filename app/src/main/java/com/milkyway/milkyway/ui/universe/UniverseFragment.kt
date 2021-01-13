@@ -1,6 +1,5 @@
 package com.milkyway.milkyway.ui.universe
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.MyUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
@@ -29,6 +29,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var universeBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var deleteUniverseDialog: ConfirmAlertDialog
     private lateinit var confirmDeleteDialog: ConfirmAlertDialog
+    private lateinit var myUniverseListAdapter: MyUniverseListAdapter
 
     private val universeBottomSheetViewModel: UniverseBottomSheetViewModel by activityViewModels()
     private val universeViewModel : UniverseViewModel by activityViewModels()
@@ -57,14 +58,11 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         binding.universeView.setOnClickListener {
             universeBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
-
         universeBottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetUniverse.root)
 
-        deleteUniverseDialog= ConfirmAlertDialog(requireContext(),3).create()
-        confirmDeleteDialog= ConfirmAlertDialog(requireContext(),2).create()
 
-        observeItemClick(requireContext())
-        observeItemDelete(requireContext())
+        observeItemClick()
+        observeItemDelete()
 
     }
 
@@ -148,38 +146,42 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMyUniverseListView() {
-        val myUniverseListAdapter = MyUniverseListAdapter()
+        myUniverseListAdapter = MyUniverseListAdapter()
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
-//        val listener = {
-//            universeBottomSheetViewModel.setDeleteUniverseClick()
-//            //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
-//            Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.toString())
-//        }
-        myUniverseListAdapter.onClickListener = {
+
+        myUniverseListAdapter.onClickListener =  {
             universeBottomSheetViewModel.setDeleteUniverseClick()
+            universeBottomSheetViewModel.clickCafeId.value=myUniverseListAdapter.clickItemCafeId
             //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
             Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.value.toString())
         }
-        myUniverseListAdapter.data = mutableListOf(
-            "혜리는 카페",
-            "혜리는 귀염뽀잒 카페",
-            "혜리는 카페",
-            "혜리는 귀염뽀잒 카페",
-            "혜리는 카페",
-            "혜리는 귀염뽀잒 카페",
-            "혜리는 카페",
-            "혜리는 귀염뽀잒 카페",
-            "혜리는 카페",
-            "혜리는 귀염뽀잒 카페"
-        )
+
+        myUniverseListAdapter.data = dummyMyUniverse()
+        isZeroUniverse(myUniverseListAdapter.data.size)
         myUniverseListAdapter.notifyDataSetChanged()
     }
 
-    private fun observeItemClick(context: Context) {
+    private fun dummyMyUniverse() :MutableList<MyUniverse>{
+        return  mutableListOf(
+            MyUniverse(2,"폠슈펨수펨슈너구리","dddd"),
+            MyUniverse(3,"폠슈펨수펨슈너구리","dddd"),
+            MyUniverse(4,"폠슈펨수펨슈너구리","dddd"),
+            MyUniverse(7,"폠슈펨수펨슈너구리","dddd"),
+            MyUniverse(6,"폠슈펨수펨슈너구리","dddd")
+        )
+    }
+
+    private fun isZeroUniverse(universeCount:Int){
+        if(universeCount==0){
+            binding.bottomSheetUniverse.clUniverseNoSelected.visibility=View.VISIBLE
+        }
+    }
+
+    private fun observeItemClick() {
+        deleteUniverseDialog= ConfirmAlertDialog(requireContext(),3).create()
         universeBottomSheetViewModel.deleteUniverse.observe(
             viewLifecycleOwner,
             Observer { deleteUniverse ->
-
                 if (deleteUniverse) {
                     Log.e("deleteUniverse1", deleteUniverse.toString())
                     deleteUniverseDialog
@@ -192,7 +194,8 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
             })
     }
 
-    private fun observeItemDelete(context: Context) {
+    private fun observeItemDelete() {
+        confirmDeleteDialog= ConfirmAlertDialog(requireContext(),2).create()
         universeBottomSheetViewModel.confirmDelete.observe(viewLifecycleOwner,
             Observer { confirmDelete ->
                 if (confirmDelete) {
@@ -200,11 +203,12 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
                     confirmDeleteDialog
                         .show{
                             universeBottomSheetViewModel.setConfirmDeleteClick()
+                            requestDeleteMyUniverse()
+                            myUniverseListAdapter.notifyItemRemoved(myUniverseListAdapter.clickItemPosition)
                             confirmDeleteDialog.dismiss()
                         }
                     Log.e("confirmDelete", confirmDelete.toString())
                 }
-
             })
     }
 
@@ -224,9 +228,20 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
+
+    private fun requestDeleteMyUniverse(){
+        lifecycleScope.launch {
+            DataStore(requireContext()).getToken.collect {
+                universeBottomSheetViewModel.requestDeleteUniverse(it!!)
+                Log.e("requestDeleteMyUniverse",universeBottomSheetViewModel.clickCafeId.value!!.toString())
+            }
+        }
+    }
+
     private fun loading() {
         universeViewModel.isLoading()
         binding.imgLoading.playAnimation()
+
     }
 
     companion object {
