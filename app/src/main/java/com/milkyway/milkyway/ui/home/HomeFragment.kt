@@ -204,8 +204,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
             val cafeName = data?.getStringExtra("cafeName")
             val cafeAddress = data?.getStringExtra("cafeAddress")
-            val longitude = data?.getStringExtra("longitude")
-            val latitude = data?.getStringExtra("latitude")
+            val longitude = data?.getDoubleExtra("longitude",-1.1)
+            val latitude = data?.getDoubleExtra("latitude",-1.1)
             Log.d("agwegawegw",cafeName.toString()+cafeAddress.toString()+longitude.toString()+latitude.toString())
         }
     }
