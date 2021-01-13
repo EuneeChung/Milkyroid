@@ -1,6 +1,5 @@
 package com.milkyway.milkyway.data.model
 
-import com.google.gson.annotations.SerializedName
 
 data class ResponseCafeDetail (
     val status : Int,
@@ -21,8 +20,6 @@ data class CafeInfo(
     val businessHours : String,
     val cafePhoneNum : String,
     val cafeLink : String,
-    @SerializedName("hasCafe.id")
-    val hasCafeId : Int,
     val honeyTip : List<Int>
 )
 
