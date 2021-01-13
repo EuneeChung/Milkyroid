@@ -105,12 +105,12 @@ class MyReportFragment : Fragment() {
             }
         }
         myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
-//            if(it.cancel.isEmpty()&&it.cancel.isEmpty()&&it.cancel.isEmpty()){
-//                binding.clMyreport.visibility = View.GONE
-//                binding.clMyreportEmpty.visibility = View.VISIBLE
-//                Log.d("로그", "전체 없음")
-//            }
-//            else{
+            if(it.cancel.isEmpty()&&it.cancel.isEmpty()&&it.cancel.isEmpty()){
+                binding.clMyreport.visibility = View.GONE
+                binding.clMyreportEmpty.visibility = View.VISIBLE
+                Log.d("로그", "전체 없음")
+            }
+            else{
                 cancelAdapter.datas = it.cancel   // 서버데이터 들어감
                 if(it.cancel.isEmpty()){
                     binding.tvMyreportCancel.visibility = View.GONE
@@ -134,7 +134,7 @@ class MyReportFragment : Fragment() {
                     Log.d("로그", "완료 없음")
                 }
                 doneAdapter.notifyDataSetChanged()
-//            }
+            }
         })
     }
 
