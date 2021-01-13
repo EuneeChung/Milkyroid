@@ -7,6 +7,7 @@ import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundCafe
 import com.milkyway.milkyway.data.model.RequestCafeId
 import com.milkyway.milkyway.data.model.ResponseAddUniverse
+import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.naver.maps.geometry.LatLng
@@ -76,6 +77,9 @@ object MarkerDrawer {
         binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), cafeList[index].businessHours)
         if (cafeList[index].isUniversed) {
             binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
+            binding.btnAddUniverse.setOnClickListener{
+                deleteUniverse(index)
+            }
             binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
             binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
         } else {
@@ -116,6 +120,31 @@ object MarkerDrawer {
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()
                         cafeList[index].isUniversed = true
+                        cafeList[index].universeCount = it.data.universeCount
+                    } ?: Log.d("request", response.body().toString())
+            }
+        })
+    }
+
+    private fun deleteUniverse(index : Int) {
+        val call: Call<ResponseDeleteUniverse> = RetrofitBuilder.service.deleteUniverseMarker(token, cafeList[index].id)
+        call.enqueue(object : Callback<ResponseDeleteUniverse> {
+            override fun onFailure(call: Call<ResponseDeleteUniverse>, t: Throwable) {
+                Log.d("response", t.localizedMessage!!)
+            }
+            override fun onResponse(
+                call: Call<ResponseDeleteUniverse>,
+                response: Response<ResponseDeleteUniverse>
+            ) {
+                Log.d("request", response.body().toString())
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
+                        binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe)
+                        binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
+                        binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
+                        binding.tvLikeCount.text = it.data.universeCount.toString()
+                        cafeList[index].isUniversed = false
                         cafeList[index].universeCount = it.data.universeCount
                     } ?: Log.d("request", response.body().toString())
             }

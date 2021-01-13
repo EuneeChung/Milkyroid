@@ -37,6 +37,12 @@ interface MilkyWayService {
         @Body body : RequestCafeId
     ) : Call<ResponseAddUniverse>
 
+    @DELETE("universe/{cafeId}")
+    fun deleteUniverseMarker(
+        @Header("token") token : String,
+        @Path("cafeId") cafeId : Int
+    ) : Call<ResponseDeleteUniverse>
+
     // UniverseFragment
     @GET("universe/universeHome")
     suspend fun universe(
