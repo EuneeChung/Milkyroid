@@ -1,12 +1,18 @@
 package com.milkyway.milkyway.ui.modify.request
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivityRequestModificationsBinding
+import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
+import com.milkyway.milkyway.util.DataStore
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class RequestModificationsActivity : AppCompatActivity() {
     private val requestModificationsViewModel : RequestModificationsViewModel by viewModels()
@@ -35,12 +41,22 @@ class RequestModificationsActivity : AppCompatActivity() {
 
     private fun clickBtnRequest(binding:ActivityRequestModificationsBinding){
         binding.btnRequest.setOnClickListener {
-//            ConfirmAlertDialog(this,1).show(null)
+            ConfirmAlertDialog(this,1).create().show{ requestModify()}
         }
     }
-    private fun clickBtnBack(binding:ActivityRequestModificationsBinding){
+    private fun clickBtnBack(binding:ActivityRequestModificationsBinding) {
         binding.barModificationRequest.imgBack.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun requestModify() {
+        lifecycleScope.launch {
+            DataStore(this@RequestModificationsActivity).getToken.collect{
+                Log.e("token",it!!)
+                val modifications =requestModificationsViewModel.modifications.value
+                requestModificationsViewModel.requestModifications(it!!, modifications!!,10)
+            }
         }
     }
 }
