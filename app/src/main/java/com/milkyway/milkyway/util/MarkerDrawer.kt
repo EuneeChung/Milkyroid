@@ -1,24 +1,36 @@
 package com.milkyway.milkyway.util
 
+import android.util.Log
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundCafe
+import com.milkyway.milkyway.data.model.RequestCafeId
+import com.milkyway.milkyway.data.model.ResponseAddUniverse
+import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 object MarkerDrawer {
 
     private val markers = mutableListOf<Marker>()
     private lateinit var cafeList: List<AroundCafe>
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var token : String
+    private lateinit var clickListener: () -> Unit
 
-    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>) {
+    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String, onClick: () -> Unit) {
         binding = initBinding
         cafeList = list
+        token = initToken
+        clickListener = onClick
         clear()
     }
 
@@ -43,12 +55,12 @@ object MarkerDrawer {
         }
     }
 
-    fun setClickListener(onClick: () -> Unit) {
+    fun setClickListener() {
         for (i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
                 cardData(i)
-                onClick()
+                clickListener()
                 true
             }
         }
@@ -64,34 +76,85 @@ object MarkerDrawer {
     private fun cardData(index: Int) {
         binding.tvCafeName.text = cafeList[index].cafeName
         binding.tvAddress.text = cafeList[index].cafeAddress
-        binding.tvCafeHour.text = String.format(
-            binding.tvCafeHour.context.getString(R.string.home_cafe_hour),
-            cafeList[index].businessHours
-        )
+        binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), cafeList[index].businessHours)
         if (cafeList[index].isUniversed) {
             binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
-            binding.tvLikeCount.setTextColor(
-                getColor(
-                    binding.tvLikeCount.context,
-                    R.color.blue_3320a6
-                )
-            )
-            val bold = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
-            binding.tvLikeCount.typeface = bold
+            binding.btnAddUniverse.setOnClickListener{
+                deleteUniverse(index)
+            }
+            binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
+            binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
         } else {
             binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe)
+            binding.btnAddUniverse.setOnClickListener{
+                addUniverse(index)
+            }
             binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.gray_97))
-            val regular =
-                ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_regular)
-            binding.tvLikeCount.typeface = regular
+            binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_regular)
         }
         binding.tvLikeCount.text = cafeList[index].universeCount.toString()
     }
 
     fun drawMarkers(map: NaverMap) {
         for (marker in markers) {
-            marker.isHideCollidedMarkers = true
             marker.map = map
         }
+    }
+
+    private fun addUniverse(index : Int) {
+        val body = RequestCafeId(cafeId = cafeList[index].id)
+        val call: Call<ResponseAddUniverse> = RetrofitBuilder.service.addMyUniverseHome(token, body)
+        call.enqueue(object : Callback<ResponseAddUniverse> {
+            override fun onFailure(call: Call<ResponseAddUniverse>, t: Throwable) {
+                Log.d("response", t.localizedMessage!!)
+            }
+            override fun onResponse(
+                call: Call<ResponseAddUniverse>,
+                response: Response<ResponseAddUniverse>
+            ) {
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
+                        binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
+                        binding.btnAddUniverse.setOnClickListener{
+                            deleteUniverse(index)
+                        }
+                        binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.blue_3320a6))
+                        binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
+                        binding.tvLikeCount.text = it.data.universeCount.toString()
+                        markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
+                        cafeList[index].isUniversed = true
+                        cafeList[index].universeCount = it.data.universeCount
+                    } ?: Log.d("request", response.body().toString())
+            }
+        })
+    }
+
+    private fun deleteUniverse(index : Int) {
+        val call: Call<ResponseDeleteUniverse> = RetrofitBuilder.service.deleteUniverseMarker(token, cafeList[index].id)
+        call.enqueue(object : Callback<ResponseDeleteUniverse> {
+            override fun onFailure(call: Call<ResponseDeleteUniverse>, t: Throwable) {
+                Log.d("response", t.localizedMessage!!)
+            }
+            override fun onResponse(
+                call: Call<ResponseDeleteUniverse>,
+                response: Response<ResponseDeleteUniverse>
+            ) {
+                response.takeIf { it.isSuccessful }
+                    ?.body()
+                    ?.let {
+                        binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe)
+                        binding.btnAddUniverse.setOnClickListener{
+                            addUniverse(index)
+                        }
+                        binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.gray_97))
+                        binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
+                        binding.tvLikeCount.text = it.data.universeCount.toString()
+                        markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
+                        cafeList[index].isUniversed = false
+                        cafeList[index].universeCount = it.data.universeCount
+                    } ?: Log.d("request", response.body().toString())
+            }
+        })
     }
 }

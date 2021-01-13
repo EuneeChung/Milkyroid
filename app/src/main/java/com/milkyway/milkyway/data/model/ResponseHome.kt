@@ -14,10 +14,10 @@ data class HomeCafe(
 data class AroundCafe(
     val id: Int,
     val cafeName: String,
-    val universeCount : Int,
+    var universeCount : Int,
     val longitude: Double,
     val latitude: Double,
     val cafeAddress: String,
     val businessHours: String,
-    val isUniversed: Boolean
+    var isUniversed: Boolean
 )

@@ -39,7 +39,8 @@ class CafeSearchViewModel : ViewModel() {
                                             cafeName = response.body()!!.data[i].cafeName,
                                             cafeAddress = response.body()!!.data[i].cafeAddress,
                                             longitude = response.body()!!.data[i].longitude,
-                                            latitude = response.body()!!.data[i].latitude
+                                            latitude = response.body()!!.data[i].latitude,
+                                            businessHours = response.body()!!.data[i].businessHours
                                         )
                                     )
                                 }

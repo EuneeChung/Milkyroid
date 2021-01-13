@@ -1,13 +1,17 @@
 package com.milkyway.milkyway.ui.home.homesearch
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,18 +34,39 @@ class CafeSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cafe_search)
-
+        val clCafeSearch = findViewById<ConstraintLayout>(R.id.cl_cafe_search)
         val rv = findViewById<RecyclerView>(R.id.rv_place_search)
         val btn_back = findViewById<ImageView>(R.id.btn_back_search)
+        val emptyView = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
 
         cafeSearchAdapter = CafeSearchAdapter()
         rv.adapter = cafeSearchAdapter
         createData()
 
+        //뒤로가기
         btn_back.setOnClickListener {
             onBackPressed()
         }
 
+        //키보드 숨기기
+        clCafeSearch.setOnClickListener {
+            hideKeyboard()
+        }
+        emptyView.setOnClickListener {
+            hideKeyboard()
+        }
+        rv.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                hideKeyboard()
+                return false
+            }
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+            }
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+            }
+        })
+
+        //recycler 에서 아이템 클릭
         cafeSearchAdapter.itemClick=object :CafeSearchAdapter.ItemClick{
             override fun onClick(view: View, position: Int) {
                 val intent = Intent()
@@ -49,10 +74,20 @@ class CafeSearchActivity : AppCompatActivity() {
                 intent.putExtra("cafeAddress",cafeSearchAdapter.datas[position].cafeAddress)
                 intent.putExtra("longitude",cafeSearchAdapter.datas[position].longitude)
                 intent.putExtra("latitude",cafeSearchAdapter.datas[position].latitude)
+                intent.putExtra("businessHours",cafeSearchAdapter.datas[position].businessHours)
                 setResult(3,intent)
                 finish()
             }
         }
+    }
+
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun createData() {
@@ -60,6 +95,8 @@ class CafeSearchActivity : AppCompatActivity() {
         val deleteButton: ImageView = findViewById<ImageView>(R.id.btn_place_search_delete)
         val searchBox: EditText = findViewById<EditText>(R.id.et_place_search)
         val emptyView: ConstraintLayout = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
+        val emptyImage: ImageView = findViewById<ImageView>(R.id.img_empty_place_search)
+        val emptyText: TextView= findViewById<TextView>(R.id.tv_empty_place_search)
         val recyclerView = findViewById<RecyclerView>(R.id.rv_place_search)
 
         val viewModel = ViewModelProvider(this).get(CafeSearchViewModel::class.java)
@@ -68,12 +105,16 @@ class CafeSearchActivity : AppCompatActivity() {
                 Log.d("d", it.toString())
                 if (it.size>0) {
                     emptyView.visibility=View.INVISIBLE
+                    emptyImage.visibility=View.INVISIBLE
+                    emptyText.visibility=View.INVISIBLE
                     recyclerView.visibility=View.VISIBLE
                     cafeSearchAdapter.datas = it
                     cafeSearchAdapter.notifyDataSetChanged()
                 } else {
-                    emptyView.visibility=View.VISIBLE
+                    emptyImage.visibility=View.VISIBLE
+                    emptyText.visibility=View.VISIBLE
                     recyclerView.visibility=View.INVISIBLE
+                    this.hideKeyboard()
                 }
             }
         })
@@ -96,6 +137,8 @@ class CafeSearchActivity : AppCompatActivity() {
 
         //검색어 삭제
         deleteButton.setOnClickListener {
+            emptyView.visibility=View.VISIBLE
+            recyclerView.visibility=View.INVISIBLE
             searchBox.text.clear()
             cafeSearchAdapter.clearData()
         }

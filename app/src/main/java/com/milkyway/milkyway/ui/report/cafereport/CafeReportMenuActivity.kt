@@ -1,11 +1,14 @@
 package com.milkyway.milkyway.ui.report.cafereport
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.milkyway.milkyway.R
@@ -23,6 +26,11 @@ class CafeReportMenuActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_cafe_report_menu)
         binding.cafeReportMenuActivity = this
         binding.lifecycleOwner = this
+
+        binding.clCafeReportMenu.setOnClickListener {
+            hideKeyboard()
+        }
+
 
         val preference: SharedPreferences = this.getSharedPreferences("temp", Context.MODE_PRIVATE)
         val editor:SharedPreferences.Editor= preference.edit()
@@ -82,6 +90,15 @@ class CafeReportMenuActivity : AppCompatActivity() {
             setResult(1,intent)
             finish()
         }
+    }
+
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun makeCommaNumber(input: Int): String {
