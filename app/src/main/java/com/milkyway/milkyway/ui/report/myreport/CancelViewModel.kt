@@ -25,10 +25,6 @@ class CancelViewModel : ViewModel () {
         _deleteCancel.value = !_deleteCancel.value!!
     }
 
-//    fun setConfirmDeleteClick() {
-//        _confirmDelete.value = !_confirmDelete.value!!
-//    }
-
     fun requestDeleteCancel(token: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             Log.e("클릭카페아이디", clickCafeId.value.toString())
