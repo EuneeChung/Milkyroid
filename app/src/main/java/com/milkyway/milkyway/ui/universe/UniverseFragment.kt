@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
@@ -42,7 +43,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         binding.universeViewModel = universeViewModel
         binding.bottomSheetUniverse.universeViewModel = universeViewModel
         binding.lifecycleOwner = this
-        //뷰모델 연결
 
         setMap()
         setNicknameText(binding)
@@ -77,18 +77,23 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setNicknameText(binding: FragmentUniverseBinding) {
-        lifecycleScope.launch {
-            DataStore(requireContext()).getNickname.collect {
-                binding.tvNickname.text = it!!
-                binding.bottomSheetUniverse.tvNoSelectedItems.text = String.format(requireContext().getString(R.string.universe_no_selected_items), it!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            whenResumed {
+                DataStore(requireContext()).getNickname.collect {
+                    binding.tvNickname.text = it!!
+                    binding.bottomSheetUniverse.tvNoSelectedItems.text = String.format(
+                        requireContext().getString(R.string.universe_no_selected_items), it)
+                }
             }
         }
     }
 
     private fun setMarkerData() {
-        lifecycleScope.launch {
-            DataStore(requireContext()).getToken.collect {
-                universeViewModel.requestUniverseData(it!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            whenResumed {
+                DataStore(requireContext()).getToken.collect {
+                    universeViewModel.requestUniverseData(it!!)
+                }
             }
         }
     }
@@ -241,5 +246,4 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         setMarkerData()
         universeViewModel.setMapClick()
     }
-
 }
