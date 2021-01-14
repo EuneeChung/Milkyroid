@@ -20,6 +20,7 @@ import com.milkyway.milkyway.data.model.CafeMenu
 import com.milkyway.milkyway.databinding.ActivityCafeDetailBinding
 import com.milkyway.milkyway.ui.modify.ModifyActivity
 import com.milkyway.milkyway.util.DataStore
+import com.milkyway.milkyway.util.Toast
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,7 @@ class CafeDetailActivity : AppCompatActivity() {
     // 뷰모델 선언 (ktx 이용)
     // -> private val 변수명 : 해당ViewModel by viewModels() (In Activity)
     // -> private val 변수명 : 해당ViewModel by activityViewModels() (In Fragment)
-    private val cafedetailViewModel : CafeDetailViewModel by viewModels()
+    private val cafedetailViewModel: CafeDetailViewModel by viewModels()
 
     // 리사이클러뷰 적용
     val datas = mutableListOf<CafeMenu>()
@@ -40,14 +41,17 @@ class CafeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // ->Activity이름Binding = DataBindingUitl.setContentView(this, R.layout.레이아웃이름) eg) ActivityNickNameBinding
         // ->Fragment이름Binding = DataBindingUitl.setContentView(this, R.layout.레이아웃이름) eg) FragmentNickNameBinding
-        val binding :ActivityCafeDetailBinding= DataBindingUtil.setContentView(this, R.layout.activity_cafe_detail)
+        val binding: ActivityCafeDetailBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_cafe_detail)
 
         // layout에서 <data>에 선언한 viewModel에 연결
         binding.viewModel = cafedetailViewModel
         binding.lifecycleOwner = this
 
         cafeid = intent.extras!!.getInt("cafeId")
+        Log.d("cafeid", "${cafeid}")
 
+        loading(binding)
         setMenuData(binding)
         universeAddCancel(binding)
         showDetailTime(binding)
@@ -57,9 +61,13 @@ class CafeDetailActivity : AppCompatActivity() {
         clickGoToModify(binding)
     }
 
+    private fun loading(binding: ActivityCafeDetailBinding) {
+        binding.imgLoading.playAnimation()
+    }
+
     private fun setMenuData(binding: ActivityCafeDetailBinding) {
         // 어댑터에 context 객체를 파라미터로 전달
-        val menuAdapter= MenuAdapter(this, datas)
+        val menuAdapter = MenuAdapter(this, datas)
 
         binding.rvDetailMenu.adapter = menuAdapter
         binding.rvDetailMenu.layoutManager = LinearLayoutManager(this)
@@ -89,43 +97,59 @@ class CafeDetailActivity : AppCompatActivity() {
             num = it.universeCount
             Log.d("카운트1", "$num")
 
-            if(it.isUniversed == 0){
+            if (it.isUniversed == 0) {
                 binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
-                Log.d("시작1", cafedetailViewModel.isSelected.value.toString())
+                binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.gray_9a9792))
+                binding.btnDetailUniverse.setOnClickListener {
+                    requestAddUniverseData()
+                    Toast.customToast("나의 유니버스에 추가되었습니다", this)
+                    Log.d("추가", cafedetailViewModel.isSelected.value.toString())
+                }
             }
-            if(it.isUniversed == 1){
+            if (it.isUniversed == 1) {
                 binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
-                Log.d("시작2", cafedetailViewModel.isSelected.value.toString())
+                binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.blue_3320a6))
+                binding.btnDetailUniverse.setOnClickListener {
+                    requestDeleteUniverseData()
+                    Toast.customToast("나의 유니버스에서 삭제되었습니다", this)
+                    Log.d("삭제", cafedetailViewModel.isSelected.value.toString())
+                }
             }
 
-            if(it.honeyTip.any { it == 1 }){
+            if (it.honeyTip.any { it == 1 }) {
                 binding.tvDetailTip1.setTextColor(
-                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6)
+                )
                 binding.tvDetailTip1.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
-            if(it.honeyTip.any { it == 2 }){
+            if (it.honeyTip.any { it == 2 }) {
                 binding.tvDetailTip2.setTextColor(
-                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6)
+                )
                 binding.tvDetailTip2.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
-            if(it.honeyTip.any { it == 3 }){
+            if (it.honeyTip.any { it == 3 }) {
                 binding.tvDetailTip3.setTextColor(
-                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6)
+                )
                 binding.tvDetailTip3.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
-            if(it.honeyTip.any { it == 4 }){
+            if (it.honeyTip.any { it == 4 }) {
                 binding.tvDetailTip4.setTextColor(
-                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6)
+                )
                 binding.tvDetailTip4.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
-            if(it.honeyTip.any { it == 5 }){
+            if (it.honeyTip.any { it == 5 }) {
                 binding.tvDetailTip5.setTextColor(
-                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6)
+                )
                 binding.tvDetailTip5.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
-            if(it.honeyTip.any { it == 6 }){
+            if (it.honeyTip.any { it == 6 }) {
                 binding.tvDetailTip6.setTextColor(
-                    ContextCompat.getColorStateList(this, R.color.blue_3320a6))
+                    ContextCompat.getColorStateList(this, R.color.blue_3320a6)
+                )
                 binding.tvDetailTip6.setBackgroundResource(R.drawable.border_blue_honeytip)
             }
         })
@@ -147,18 +171,25 @@ class CafeDetailActivity : AppCompatActivity() {
         cafedetailViewModel.isSelected.observe(this, Observer { isSelected ->
             isSelected?.let {
                 if (isSelected) {
-                    binding.tvDetailUniverseCount.text = num.toString()
-                    binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
-                    Log.d("카운트2", "$num")
-                    num -= 1
-//                    requestAddUniverseData()
-                } else {
-                    binding.tvDetailUniverseCount.text = num.toString()
-                    binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
-                    Log.d("카운트22", "$num")
                     num += 1
-                    requestDeleteUniverseData()
+                    binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
+                    binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.blue_3320a6))
+                    Toast.customToast("나의 유니버스에 추가되었습니다", this)
+                    Log.d("추가카운트", "$num")
+                    binding.btnDetailUniverse.setOnClickListener{
+                        requestDeleteUniverseData()
+                    }
+                } else {
+                    num -= 1
+                    binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
+                    binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.gray_9a9792))
+                    Toast.customToast("나의 유니버스에서 삭제되었습니다", this)
+                    Log.d("삭제카운트", "$num")
+                    binding.btnDetailUniverse.setOnClickListener{
+                        requestAddUniverseData()
+                    }
                 }
+                binding.tvDetailUniverseCount.text = num.toString()
                 binding.tvDetailShowcount.text =
                     "${binding.tvDetailUniverseCount.text}" + "명의 밀키들이 유니버스에 추가했어요"
             }
@@ -166,17 +197,22 @@ class CafeDetailActivity : AppCompatActivity() {
     }
 
     // 유니버스 삭제 서버통신
-    private fun requestDeleteUniverseData(){
+    private fun requestDeleteUniverseData() {
+        cafedetailViewModel.isLoading()
         lifecycleScope.launch {
             DataStore(this@CafeDetailActivity).getToken.collect {
                 cafedetailViewModel.requestDeleteUniverse(it!!, cafeid)
-                Log.e("requestDeleteUniverse", cafedetailViewModel.cafeId.value!!.toString())
+                Log.e(
+                    "requestDeleteUniverse",
+                    cafedetailViewModel.cafeId.value!!.toString()
+                )
             }
         }
     }
 
     // 유니버스 추가 서버통신
-    private fun requestAddUniverseData(){
+    private fun requestAddUniverseData() {
+        cafedetailViewModel.isLoading()
         lifecycleScope.launch {
             DataStore(this@CafeDetailActivity).getToken.collect {
                 cafedetailViewModel.requestAddUniverse(it!!, cafeid)
@@ -218,15 +254,15 @@ class CafeDetailActivity : AppCompatActivity() {
     }
 
     // 뒤로가기 버튼 이벤트
-    private fun setBack(binding: ActivityCafeDetailBinding){
+    private fun setBack(binding: ActivityCafeDetailBinding) {
         binding.btnDetailBack.setOnClickListener { finish() }
     }
 
     // 정보수정요청 이동
-    private fun clickGoToModify(binding: ActivityCafeDetailBinding){
+    private fun clickGoToModify(binding: ActivityCafeDetailBinding) {
         binding.btnDetailFixrequest.setOnClickListener {
             val intent = Intent(this, ModifyActivity::class.java)
-                intent.putExtra("cafeId",2)
+            intent.putExtra("cafeId", 2)
             startActivity(intent)
         }
     }

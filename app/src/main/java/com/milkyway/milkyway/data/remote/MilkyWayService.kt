@@ -108,7 +108,7 @@ interface MilkyWayService {
 
     // universe add - CafeDetail
     @POST("universe/universeOn")
-    fun addUniverseDetail(
+    suspend fun addUniverseDetail(
         @Header("token") token : String,
         @Body body : RequestCafeId
     ) : ResponseAddUniverse

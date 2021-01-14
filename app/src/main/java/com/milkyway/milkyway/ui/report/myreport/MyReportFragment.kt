@@ -1,6 +1,5 @@
 package com.milkyway.milkyway.ui.report.myreport
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -20,7 +19,6 @@ import com.milkyway.milkyway.data.model.CancelReport
 import com.milkyway.milkyway.data.model.DoneReport
 import com.milkyway.milkyway.data.model.IngReport
 import com.milkyway.milkyway.databinding.FragmentMyReportBinding
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
@@ -94,12 +92,6 @@ class MyReportFragment : Fragment() {
 
         setReportData(binding)
         observeItemClickDelete()
-
-        binding.tvMyreportIng.setOnClickListener{
-            val intent = Intent(view.context, CafeDetailActivity::class.java)
-            intent.putExtra("cafeId",4)
-            startActivity(intent)
-        }
     }
 
 
