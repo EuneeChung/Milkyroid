@@ -1,6 +1,6 @@
 package com.milkyway.milkyway.util
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.view.View
@@ -28,9 +28,9 @@ object MarkerDrawer {
     private lateinit var cafeList : List<AroundCafe>
     private lateinit var binding : FragmentHomeBinding
     private lateinit var token : String
-    private lateinit var context : Context
+    private lateinit var context : Activity
 
-    fun init(initBinding : FragmentHomeBinding, list : List<AroundCafe>, initToken : String, initContext : Context) {
+    fun init(initBinding : FragmentHomeBinding, list : List<AroundCafe>, initToken : String, initContext : Activity) {
         binding = initBinding
         cafeList = list
         token = initToken
@@ -141,6 +141,7 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
                         cafeList[index].isUniversed = true
                         cafeList[index].universeCount = it.data.universeCount
+                        Toast.customToast("나의 유니버스에 추가되었습니다", context)
                     } ?: Log.d("response", response.body().toString())
             }
         })
@@ -169,6 +170,7 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
                         cafeList[index].isUniversed = false
                         cafeList[index].universeCount = it.data.universeCount
+                        Toast.customToast("나의 유니버스에서 삭제되었습니다", context)
                     } ?: Log.d("response", response.body().toString())
             }
         })
