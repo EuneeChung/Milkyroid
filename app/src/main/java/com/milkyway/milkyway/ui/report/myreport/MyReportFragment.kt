@@ -1,36 +1,28 @@
 package com.milkyway.milkyway.ui.report.myreport
 
-import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.CafeMenu
 import com.milkyway.milkyway.data.model.CancelReport
 import com.milkyway.milkyway.data.model.DoneReport
 import com.milkyway.milkyway.data.model.IngReport
-import com.milkyway.milkyway.databinding.ActivityCafeDetailBinding
 import com.milkyway.milkyway.databinding.FragmentMyReportBinding
-import com.milkyway.milkyway.ui.report.detail.MenuAdapter
+import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
-import com.milkyway.milkyway.util.UUID
-import com.milkyway.milkyway.util.UUID.uuid
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -38,7 +30,9 @@ import kotlinx.coroutines.launch
 class MyReportFragment : Fragment() {
     // 뷰모델 선언 (ktx 이용)
     private val myReportViewModel: MyReportViewModel by activityViewModels()
+    private val cancelViewModel: CancelViewModel by activityViewModels()
     private lateinit var binding: FragmentMyReportBinding
+    private lateinit var deleteCancelDialog: ConfirmAlertDialog
 
     // 리사이클러뷰 적용
     lateinit var cancelAdapter: CancelAdapter
@@ -71,7 +65,8 @@ class MyReportFragment : Fragment() {
 
         // 어댑터에 context 객체를 파라미터로 전달
 //        cancelAdapter = CancelAdapter(view.context)   // 더미
-        cancelAdapter = CancelAdapter(view.context, canceldatas)
+//        cancelAdapter = CancelAdapter(view.context, canceldatas)    // 아이템 바인딩 안한버전
+        cancelAdapter = CancelAdapter()
         ingAdapter = IngAdapter(view.context, ingdatas)
         doneAdapter= DoneAdapter(view.context, donedatas)
 
@@ -79,11 +74,17 @@ class MyReportFragment : Fragment() {
         binding.rvMyreportIng.adapter = ingAdapter
         binding.rvMyreportDone.adapter = doneAdapter
 
-
 //        binding.rvMyreportCancel.layoutManager = LinearLayoutManager(binding.rvMyreportCancel.context)    // 이것도 가능
         binding.rvMyreportCancel.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvMyreportIng.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvMyreportDone.layoutManager = LinearLayoutManager(view.context)
+
+        cancelAdapter.onClickListener =  {
+            cancelViewModel.setDeleteCancelClick()
+            cancelViewModel.clickCafeId.value = cancelAdapter.clickItemCafeId
+            // 여기서 리사이클러뷰의 어떤 아이템이 클릭 됬는지 알아냄
+//            Log.e("삭제아이템클릭", cancelViewModel.deleteCancel.value.toString())
+        }
 
 //        myReportViewModel.RVCancel()
 //        myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
@@ -92,6 +93,13 @@ class MyReportFragment : Fragment() {
 //        })
 
         setReportData(binding)
+        observeItemClickDelete()
+
+        binding.tvMyreportIng.setOnClickListener{
+            val intent = Intent(view.context, CafeDetailActivity::class.java)
+            intent.putExtra("cafeId",4)
+            startActivity(intent)
+        }
     }
 
 
@@ -105,13 +113,14 @@ class MyReportFragment : Fragment() {
             }
         }
         myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
-            if(it.cancel.isEmpty()&&it.cancel.isEmpty()&&it.cancel.isEmpty()){
-                binding.clMyreport.visibility = View.GONE
-                binding.clMyreportEmpty.visibility = View.VISIBLE
-                Log.d("로그", "전체 없음")
-            }
-            else{
-                cancelAdapter.datas = it.cancel   // 서버데이터 들어감
+//            if(it.cancel.isEmpty()&&it.cancel.isEmpty()&&it.cancel.isEmpty()){
+//                binding.clMyreport.visibility = View.GONE
+//                binding.clMyreportEmpty.visibility = View.VISIBLE
+//                Log.d("로그", "전체 없음")
+//            }
+//            else{
+//                cancelAdapter.datas = it.cancel
+                cancelAdapter.datas = it.cancel as MutableList<CancelReport>   // 서버데이터 들어감
                 if(it.cancel.isEmpty()){
                     binding.tvMyreportCancel.visibility = View.GONE
                     binding.rvMyreportCancel.visibility = View.GONE
@@ -134,7 +143,7 @@ class MyReportFragment : Fragment() {
                     Log.d("로그", "완료 없음")
                 }
                 doneAdapter.notifyDataSetChanged()
-            }
+//            }
         })
     }
 
@@ -156,5 +165,42 @@ class MyReportFragment : Fragment() {
             R.font.roboto_regular, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         binding.tvMyreportTitle.text = spannableString
+    }
+
+    // 아이템 누르면 선택(true)되어 서버통신하고 다이얼로그 띄움
+    private fun observeItemClickDelete() {
+        deleteCancelDialog= ConfirmAlertDialog(requireContext(),4).create()
+        cancelViewModel.deleteCancel.observe(
+            viewLifecycleOwner, Observer { deleteCancel ->
+                if (deleteCancel) {
+                    requestDeleteCancelData()
+                    Log.e("삭제팝업", deleteCancel.toString())
+                    deleteCancelDialog.show {
+                        cancelViewModel.setDeleteCancelClick()
+                        cancelAdapter.notifyItemRemoved(cancelAdapter.clickItemPosition)
+                        Log.e("삭제됨", deleteCancel.toString())
+                    }
+                }
+                else{
+                    deleteCancelDialog.dismiss()
+                }
+            })
+    }
+
+    private fun requestDeleteCancelData(){
+        lifecycleScope.launch {
+            DataStore(requireContext()).getToken.collect {
+                cancelViewModel.requestDeleteCancel(it!!)
+//                cancelViewModel.requestDeleteCancel("")
+
+                Log.e("requestDeleteCancelData", cancelViewModel.clickCafeId.value!!.toString())
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setReportData(binding)
+        observeItemClickDelete()
     }
 }

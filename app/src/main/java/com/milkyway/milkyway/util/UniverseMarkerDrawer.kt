@@ -1,8 +1,12 @@
 package com.milkyway.milkyway.util
 
+import android.content.Context
+import android.content.Intent
+import android.view.View
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
+import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
@@ -13,10 +17,13 @@ object UniverseMarkerDrawer {
     private val markers = mutableListOf<Marker>()
     private lateinit var universeList: List<AroundUniverse>
     private lateinit var binding: FragmentUniverseBinding
+    private lateinit var context : Context
 
-    fun init(initBinding: FragmentUniverseBinding, list: List<AroundUniverse>) {
+
+    fun init(initBinding: FragmentUniverseBinding, list: List<AroundUniverse>, initContext: Context) {
         binding = initBinding
         universeList = list
+        context = initContext
         clear()
     }
 
@@ -58,6 +65,15 @@ object UniverseMarkerDrawer {
         binding.tvCafeName.text = universeList[index].cafeName
         binding.tvAddress.text = universeList[index].cafeAddress
         binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), universeList[index].businessHours)
+
+        if(universeList[index].businessHours!=null) binding.tvCafeHour.visibility = View.VISIBLE
+        else binding.tvCafeHour.visibility = View.GONE
+
+        binding.layoutUniverseCard.setOnClickListener {
+            val intent = Intent(context, CafeDetailActivity::class.java)
+            intent.putExtra("cafeId", universeList[index].id)
+            context.startActivity(intent)
+        }
     }
 
     fun drawMarkers(map: NaverMap) {

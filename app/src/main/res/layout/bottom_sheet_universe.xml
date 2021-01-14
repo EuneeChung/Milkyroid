@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View" />
         <variable
-            name="vm"
-            type="String" />
+            name="universeViewModel"
+            type="com.milkyway.milkyway.ui.universe.UniverseViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +50,9 @@
             android:layout_marginBottom="10dp"
             android:fadingEdge="none"
             android:overScrollMode="never"
-            app:layoutManager="LinearLayoutManager"
+            android:visibility="@{universeViewModel.markers.size()>0 ? View.VISIBLE : View.GONE}"
+            setListItem="@{universeViewModel.markers}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +63,11 @@
             android:id="@+id/cl_universe_no_selected"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="invisible"
+            android:visibility="@{universeViewModel.markers.size()>0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_universe_bottom_sheet"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_universe_bottom_sheet">
+            app:layout_constraintEnd_toEndOf="parent" >
 
             <ImageView
                 android:id="@+id/img_no_selected_items"
@@ -78,16 +81,14 @@
 
             <TextView
                 android:id="@+id/tv_no_selected_items"
-                android:layout_width="212dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:layout_marginBottom="153dp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:textColor="@color/gray_9a9792"
                 android:textSize="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/img_no_selected_items"
                 app:layout_constraintStart_toStartOf="@+id/img_no_selected_items"
                 app:layout_constraintTop_toBottomOf="@+id/img_no_selected_items" />

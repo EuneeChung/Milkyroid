@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.milkyway.milkyway.R
@@ -57,17 +58,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setNicknameText(binding : FragmentHomeBinding) {
-        lifecycleScope.launch {
-            DataStore(requireContext()).getNickname.collect {
-                binding.tvNickname.text = String.format(requireContext().getString(R.string.home_nickname), it!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            whenResumed {
+                DataStore(requireContext()).getNickname.collect {
+                    binding.tvNickname.text =
+                        String.format(requireContext().getString(R.string.home_nickname), it!!)
+                }
             }
         }
     }
 
     private fun setMarkerData() {
-        lifecycleScope.launch {
-            DataStore(requireContext()).getToken.collect {
-                homeViewModel.requestHomeData(it!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            whenResumed {
+                DataStore(requireContext()).getToken.collect {
+                    homeViewModel.requestHomeData(it!!)
+                }
             }
         }
     }
@@ -148,18 +154,20 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun drawMarkers(p0 : NaverMap) {
-        homeViewModel.markers.observe(this, Observer{ markers->
+        homeViewModel.markers.observe(this, Observer { markers->
             markers?.let {
-                lifecycleScope.launch {
-                    DataStore(requireContext()).getToken.collect {
-                        MarkerDrawer.apply {
-                            init(binding, markers, it!!) {
-                                homeViewModel.setMarkerClick()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    whenResumed {
+                        DataStore(requireContext()).getToken.collect {
+                            MarkerDrawer.apply {
+                                init(binding, markers, it!!, requireActivity())
+                                setMarkers()
+                                setIcon()
+                                setClickListener {
+                                    homeViewModel.setMarkerClick()
+                                }
+                                drawMarkers(p0)
                             }
-                            setMarkers()
-                            setIcon()
-                            setClickListener()
-                            drawMarkers(p0)
                         }
                     }
                 }
@@ -185,17 +193,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         for (index in 0 until binding.chipGroup.childCount) {
             val chip: Chip = binding.chipGroup.getChildAt(index) as Chip
             chip.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) list.add(index+1)
-                else list.remove(index+1)
-                lifecycleScope.launch {
-                    DataStore(requireContext()).getToken.collect {
-                        if(list.size==1) {
-                            loading()
-                            homeViewModel.requestCategoryData(it!!, list[0])
-                        }
-                        else if(list.size==0) {
-                            loading()
-                            homeViewModel.requestHomeData(it!!)
+                if (isChecked) {
+                    chip.setTextAppearanceResource(R.style.HomeChipSelectedTheme)
+                    list.add(index + 1)
+                } else {
+                    chip.setTextAppearanceResource(R.style.HomeChipTheme)
+                    list.remove(index + 1)
+                }
+                loading()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    whenResumed {
+                        DataStore(requireContext()).getToken.collect {
+                            if (list.size == 1) homeViewModel.requestCategoryData(it!!, list[0])
+                            else if (list.size == 0) homeViewModel.requestHomeData(it!!)
                         }
                     }
                 }

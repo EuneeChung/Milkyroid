@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.MyUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
@@ -29,7 +29,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var universeBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var deleteUniverseDialog: ConfirmAlertDialog
     private lateinit var confirmDeleteDialog: ConfirmAlertDialog
-    private lateinit var myUniverseListAdapter: MyUniverseListAdapter
+    private lateinit var myUniverseListAdapter: UniverseAdapter
 
     private val universeBottomSheetViewModel: UniverseBottomSheetViewModel by activityViewModels()
     private val universeViewModel : UniverseViewModel by activityViewModels()
@@ -41,8 +41,8 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding = FragmentUniverseBinding.inflate(layoutInflater, container, false)
         binding.universeViewModel = universeViewModel
+        binding.bottomSheetUniverse.universeViewModel = universeViewModel
         binding.lifecycleOwner = this
-        //뷰모델 연결
 
         setMap()
         setNicknameText(binding)
@@ -77,18 +77,23 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setNicknameText(binding: FragmentUniverseBinding) {
-        lifecycleScope.launch {
-            DataStore(requireContext()).getNickname.collect {
-                binding.tvNickname.text = it!!
-                binding.bottomSheetUniverse.tvNoSelectedItems.text = String.format(requireContext().getString(R.string.universe_no_selected_itmes), it!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            whenResumed {
+                DataStore(requireContext()).getNickname.collect {
+                    binding.tvNickname.text = it!!
+                    binding.bottomSheetUniverse.tvNoSelectedItems.text = String.format(
+                        requireContext().getString(R.string.universe_no_selected_items), it)
+                }
             }
         }
     }
 
     private fun setMarkerData() {
-        lifecycleScope.launch {
-            DataStore(requireContext()).getToken.collect {
-                universeViewModel.requestUniverseData(it!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            whenResumed {
+                DataStore(requireContext()).getToken.collect {
+                    universeViewModel.requestUniverseData(it!!)
+                }
             }
         }
     }
@@ -97,6 +102,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         setUiSetting(p0)
         setLocation(p0)
         setCurrentLocationIcon(p0)
+        setCameraMoveListener(p0)
         setLightness(p0)
         setMapClickListener(p0)
         drawMarkers(p0)
@@ -139,6 +145,12 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
+    private fun setCameraMoveListener(p0 : NaverMap) {
+        p0.addOnCameraChangeListener { _, _ ->
+            if(p0.locationTrackingMode == LocationTrackingMode.NoFollow) universeViewModel.notCompassIcon()
+        }
+    }
+
     private fun setMapClickListener(p0 : NaverMap) {
         p0.setOnMapClickListener { _, _ ->
             universeViewModel.setMapClick()
@@ -147,7 +159,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMyUniverseListView() {
-        myUniverseListAdapter = MyUniverseListAdapter()
+        myUniverseListAdapter = UniverseAdapter(requireContext())
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
 
         myUniverseListAdapter.onClickListener =  {
@@ -155,26 +167,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
             universeBottomSheetViewModel.clickCafeId.value=myUniverseListAdapter.clickItemCafeId
             //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
             Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.value.toString())
-        }
-
-        myUniverseListAdapter.data = dummyMyUniverse()
-        isZeroUniverse(myUniverseListAdapter.data.size)
-        myUniverseListAdapter.notifyDataSetChanged()
-    }
-
-    private fun dummyMyUniverse() :MutableList<MyUniverse>{
-        return  mutableListOf(
-            MyUniverse(2,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(3,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(4,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(7,"폠슈펨수펨슈너구리","dddd"),
-            MyUniverse(6,"폠슈펨수펨슈너구리","dddd")
-        )
-    }
-
-    private fun isZeroUniverse(universeCount:Int){
-        if(universeCount==0){
-            binding.bottomSheetUniverse.clUniverseNoSelected.visibility=View.VISIBLE
         }
     }
 
@@ -217,7 +209,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         universeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
                 UniverseMarkerDrawer.apply {
-                    init(binding, markers)
+                    init(binding, markers, requireContext())
                     setMarkers()
                     setIcon()
                     setClickListener{
@@ -242,7 +234,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun loading() {
         universeViewModel.isLoading()
         binding.imgLoading.playAnimation()
-
     }
 
     companion object {
@@ -255,5 +246,4 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         setMarkerData()
         universeViewModel.setMapClick()
     }
-
 }
