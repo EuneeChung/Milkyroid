@@ -159,7 +159,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     whenResumed {
                         DataStore(requireContext()).getToken.collect {
                             MarkerDrawer.apply {
-                                init(binding, markers, it!!, requireContext())
+                                init(binding, markers, it!!, requireActivity())
                                 setMarkers()
                                 setIcon()
                                 setClickListener {
