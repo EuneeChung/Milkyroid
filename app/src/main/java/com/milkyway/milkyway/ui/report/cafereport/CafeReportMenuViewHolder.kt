@@ -19,6 +19,5 @@ class CafeReportMenuViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView
         cafeMenuPrice.text = data.cafeMenuPrice
         cafeMenuCategory.text = data.cafeMenuCategory
     }
-
 }
 

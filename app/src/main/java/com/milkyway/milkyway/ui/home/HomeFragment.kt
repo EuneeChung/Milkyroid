@@ -192,8 +192,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         for (index in 0 until binding.chipGroup.childCount) {
             val chip: Chip = binding.chipGroup.getChildAt(index) as Chip
             chip.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) list.add(index+1)
-                else list.remove(index+1)
+                if (isChecked) {
+                    chip.setTextAppearanceResource(R.style.HomeChipSelectedTheme)
+                    list.add(index + 1)
+                } else {
+                    chip.setTextAppearanceResource(R.style.HomeChipTheme)
+                    list.remove(index + 1)
+                }
                 loading()
                 viewLifecycleOwner.lifecycleScope.launch {
                     whenResumed {
