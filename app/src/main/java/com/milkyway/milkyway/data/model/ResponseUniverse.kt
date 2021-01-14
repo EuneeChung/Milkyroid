@@ -15,7 +15,7 @@ data class AroundUniverse(
     val id: Int,
     val cafeName: String,
     val cafeAddress: String,
-    val businessHours: String,
+    val businessHours: String?,
     val longitude: Double,
     val latitude: Double
 )
