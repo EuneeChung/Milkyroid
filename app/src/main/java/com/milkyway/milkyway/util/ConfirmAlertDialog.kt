@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.universe
+package com.milkyway.milkyway.util
 
 import android.app.AlertDialog
 import android.content.Context
@@ -55,7 +55,6 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             requestFeature(Window.FEATURE_NO_TITLE)
         }
-
     }
 
     fun create():ConfirmAlertDialog {
@@ -90,7 +89,10 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
             }
             UNIVERSE_CONFIRM -> {
                 bindingWithoutTitle.btnDialogConfirm.apply {
-                    setOnClickListener { listener() }
+                    setOnClickListener {
+                        listener()
+                        dismiss()
+                    }
                 }
             }
             UNIVERSE_DELETE -> {
@@ -98,7 +100,11 @@ class ConfirmAlertDialog(context: Context, val type:Int) {
                     setOnClickListener { dismiss() }
                 }
                 bindingDeleteUniverse.btnPositive.apply {
-                    setOnClickListener { listener() }
+                    setOnClickListener {
+                        listener()
+                        dismiss()
+                    }
+
                 }
             }
             CANCEL_DELETE -> {

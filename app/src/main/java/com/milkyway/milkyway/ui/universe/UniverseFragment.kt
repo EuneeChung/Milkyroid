@@ -13,6 +13,7 @@ import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
+import com.milkyway.milkyway.util.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
 import com.naver.maps.map.LocationTrackingMode
