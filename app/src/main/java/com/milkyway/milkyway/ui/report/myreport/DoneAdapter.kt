@@ -2,7 +2,6 @@ package com.milkyway.milkyway.ui.report.myreport
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.DoneReport
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 
 class DoneAdapter (private val context : Context, var datas : List<DoneReport>) : RecyclerView.Adapter<DoneAdapter.DoneViewHolder>() {
 

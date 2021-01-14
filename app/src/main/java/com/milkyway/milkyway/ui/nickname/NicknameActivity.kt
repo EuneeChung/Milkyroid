@@ -2,6 +2,7 @@ package com.milkyway.milkyway.ui.nickname
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -21,12 +22,22 @@ import kotlinx.coroutines.launch
 class NicknameActivity : AppCompatActivity() {
     private val nicknameViewModel : NicknameViewModel by viewModels()
     private val dataStore = DataStore(this)
+    var state = 0
+    var access = 0
+    private var mytoken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding : ActivityNicknameBinding = DataBindingUtil.setContentView(this, R.layout.activity_nickname)
         binding.nicknameViewModel = nicknameViewModel
         binding.lifecycleOwner = this
+
+        if (intent.hasExtra("ACCESS") && intent.hasExtra("TOKEN")) {
+            access = intent.extras!!.getInt("ACCESS")
+            mytoken = intent.extras!!.getString("TOKEN").toString()
+        } else {
+            Log.d("state", "처음부터 시작한 경우")
+        }
 
         setClickListener(binding)
         setObserve()
@@ -35,7 +46,12 @@ class NicknameActivity : AppCompatActivity() {
 
     private fun setClickListener(binding : ActivityNicknameBinding) {
         binding.btnSignUp.setOnClickListener{
-            nicknameViewModel.signUp(UUID.uuid(this@NicknameActivity))
+            if(access != state){
+                nicknameViewModel.changeNickname(token = mytoken, newNickName = nicknameViewModel.nickname.toString())
+            }
+            else{
+                nicknameViewModel.signUp(UUID.uuid(this@NicknameActivity))
+            }
         }
     }
 

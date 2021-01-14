@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.milkyway.milkyway.ui.report.detail.CafeDetailViewModel"/>
+            type="com.milkyway.milkyway.ui.detail.CafeDetailViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

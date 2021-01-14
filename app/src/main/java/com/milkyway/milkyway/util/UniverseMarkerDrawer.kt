@@ -6,7 +6,7 @@ import android.view.View
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker

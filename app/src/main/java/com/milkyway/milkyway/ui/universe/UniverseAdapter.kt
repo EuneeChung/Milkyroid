@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.BR
 import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.ItemMyuniverseBottomsheetBinding
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 
 class UniverseAdapter(private val context : Context) : RecyclerView.Adapter<UniverseAdapter.MyUniverseListViewHolder>(){
     var list = emptyList<AroundUniverse>()
