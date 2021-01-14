@@ -1,6 +1,7 @@
 package com.milkyway.milkyway.util
 
 import android.util.Log
+import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import com.milkyway.milkyway.R
@@ -26,11 +27,10 @@ object MarkerDrawer {
     private lateinit var token : String
     private lateinit var clickListener: () -> Unit
 
-    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String, onClick: () -> Unit) {
+    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String) {
         binding = initBinding
         cafeList = list
         token = initToken
-        clickListener = onClick
         clear()
     }
 
@@ -55,12 +55,12 @@ object MarkerDrawer {
         }
     }
 
-    fun setClickListener() {
+    fun setClickListener(onClick:() -> Unit) {
         for (i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
                 cardData(i)
-                clickListener()
+                onClick()
                 true
             }
         }
@@ -68,15 +68,20 @@ object MarkerDrawer {
 
     private fun markerClick(index: Int) {
         setIcon()
-        if (cafeList[index].isUniversed) markers[index].icon =
-            OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
-        else markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
+        if (cafeList[index].isUniversed)
+            markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
+        else
+            markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
     }
 
     private fun cardData(index: Int) {
         binding.tvCafeName.text = cafeList[index].cafeName
         binding.tvAddress.text = cafeList[index].cafeAddress
         binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), cafeList[index].businessHours)
+
+        if(cafeList[index].businessHours!=null) binding.tvCafeHour.visibility = View.VISIBLE
+        else binding.tvCafeHour.visibility = View.GONE
+
         if (cafeList[index].isUniversed) {
             binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
             binding.btnAddUniverse.setOnClickListener{
@@ -92,6 +97,7 @@ object MarkerDrawer {
             binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.gray_97))
             binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_regular)
         }
+
         binding.tvLikeCount.text = cafeList[index].universeCount.toString()
     }
 
@@ -125,7 +131,7 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
                         cafeList[index].isUniversed = true
                         cafeList[index].universeCount = it.data.universeCount
-                    } ?: Log.d("request", response.body().toString())
+                    } ?: Log.d("response", response.body().toString())
             }
         })
     }
@@ -153,7 +159,7 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
                         cafeList[index].isUniversed = false
                         cafeList[index].universeCount = it.data.universeCount
-                    } ?: Log.d("request", response.body().toString())
+                    } ?: Log.d("response", response.body().toString())
             }
         })
     }

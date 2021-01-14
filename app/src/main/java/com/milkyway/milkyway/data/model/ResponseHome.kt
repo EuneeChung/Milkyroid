@@ -18,6 +18,6 @@ data class AroundCafe(
     val longitude: Double,
     val latitude: Double,
     val cafeAddress: String,
-    val businessHours: String,
+    val businessHours: String?,
     var isUniversed: Boolean
 )
