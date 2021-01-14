@@ -45,7 +45,6 @@ class MyReportFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentMyReportBinding.inflate(inflater, container, false)
         // onViewCreated에서도 binding에 접근할 수 있도록 위처럼 lateinit으로 처리
         // val binding : FragmentMyReportBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_report, container, false)
