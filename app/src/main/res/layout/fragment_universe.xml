@@ -83,7 +83,7 @@
                 android:onClick="@{() -> universeViewModel.compassIcon()}"
                 app:layout_constraintBottom_toTopOf="@id/layout_universe_card"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:marginBottom="@{universeViewModel.card}"
+                app:marginBottom="@{universeViewModel.card ? @dimen/margin_card_on : @dimen/margin_card_off}"
                 tools:ignore="ContentDescription" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="@{universeViewModel.card? View.VISIBLE : View.GONE}"
-                android:background="@drawable/border_white_fill_top_round_8"
+                android:background="@drawable/border_white_fill_top_round_12"
                 android:paddingBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" >

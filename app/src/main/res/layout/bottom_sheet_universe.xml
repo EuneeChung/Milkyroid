@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="450dp"
         app:behavior_peekHeight="84dp"
-        android:background="@drawable/border_white_fill_round_12"
+        android:background="@drawable/border_white_fill_top_round_12"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <ImageView
