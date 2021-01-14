@@ -41,10 +41,17 @@ class CafeDetailViewModel : ViewModel() {
     val universeCountData : LiveData<AddUniverseData>
         get() = _universeCountData
 
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading : LiveData<Boolean>
+        get() = _loading
+
 //    private val _universeCount = MutableLiveData<Int>()
 //    val universeCount : LiveData<Int>
 //        get() = _universeCount
 
+    fun isLoading() {
+        _loading.value = true
+    }
 
     fun clickCheck() {
         _isSelected.value = !_isSelected.value!!
@@ -61,16 +68,17 @@ class CafeDetailViewModel : ViewModel() {
             _recyclerListData.postValue(cafeDetail.data.menu)
             _cafeInfoData.postValue(cafeDetail.data.cafeInfo)
             Log.d("테스트", "${cafeDetail.data.cafeInfo}")
+            _loading.postValue(false)
 
 
-            if(cafeDetail.data.cafeInfo.isUniversed == 0){
-                    _isSelected.postValue(false)
-                        Log.d("뷰모델임false", _isSelected.postValue(false).toString())
-                    }
-            if(cafeDetail.data.cafeInfo.isUniversed == 1){
-                        _isSelected.postValue(true)
-                Log.d("뷰모델임true", _isSelected.value.toString())
-                    }
+//            if(cafeDetail.data.cafeInfo.isUniversed == 0){
+//                    _isSelected.postValue(false)
+//                        Log.d("뷰모델임false", _isSelected.postValue(false).toString())
+//                    }
+//            if(cafeDetail.data.cafeInfo.isUniversed == 1){
+//                        _isSelected.postValue(true)
+//                Log.d("뷰모델임true", _isSelected.value.toString())
+//                    }
 
             // .value로 하면 Cannot invoke setValue on a background thread 오류 남
             // mutablelivedata가 setvalue시 메인스레드에서 해야하는데 백그라운드 스레드에서 했을 경우 나오는 에러임
@@ -90,6 +98,8 @@ class CafeDetailViewModel : ViewModel() {
         try {
             val delete = RetrofitBuilder.service.deleteUniverse(token, cafeId)
             Log.d("response universedel", delete.toString())
+            _isSelected.postValue(false)
+            _loading.postValue(false)
 
         } catch (e: HttpException) {
             Log.d("request", e.toString())
@@ -100,8 +110,11 @@ class CafeDetailViewModel : ViewModel() {
     fun requestAddUniverse(token: String, cafeId:Int) = viewModelScope.launch(Dispatchers.IO) {
 
         try {
-            val add = RetrofitBuilder.service.addUniverseDetail(token, RequestCafeId(cafeId))
+//            val body = RequestCafeId(cafeId = cafeId)
+            val add = RetrofitBuilder.service.addUniverseDetail(token, RequestCafeId(cafeId = cafeId))
             Log.d("response universeadd", add.toString())
+            _isSelected.postValue(true)
+            _loading.postValue(false)
 
         } catch (e: HttpException) {
             Log.d("request", e.toString())

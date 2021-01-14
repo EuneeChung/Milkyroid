@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.milkyway.milkyway.ui.report.detail.CafeDetailViewModel"/>
@@ -53,9 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_regular"
             android:gravity="center"
-            android:textColor="@color/blue_3320a6"
+            android:textColor="@color/gray_9a9792"
             android:textFontWeight="700"
             android:textSize="8dp"
             app:layout_constraintEnd_toEndOf="@+id/btn_detail_universe"
@@ -496,6 +497,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/img_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.loading? View.VISIBLE : View.GONE}"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/milky_way_loading"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
