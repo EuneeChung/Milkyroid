@@ -214,7 +214,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
                 myUniverseListAdapter.data = markers as MutableList<AroundUniverse>
                 myUniverseListAdapter.notifyDataSetChanged()
                 UniverseMarkerDrawer.apply {
-                    init(binding, markers)
+                    init(binding, markers, requireContext())
                     setMarkers()
                     setIcon()
                     setClickListener{
