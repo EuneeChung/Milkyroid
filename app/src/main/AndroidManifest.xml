@@ -20,7 +20,7 @@
             android:label="@string/title_activity_modification_request" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="wm0wh5u32a" />
+            android:value="" />
 
         <activity android:name=".ui.splash.SplashActivity"/>
         <activity
