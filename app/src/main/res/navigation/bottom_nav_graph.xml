@@ -11,37 +11,36 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_reportFragment"
-            app:destination="@id/reportFragment"
-            app:popUpTo="@id/homeFragment" />
+            android:id="@+id/action_homeFragment_to_homeSearchResult"
+            app:destination="@id/homeSearchResult" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/homeSearchResult"
+        android:name="com.milkyway.milkyway.ui.home.HomeSearchResultFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home_search_result">
+        <action
+            android:id="@+id/action_homeSearchResult_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.milkyway.milkyway.ui.report.ReportFragment"
         android:label="ReportFragment"
-        tools:layout="@layout/fragment_report">
-        <action
-            android:id="@+id/action_reportFragment_to_universeFragment"
-            app:destination="@id/universeFragment"
-            app:popUpTo="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_report" />
 
     <fragment
         android:id="@+id/universeFragment"
         android:name="com.milkyway.milkyway.ui.universe.UniverseFragment"
         android:label="fragment_universe"
-        tools:layout="@layout/fragment_universe">
-        <action
-            android:id="@+id/action_universeFragment_to_settingFragment"
-            app:destination="@id/settingFragment"
-            app:popUpTo="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_universe" />
 
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.milkyway.milkyway.ui.setting.SettingFragment"
         android:label="SettingFragment" />
+
 
 </navigation>

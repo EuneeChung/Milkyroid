@@ -2,6 +2,7 @@ package com.milkyway.milkyway.util
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
@@ -64,6 +65,9 @@ object UniverseMarkerDrawer {
         binding.tvCafeName.text = universeList[index].cafeName
         binding.tvAddress.text = universeList[index].cafeAddress
         binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), universeList[index].businessHours)
+
+        if(universeList[index].businessHours!=null) binding.tvCafeHour.visibility = View.VISIBLE
+        else binding.tvCafeHour.visibility = View.GONE
 
         binding.layoutUniverseCard.setOnClickListener {
             val intent = Intent(context, CafeDetailActivity::class.java)
