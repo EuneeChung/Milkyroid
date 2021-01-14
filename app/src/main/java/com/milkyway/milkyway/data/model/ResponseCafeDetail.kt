@@ -9,8 +9,7 @@ data class ResponseCafeDetail (
 
 data class CafeDetail(
     val cafeInfo : CafeInfo,
-    val menu : List<CafeMenu>,
-    val universeCount : Int
+    val menu : List<CafeMenu>
 )
 
 data class CafeInfo(
@@ -20,6 +19,8 @@ data class CafeInfo(
     val businessHours : String,
     val cafePhoneNum : String,
     val cafeLink : String,
+    val universeCount : Int,
+    val isUniversed : Int,
     val honeyTip : List<Int>
 )
 
