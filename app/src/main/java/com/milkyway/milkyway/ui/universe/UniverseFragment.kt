@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
@@ -29,7 +28,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private lateinit var universeBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var deleteUniverseDialog: ConfirmAlertDialog
     private lateinit var confirmDeleteDialog: ConfirmAlertDialog
-    private lateinit var myUniverseListAdapter: MyUniverseListAdapter
+    private lateinit var myUniverseListAdapter: UniverseAdapter
 
     private val universeBottomSheetViewModel: UniverseBottomSheetViewModel by activityViewModels()
     private val universeViewModel : UniverseViewModel by activityViewModels()
@@ -41,6 +40,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding = FragmentUniverseBinding.inflate(layoutInflater, container, false)
         binding.universeViewModel = universeViewModel
+        binding.bottomSheetUniverse.universeViewModel = universeViewModel
         binding.lifecycleOwner = this
         //뷰모델 연결
 
@@ -154,7 +154,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMyUniverseListView() {
-        myUniverseListAdapter = MyUniverseListAdapter()
+        myUniverseListAdapter = UniverseAdapter()
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
 
         myUniverseListAdapter.onClickListener =  {
@@ -162,14 +162,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
             universeBottomSheetViewModel.clickCafeId.value=myUniverseListAdapter.clickItemCafeId
             //여기서 리싸이클러뷰의 어떤 친구가 클릭 됬는지 알아내야함
             Log.e("deleteUniverse2", universeBottomSheetViewModel.deleteUniverse.value.toString())
-        }
-
-        isZeroUniverse(myUniverseListAdapter.data.size)
-    }
-
-    private fun isZeroUniverse(universeCount:Int){
-        if(universeCount==0){
-            binding.bottomSheetUniverse.clUniverseNoSelected.visibility=View.VISIBLE
         }
     }
 
@@ -211,10 +203,8 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun drawMarkers(p0 : NaverMap) {
         universeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
-                myUniverseListAdapter.data = markers as MutableList<AroundUniverse>
-                myUniverseListAdapter.notifyDataSetChanged()
                 UniverseMarkerDrawer.apply {
-                    init(binding, markers)
+                    init(binding, markers, requireContext())
                     setMarkers()
                     setIcon()
                     setClickListener{

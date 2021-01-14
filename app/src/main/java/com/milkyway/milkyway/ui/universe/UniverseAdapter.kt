@@ -4,11 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.milkyway.milkyway.BR
 import com.milkyway.milkyway.data.model.AroundUniverse
 import com.milkyway.milkyway.databinding.ItemMyuniverseBottomsheetBinding
 
-class MyUniverseListAdapter() : RecyclerView.Adapter<MyUniverseListAdapter.MyUniverseListViewHolder>(){
-    var data = mutableListOf<AroundUniverse>()
+class UniverseAdapter : RecyclerView.Adapter<UniverseAdapter.MyUniverseListViewHolder>(){
+    var list = emptyList<AroundUniverse>()
     lateinit var onClickListener: ()-> Unit
     var clickItemCafeId=0
     var clickItemPosition=0
@@ -18,16 +19,20 @@ class MyUniverseListAdapter() : RecyclerView.Adapter<MyUniverseListAdapter.MyUni
         return MyUniverseListViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: MyUniverseListViewHolder, position: Int) {
-        holder.bind(data[position],position)
+        holder.bind(list[position],position)
+    }
+
+    internal fun setData(list : List<AroundUniverse>) {
+        this.list = list
+        notifyDataSetChanged()
     }
 
     inner class MyUniverseListViewHolder(val binding:ItemMyuniverseBottomsheetBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data:AroundUniverse,position: Int){
-            binding.itemTvCafenameMyuniverse.text=data.cafeName
-            binding.itemTvAddressMyuniverse.text=data.cafeAddress
+            binding.setVariable(BR.cafe, data)
             binding.itemBtnDeleteMyuniverse.setOnClickListener{
                 Log.e("data.cafeId",data.id.toString())
                 clickItemCafeId=data.id

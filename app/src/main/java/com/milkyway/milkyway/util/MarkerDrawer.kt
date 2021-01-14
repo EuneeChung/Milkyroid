@@ -1,6 +1,9 @@
 package com.milkyway.milkyway.util
 
+import android.app.Activity
+import android.content.Intent
 import android.util.Log
+import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import com.milkyway.milkyway.R
@@ -10,6 +13,7 @@ import com.milkyway.milkyway.data.model.ResponseAddUniverse
 import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
+import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
@@ -21,16 +25,16 @@ import retrofit2.Response
 object MarkerDrawer {
 
     private val markers = mutableListOf<Marker>()
-    private lateinit var cafeList: List<AroundCafe>
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var cafeList : List<AroundCafe>
+    private lateinit var binding : FragmentHomeBinding
     private lateinit var token : String
-    private lateinit var clickListener: () -> Unit
+    private lateinit var context : Activity
 
-    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String, onClick: () -> Unit) {
+    fun init(initBinding : FragmentHomeBinding, list : List<AroundCafe>, initToken : String, initContext : Activity) {
         binding = initBinding
         cafeList = list
         token = initToken
-        clickListener = onClick
+        context = initContext
         clear()
     }
 
@@ -55,12 +59,12 @@ object MarkerDrawer {
         }
     }
 
-    fun setClickListener() {
+    fun setClickListener(onClick:() -> Unit) {
         for (i in 0 until markers.size) {
             markers[i].setOnClickListener {
                 markerClick(i)
                 cardData(i)
-                clickListener()
+                onClick()
                 true
             }
         }
@@ -68,15 +72,20 @@ object MarkerDrawer {
 
     private fun markerClick(index: Int) {
         setIcon()
-        if (cafeList[index].isUniversed) markers[index].icon =
-            OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
-        else markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
+        if (cafeList[index].isUniversed)
+            markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
+        else
+            markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
     }
 
     private fun cardData(index: Int) {
         binding.tvCafeName.text = cafeList[index].cafeName
         binding.tvAddress.text = cafeList[index].cafeAddress
         binding.tvCafeHour.text = String.format(binding.tvCafeHour.context.getString(R.string.home_cafe_hour), cafeList[index].businessHours)
+
+        if(cafeList[index].businessHours!=null) binding.tvCafeHour.visibility = View.VISIBLE
+        else binding.tvCafeHour.visibility = View.GONE
+
         if (cafeList[index].isUniversed) {
             binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
             binding.btnAddUniverse.setOnClickListener{
@@ -92,7 +101,14 @@ object MarkerDrawer {
             binding.tvLikeCount.setTextColor(getColor(binding.tvLikeCount.context, R.color.gray_97))
             binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_regular)
         }
+
         binding.tvLikeCount.text = cafeList[index].universeCount.toString()
+
+        binding.layoutHomeCard.setOnClickListener {
+            val intent = Intent(context, CafeDetailActivity::class.java)
+            intent.putExtra("cafeId", cafeList[index].id)
+            context.startActivity(intent)
+        }
     }
 
     fun drawMarkers(map: NaverMap) {
@@ -125,7 +141,8 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
                         cafeList[index].isUniversed = true
                         cafeList[index].universeCount = it.data.universeCount
-                    } ?: Log.d("request", response.body().toString())
+                        Toast.customToast("나의 유니버스에 추가되었습니다", context)
+                    } ?: Log.d("response", response.body().toString())
             }
         })
     }
@@ -153,7 +170,8 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
                         cafeList[index].isUniversed = false
                         cafeList[index].universeCount = it.data.universeCount
-                    } ?: Log.d("request", response.body().toString())
+                        Toast.customToast("나의 유니버스에서 삭제되었습니다", context)
+                    } ?: Log.d("response", response.body().toString())
             }
         })
     }
