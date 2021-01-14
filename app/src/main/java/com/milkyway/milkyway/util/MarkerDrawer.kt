@@ -25,8 +25,7 @@ object MarkerDrawer {
     private lateinit var cafeList: List<AroundCafe>
     private lateinit var binding: FragmentHomeBinding
     private lateinit var token : String
-    private lateinit var clickListener: () -> Unit
-
+    
     fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String) {
         binding = initBinding
         cafeList = list
