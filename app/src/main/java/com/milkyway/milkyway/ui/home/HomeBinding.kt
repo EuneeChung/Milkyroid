@@ -23,10 +23,9 @@ object HomeBinding {
 
     @BindingAdapter("app:marginBottom")
     @JvmStatic
-    fun setMarginBottom(view: View, status: Boolean) {
+    fun setMarginBottom(view: View, dimen: Float) {
         val layoutParams=view.layoutParams as ViewGroup.MarginLayoutParams
-        if(status){layoutParams.bottomMargin=20}
-        else{layoutParams.bottomMargin=260}
+        layoutParams.bottomMargin=dimen.toInt()
         view.layoutParams=layoutParams
     }
 }
