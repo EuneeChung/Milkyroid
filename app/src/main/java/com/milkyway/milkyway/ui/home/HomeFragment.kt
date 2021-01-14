@@ -10,13 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
-import com.milkyway.milkyway.ui.home.homesearch.CafeSearchActivity
-import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer
@@ -90,8 +89,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         homeBottomSheetBehavior=BottomSheetBehavior.from(binding.bottomsheetHome.root)
 
         binding.btnSearch.setOnClickListener {
-            val placeSearchIntent = Intent(context as MainActivity, CafeSearchActivity::class.java)
-            startActivityForResult(placeSearchIntent, CafeSearchActivity.REQUEST_CODE)
+            //TODO 네비게이션
+            view.findNavController().navigate(R.id.action_homeFragment_to_homeSearchResult)
+//            val placeSearchIntent = Intent(context as MainActivity, CafeSearchActivity::class.java)
+//            startActivityForResult(placeSearchIntent, CafeSearchActivity.REQUEST_CODE)
         }
 
     }
