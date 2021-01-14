@@ -41,6 +41,7 @@ class HomeResultActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding : ActivityHomeResultBinding
     private val marker = Marker()
     private lateinit var cafeData : AroundCafe
+    private var cafeIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +74,7 @@ class HomeResultActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.getDoubleExtra("latitude", 0.0),
             intent.getDoubleExtra("longitude", 0.0))
         cafeData = MarkerDrawer.findData(position)!!
-
+        cafeIndex = MarkerDrawer.findIndex(position)!!
 
         if (cafeData.isUniversed) {
             binding.btnAddUniverse.setBackgroundResource(R.drawable.btn_universe_added)
@@ -231,6 +232,7 @@ class HomeResultActivity : AppCompatActivity(), OnMapReadyCallback {
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()
                         marker.icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
+                        MarkerDrawer.updateData(cafeIndex)
                         Toast.customToast("나의 유니버스에서 추가되었습니다", this@HomeResultActivity)
                     } ?: Log.d("response", response.body().toString())
             }
@@ -259,6 +261,7 @@ class HomeResultActivity : AppCompatActivity(), OnMapReadyCallback {
                         binding.tvLikeCount.typeface = ResourcesCompat.getFont(binding.tvLikeCount.context, R.font.roboto_bold)
                         binding.tvLikeCount.text = it.data.universeCount.toString()
                         marker.icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
+                        MarkerDrawer.updateData(cafeIndex)
                         Toast.customToast("나의 유니버스에서 삭제되었습니다", this@HomeResultActivity)
                     } ?: Log.d("response", response.body().toString())
             }
