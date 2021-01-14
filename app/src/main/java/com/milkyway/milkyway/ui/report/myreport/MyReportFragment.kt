@@ -19,7 +19,7 @@ import com.milkyway.milkyway.data.model.CancelReport
 import com.milkyway.milkyway.data.model.DoneReport
 import com.milkyway.milkyway.data.model.IngReport
 import com.milkyway.milkyway.databinding.FragmentMyReportBinding
-import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
+import com.milkyway.milkyway.util.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

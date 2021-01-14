@@ -13,7 +13,7 @@ import com.milkyway.milkyway.databinding.ActivityModifyBinding
 import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.ui.modify.dialog.DeleteFragmentDialog
 import com.milkyway.milkyway.ui.modify.request.RequestModificationsActivity
-import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
+import com.milkyway.milkyway.util.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -62,9 +62,7 @@ class ModifyActivity : AppCompatActivity() {
         modifyViewModel.isDeleteClick.observe(this, Observer{ isDeleteClick->
             Log.e("isDeleteClick",isDeleteClick.toString())
             if(isDeleteClick) {
-                 ConfirmAlertDialog(this,1).create().show{
-                     Log.e("옵저버안이다!","여기 함수는 실행되나?")
-                     deleteLocation(cafeId)}
+                 ConfirmAlertDialog(this,1).create().show{ deleteLocation(cafeId)}
             }
         })
     }
