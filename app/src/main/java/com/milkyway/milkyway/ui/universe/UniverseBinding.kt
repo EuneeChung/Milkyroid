@@ -7,7 +7,7 @@ import com.milkyway.milkyway.data.model.AroundUniverse
 object UniverseBinding {
     @BindingAdapter("setListItem")
     @JvmStatic
-    fun setListItem(recyclerView : RecyclerView, searchList : List<AroundUniverse>?) {
-        if (recyclerView.adapter != null) with(recyclerView.adapter as UniverseAdapter) { searchList?.let{ setData(it) } }
+    fun setListItem(recyclerView : RecyclerView, universeList : MutableList<AroundUniverse>?) {
+        if (recyclerView.adapter != null) with(recyclerView.adapter as UniverseAdapter) { universeList?.let{ setData(it) } }
     }
 }
