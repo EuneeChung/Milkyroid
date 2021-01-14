@@ -70,6 +70,14 @@ object MarkerDrawer {
         }
     }
 
+    fun findData(position: LatLng) : AroundCafe? {
+        for(i in cafeList.indices) {
+            if (position.latitude == cafeList[i].latitude && position.longitude == cafeList[i].longitude)
+                return cafeList[i]
+        }
+        return null
+    }
+
     private fun markerClick(index: Int) {
         setIcon()
         if (cafeList[index].isUniversed)
