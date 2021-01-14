@@ -154,7 +154,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMyUniverseListView() {
-        myUniverseListAdapter = UniverseAdapter()
+        myUniverseListAdapter = UniverseAdapter(requireContext())
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
 
         myUniverseListAdapter.onClickListener =  {
