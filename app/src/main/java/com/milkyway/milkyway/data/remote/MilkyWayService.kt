@@ -50,11 +50,10 @@ interface MilkyWayService {
     ) : ResponseUniverse
 
     // CafeDetailActivity
-//    @GET("cafe/{cafeId}")
-    @GET("cafe/1781733731")
+    @GET("cafe/{cafeId}")
     suspend fun cafeDetail(
-        @Header("token") token : String
-//        @Path("cafeId") cafeId: Int
+        @Header("token") token : String,
+        @Path("cafeId") cafeId: Int
     ) : ResponseCafeDetail
 
     // ModifyActivity - Delete

@@ -33,6 +33,7 @@ class CafeDetailActivity : AppCompatActivity() {
     // 리사이클러뷰 적용
     val datas = mutableListOf<CafeMenu>()
     var num = 1 // 비동기 처리 때문에 일단 초기화
+    var cafeid = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,8 @@ class CafeDetailActivity : AppCompatActivity() {
         // layout에서 <data>에 선언한 viewModel에 연결
         binding.viewModel = cafedetailViewModel
         binding.lifecycleOwner = this
+
+        cafeid = intent.extras!!.getInt("cafeId")
 
         setMenuData(binding)
         universeAddCancel(binding)
@@ -64,7 +67,7 @@ class CafeDetailActivity : AppCompatActivity() {
         // 토큰값 얻어오며 서버요청
         lifecycleScope.launch {
             DataStore(this@CafeDetailActivity).getToken.collect {
-                cafedetailViewModel.requestDetailData(it!!)
+                cafedetailViewModel.requestDetailData(it!!, cafeId = cafeid)
             }
         }
         cafedetailViewModel.recyclerListData.observe(this, Observer {
@@ -166,8 +169,7 @@ class CafeDetailActivity : AppCompatActivity() {
     private fun requestDeleteUniverseData(){
         lifecycleScope.launch {
             DataStore(this@CafeDetailActivity).getToken.collect {
-                cafedetailViewModel.requestDeleteUniverse(it!!)
-//                cafedetailViewModel.requestDeleteUniverse("")
+                cafedetailViewModel.requestDeleteUniverse(it!!, cafeid)
                 Log.e("requestDeleteUniverse", cafedetailViewModel.cafeId.value!!.toString())
             }
         }
@@ -177,9 +179,7 @@ class CafeDetailActivity : AppCompatActivity() {
     private fun requestAddUniverseData(){
         lifecycleScope.launch {
             DataStore(this@CafeDetailActivity).getToken.collect {
-//                val cafeid =cafedetailViewModel.cafeId.value
-//                cafedetailViewModel.requestAddUniverse(it!!, cafeid!!)
-                cafedetailViewModel.requestAddUniverse(it!!, 1781733731)
+                cafedetailViewModel.requestAddUniverse(it!!, cafeid)
                 Log.e("requestAddUniverse", cafedetailViewModel.cafeId.value!!.toString())
             }
         }

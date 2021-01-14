@@ -55,9 +55,9 @@ class CafeDetailViewModel : ViewModel() {
     }
 
     // 서버 비동기 통신
-    fun requestDetailData(token : String) = viewModelScope.launch(Dispatchers.IO) {
+    fun requestDetailData(token : String, cafeId: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val cafeDetail = RetrofitBuilder.service.cafeDetail(token)
+            val cafeDetail = RetrofitBuilder.service.cafeDetail(token, cafeId)
             _recyclerListData.postValue(cafeDetail.data.menu)
             _cafeInfoData.postValue(cafeDetail.data.cafeInfo)
             Log.d("테스트", "${cafeDetail.data.cafeInfo}")
@@ -85,13 +85,10 @@ class CafeDetailViewModel : ViewModel() {
         }
     }
 
-    fun requestDeleteUniverse(token: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun requestDeleteUniverse(token: String, cafeId:Int) = viewModelScope.launch(Dispatchers.IO) {
 
         try {
-            val delete = RetrofitBuilder.service.deleteUniverse(
-//                token, cafeId.value!!)
-                token, 1781733731)  //21581453
-
+            val delete = RetrofitBuilder.service.deleteUniverse(token, cafeId)
             Log.d("response universedel", delete.toString())
 
         } catch (e: HttpException) {
@@ -104,7 +101,6 @@ class CafeDetailViewModel : ViewModel() {
 
         try {
             val add = RetrofitBuilder.service.addUniverseDetail(token, RequestCafeId(cafeId))
-
             Log.d("response universeadd", add.toString())
 
         } catch (e: HttpException) {
