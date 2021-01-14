@@ -80,7 +80,20 @@ class CafeDetailActivity : AppCompatActivity() {
             binding.tvDetailCall.text = it.cafePhoneNum
             binding.tvDetailWeb.text = it.cafeLink
 
-            val tips:List<Int> = it.honeyTip
+            binding.tvDetailUniverseCount.text = it.universeCount.toString()
+            binding.tvDetailShowcount.text = it.universeCount.toString() + "명의 밀키들이 유니버스에 추가했어요"
+            Log.d("확인", "${binding.tvDetailUniverseCount.text}")
+            num = it.universeCount
+            Log.d("카운트1", "$num")
+
+            if(it.isUniversed == 0){
+                binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
+                Log.d("시작1", cafedetailViewModel.isSelected.value.toString())
+            }
+            if(it.isUniversed == 1){
+                binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
+                Log.d("시작2", cafedetailViewModel.isSelected.value.toString())
+            }
 
             if(it.honeyTip.any { it == 1 }){
                 binding.tvDetailTip1.setTextColor(
@@ -114,13 +127,13 @@ class CafeDetailActivity : AppCompatActivity() {
             }
         })
 
-        cafedetailViewModel.universeCount.observe(this, Observer {
-            binding.tvDetailUniverseCount.text = it.toString()
-            binding.tvDetailShowcount.text = it.toString() + "명의 밀키들이 유니버스에 추가했어요"
-            Log.d("확인", "${binding.tvDetailUniverseCount.text}")
-            num = it
-            Log.d("카운트1", "$num")
-        })
+//        cafedetailViewModel.universeCount.observe(this, Observer {
+//            binding.tvDetailUniverseCount.text = it.toString()
+//            binding.tvDetailShowcount.text = it.toString() + "명의 밀키들이 유니버스에 추가했어요"
+//            Log.d("확인", "${binding.tvDetailUniverseCount.text}")
+//            num = it
+//            Log.d("카운트1", "$num")
+//        })
 
     }
 
@@ -131,20 +144,45 @@ class CafeDetailActivity : AppCompatActivity() {
         cafedetailViewModel.isSelected.observe(this, Observer { isSelected ->
             isSelected?.let {
                 if (isSelected) {
-                    num += 1
                     binding.tvDetailUniverseCount.text = num.toString()
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
                     Log.d("카운트2", "$num")
-                } else {
                     num -= 1
+//                    requestAddUniverseData()
+                } else {
                     binding.tvDetailUniverseCount.text = num.toString()
-                    Log.d("카운트22", "$num")
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
+                    Log.d("카운트22", "$num")
+                    num += 1
+                    requestDeleteUniverseData()
                 }
                 binding.tvDetailShowcount.text =
                     "${binding.tvDetailUniverseCount.text}" + "명의 밀키들이 유니버스에 추가했어요"
             }
         })
+    }
+
+    // 유니버스 삭제 서버통신
+    private fun requestDeleteUniverseData(){
+        lifecycleScope.launch {
+            DataStore(this@CafeDetailActivity).getToken.collect {
+                cafedetailViewModel.requestDeleteUniverse(it!!)
+//                cafedetailViewModel.requestDeleteUniverse("")
+                Log.e("requestDeleteUniverse", cafedetailViewModel.cafeId.value!!.toString())
+            }
+        }
+    }
+
+    // 유니버스 추가 서버통신
+    private fun requestAddUniverseData(){
+        lifecycleScope.launch {
+            DataStore(this@CafeDetailActivity).getToken.collect {
+//                val cafeid =cafedetailViewModel.cafeId.value
+//                cafedetailViewModel.requestAddUniverse(it!!, cafeid!!)
+                cafedetailViewModel.requestAddUniverse(it!!, 1781733731)
+                Log.e("requestAddUniverse", cafedetailViewModel.cafeId.value!!.toString())
+            }
+        }
     }
 
     // 운영시간 보기
@@ -184,6 +222,7 @@ class CafeDetailActivity : AppCompatActivity() {
         binding.btnDetailBack.setOnClickListener { finish() }
     }
 
+    // 정보수정요청 이동
     private fun clickGoToModify(binding: ActivityCafeDetailBinding){
         binding.btnDetailFixrequest.setOnClickListener {
             val intent = Intent(this, ModifyActivity::class.java)
