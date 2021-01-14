@@ -78,6 +78,19 @@ object MarkerDrawer {
         return null
     }
 
+    fun findIndex(position: LatLng) : Int? {
+        for(i in cafeList.indices) {
+            if (position.latitude == cafeList[i].latitude && position.longitude == cafeList[i].longitude)
+                return i
+        }
+        return null
+    }
+    fun updateData(index: Int) {
+        cafeList[index].isUniversed = !cafeList[index].isUniversed
+        if(cafeList[index].isUniversed) cafeList[index].universeCount += 1
+        else cafeList[index].universeCount -= 1
+    }
+
     private fun markerClick(index: Int) {
         setIcon()
         if (cafeList[index].isUniversed)
