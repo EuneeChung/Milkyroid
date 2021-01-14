@@ -20,15 +20,9 @@
             android:label="@string/title_activity_modification_request" />
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="" />
+            android:value="wm0wh5u32a" />
 
-        <activity android:name=".ui.splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.splash.SplashActivity"/>
         <activity
             android:name=".ui.report.detail.CafeDetailActivity"
             android:label="@string/title_activity_cafe_detail" />
@@ -39,7 +33,13 @@
         <activity
             android:name=".ui.report.search.PlaceSearchActivity"
             android:label="@string/title_activity_place_search" />
-        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

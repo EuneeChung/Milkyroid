@@ -92,4 +92,6 @@ interface MilkyWayService {
         @Header("token") token: String,
         @Path("cafeId") cafeId: Int
     ): ResponseDeleteUniverse
+
+
 }
