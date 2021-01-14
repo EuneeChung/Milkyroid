@@ -13,7 +13,7 @@ import com.milkyway.milkyway.data.model.ResponseAddUniverse
 import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker

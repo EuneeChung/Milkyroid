@@ -44,7 +44,7 @@
         <activity android:name=".ui.modify.request.RequestModificationsActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.report.detail.CafeDetailActivity"
+        <activity android:name=".ui.detail.CafeDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity android:name=".ui.report.cafereport.CafeReportMenuActivity"

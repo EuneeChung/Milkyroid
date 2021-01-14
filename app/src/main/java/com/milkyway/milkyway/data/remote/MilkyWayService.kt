@@ -120,4 +120,11 @@ interface MilkyWayService {
         @Header("token") token : String,
         @Body body : RequestReport
     ) : Call<BaseResponse<Unit>>
+
+    // Change Nickname
+    @PUT("users/nickname")
+    suspend fun changeNickname(
+        @Header("token") token : String,
+        @Body body : RequestChangeNickname
+    ) : ResponseChangeNickname
 }
