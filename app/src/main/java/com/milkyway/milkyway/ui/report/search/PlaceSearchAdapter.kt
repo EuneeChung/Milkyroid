@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.PlaceSearchData
 
 class PlaceSearchAdapter : RecyclerView.Adapter<PlaceSearchAdapter.PlaceSearchViewHolder>() {
 

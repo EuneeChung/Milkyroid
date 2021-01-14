@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.CafeReportMenuData
 
 
 class CafeReportMenuViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
@@ -13,11 +14,10 @@ class CafeReportMenuViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView
     private val cafeMenuPrice: TextView = itemView.findViewById(R.id.tv_cafe_report_money)
     private val cafeMenuCategory: TextView = itemView.findViewById(R.id.tv_cafe_report_select_milk1)
 
-
     fun onBind(data: CafeReportMenuData) {
         cafeMenuName.text = data.cafeMenuName
         cafeMenuPrice.text = data.cafeMenuPrice
-        cafeMenuCategory.text = data.cafeMenuCategory
+        cafeMenuCategory.text = data.cafeMenuCategory.toString()
     }
 }
 

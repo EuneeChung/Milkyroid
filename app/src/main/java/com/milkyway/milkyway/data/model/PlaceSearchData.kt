@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report.search
+package com.milkyway.milkyway.data.model
 
 //리스트에 출력할 data class
 data class PlaceSearchData (

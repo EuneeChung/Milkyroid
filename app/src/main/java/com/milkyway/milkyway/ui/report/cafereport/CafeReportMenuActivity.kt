@@ -19,7 +19,7 @@ import java.text.DecimalFormat
 class CafeReportMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCafeReportMenuBinding
     var pointNumStr = "";
-    private val categoryList = mutableSetOf<String>()
+    private val categoryList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,6 @@ class CafeReportMenuActivity : AppCompatActivity() {
             hideKeyboard()
         }
 
-
         val preference: SharedPreferences = this.getSharedPreferences("temp", Context.MODE_PRIVATE)
         val editor:SharedPreferences.Editor= preference.edit()
 
@@ -41,6 +40,26 @@ class CafeReportMenuActivity : AppCompatActivity() {
 
         val price = intent.getStringExtra("price")
         binding.etCafePrice.setText(price)
+
+        val category = intent.getIntegerArrayListExtra("category")
+        if (category!=null)
+        {
+            when (1) {
+                in category -> binding.cbNoCaffeine.isChecked=true
+            }
+            when (2) {
+                in category  -> binding.cbDoyou.isChecked=true
+            }
+            when (3) {
+                in category  -> binding.cbLowMilk.isChecked=true
+            }
+            when (4) {
+                in category  -> binding.cbNoMilk.isChecked=true
+            }
+        }
+
+
+
 
         binding.btnBackMenuAdd.setOnClickListener {
             onBackPressed()
@@ -76,21 +95,22 @@ class CafeReportMenuActivity : AppCompatActivity() {
         binding.btnAddMenuOk.setBackgroundResource(R.drawable.border_navy_fill_round_40)
         binding.btnAddMenuOk.setOnClickListener {
             if (binding.cbNoCaffeine.isChecked) {
-                categoryList.add("1")
+                categoryList.add(1)
             }
             if (binding.cbDoyou.isChecked) {
-                categoryList.add("2")
+                categoryList.add(2)
             }
             if (binding.cbLowMilk.isChecked) {
-                categoryList.add("3")
+                categoryList.add(3)
             }
             if (binding.cbNoMilk.isChecked) {
-                categoryList.add("4")
+                categoryList.add(4)
             }
+
             deliveryCafeMenu(editor)
 
             Log.d("posi",intent.getIntExtra("posi",-1).toString())
-            setResult(1)
+            setResult(1,intent.putIntegerArrayListExtra("categoryList",categoryList))
             finish()
         }
     }
@@ -112,7 +132,6 @@ class CafeReportMenuActivity : AppCompatActivity() {
     private fun deliveryCafeMenu(editor: SharedPreferences.Editor) {
         editor.putString("menu",binding.etCafeMenuName.text.toString())
         editor.putString("price",binding.etCafePrice.text.toString())
-        editor.putStringSet("category",categoryList)
         editor.putInt("posi",intent.getIntExtra("posi",-1))
         editor.apply()
         editor.commit()

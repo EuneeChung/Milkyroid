@@ -106,4 +106,11 @@ interface MilkyWayService {
         @Header("token") token: String,
         @Path("cafeId") cafeId: Int
     ): ResponseDeleteCancel
+
+    //Cafe Report
+    @POST("/report")
+    fun requestCafeReport(
+        @Header("token") token : String,
+        @Body body : RequestReport
+    ) : Call<BaseResponse<Unit>>
 }

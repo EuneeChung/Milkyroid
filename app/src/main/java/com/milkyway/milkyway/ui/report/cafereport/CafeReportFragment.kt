@@ -15,18 +15,36 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayout
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.BaseResponse
+import com.milkyway.milkyway.data.model.CafeReportMenu
+import com.milkyway.milkyway.data.model.CafeReportMenuData
+import com.milkyway.milkyway.data.model.RequestReport
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentCafeReportBinding
 import com.milkyway.milkyway.ui.main.MainActivity
 import com.milkyway.milkyway.ui.report.search.PlaceSearchActivity
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class CafeReportFragment : Fragment() {
     private lateinit var binding: FragmentCafeReportBinding
     private lateinit var cafeReportMenuAdapter: CafeReportMenuAdapter
     private val cafeList = mutableListOf<CafeReportMenuData>()
+    private val cafeMenu = mutableListOf<CafeReportMenu>()
+    private var placeName : String = ""
+    private var placeAddress : String = ""
+    private var placeLongitude :Double= 1.1
+    private var placeLatitude :Double= 1.1
+    private var honeyList = mutableListOf<Int>()
+    private var shareCafeMenu : String = ""
+    private var sharedPrice : String = ""
+    private var sharedCategory = arrayListOf<Int>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,16 +59,16 @@ class CafeReportFragment : Fragment() {
 
         //칩 체크 확인
         val chipGroup: ChipGroup = binding.chipGroupHoneyTip
-        val list = mutableListOf<Int>()
+
         for (index in 0 until chipGroup.childCount) {
             val chip: Chip = chipGroup.getChildAt(index) as Chip
             chip.setOnCheckedChangeListener { view, isChecked ->
                 if (isChecked) {
                     chip.setTextAppearanceResource(R.style.HoneyChipSelectedTheme)
-                    list.add(index + 1)
+                    honeyList.add(index + 1)
                 } else {
                     chip.setTextAppearanceResource(R.style.HoneyChipTheme)
-                    list.remove(index + 1)
+                    honeyList.remove(index + 1)
                 }
             }
         }
@@ -59,7 +77,7 @@ class CafeReportFragment : Fragment() {
         binding.btnCafeReportClean.setOnClickListener {
             //칩 초기화
             chipGroup.clearCheck()
-            list.clear()
+            honeyList.clear()
 
             //카페명 초기화
             binding.clCafeSearchAfter.visibility = View.INVISIBLE
@@ -99,7 +117,6 @@ class CafeReportFragment : Fragment() {
     fun Activity.hideKeyboard() {
         hideKeyboard(currentFocus ?: View(this))
     }
-
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -128,20 +145,10 @@ class CafeReportFragment : Fragment() {
             R.id.edit -> {
                 val editMenuIntent =
                     Intent(context as MainActivity, CafeReportMenuActivity::class.java)
-                editMenuIntent.putExtra(
-                    "menu",
-                    cafeReportMenuAdapter.data[position].cafeMenuName.toString()
-                )
-                editMenuIntent.putExtra(
-                    "price",
-                    cafeReportMenuAdapter.data[position].cafeMenuPrice.toString()
-                )
-                editMenuIntent.putExtra(
-                    "category",
-                    cafeReportMenuAdapter.data[position].cafeMenuPrice.toString()
-                )
+                editMenuIntent.putExtra("menu", cafeReportMenuAdapter.data[position].cafeMenuName.toString())
+                editMenuIntent.putExtra("price", cafeReportMenuAdapter.data[position].cafeMenuPrice.toString())
+                editMenuIntent.putIntegerArrayListExtra("category",sharedCategory)
                 editMenuIntent.putExtra("posi", position) //리사이클러뷰 position
-                Log.d("asgwaeg", position.toString())
                 startActivityForResult(editMenuIntent, CafeReportMenuActivity.EDIT_CODE)
             }
             R.id.delete -> {
@@ -153,6 +160,7 @@ class CafeReportFragment : Fragment() {
 
     //제보 완료
     fun onReportOkClick(view: View) {
+        //dialog 띄우기
         lifecycleScope.launch {
             DataStore(context as MainActivity).getNickname.collect {
                 if (it != null) {
@@ -160,9 +168,50 @@ class CafeReportFragment : Fragment() {
                 }
             }
         }
+
+        //토큰
+        lifecycleScope.launch {
+            DataStore(context as MainActivity).getToken.collect {
+                if (it != null) {
+                    requestReport(it)
+                }
+            }
+        }
+
+
+        //탭 변경
         val tabLayout = activity?.findViewById<TabLayout>(R.id.tab_report)
         tabLayout?.selectTab(tabLayout.getTabAt(1))
     }
+
+    //서버통신
+    private fun requestReport(token: String) {
+        RetrofitBuilder.service.requestCafeReport(
+            token = token,
+            body = RequestReport(
+                cafeName = placeName,
+                cafeAddress = placeAddress,
+                longitude = placeLongitude,
+                latitude = placeLatitude,
+                honeyTip = honeyList,
+                menu = cafeMenu
+            )
+        ).enqueue(object : Callback<BaseResponse<Unit>> {
+            override fun onResponse(
+                call: Call<BaseResponse<Unit>>,
+                response: Response<BaseResponse<Unit>>
+            ) {
+                Log.d("카페메뉴", cafeMenu.toString())
+                if (response.isSuccessful) {
+                }
+            }
+            override fun onFailure(call: Call<BaseResponse<Unit>>, t: Throwable) {
+                Log.d("실패는 성공의 어머니", t.message.toString())
+            }
+        }
+        )
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -172,21 +221,20 @@ class CafeReportFragment : Fragment() {
             if (requestCode == CafeReportMenuActivity.REQUEST_CODE) {
                 var g: String = ""
                 val preference = context?.getSharedPreferences("temp", Context.MODE_PRIVATE)
-                val shareCafeMenu = preference?.getString("menu", "")
-                val sharedPrice = preference?.getString("price", "")
-                val sharedCategory = preference?.getStringSet("category", setOf())
+                shareCafeMenu = preference?.getString("menu", "").toString()
+                sharedPrice = preference?.getString("price", "").toString()
+                sharedCategory = data?.getIntegerArrayListExtra("categoryList")!!
 
-                sharedCategory!!.toList()
-                when ("1") {
+                when (1) {
                     in sharedCategory -> g += "디카페인 "
                 }
-                when ("2") {
+                when (2) {
                     in sharedCategory -> g += "두유 "
                 }
-                when ("3") {
+                when (3) {
                     in sharedCategory -> g += "저지방우유 "
                 }
-                when ("4") {
+                when (4) {
                     in sharedCategory -> g += "무지방우유 "
                 }
                 cafeList.apply {
@@ -198,6 +246,17 @@ class CafeReportFragment : Fragment() {
                         )
                     )
                 }
+
+                cafeMenu.apply{
+                    add(
+                        CafeReportMenu(
+                            menuName = shareCafeMenu.toString(),
+                            price = sharedPrice.toString(),
+                            category = sharedCategory
+                        )
+                    )
+                }
+
                 cafeReportMenuAdapter.data = cafeList
                 cafeReportMenuAdapter.notifyDataSetChanged()
             }
@@ -205,28 +264,32 @@ class CafeReportFragment : Fragment() {
             if (requestCode == CafeReportMenuActivity.EDIT_CODE) {
                 var g: String = ""
                 val preference = context?.getSharedPreferences("temp", Context.MODE_PRIVATE)
-                val shareCafeMenu = preference?.getString("menu", "")
-                val sharedPrice = preference?.getString("price", "")
-                val sharedCategory = preference?.getStringSet("category", setOf())
+                shareCafeMenu = preference?.getString("menu", "").toString()
+                sharedPrice = preference?.getString("price", "").toString()
+                sharedCategory = data?.getIntegerArrayListExtra("categoryList")!!
                 val posi = preference?.getInt("posi", -1)
-                Log.d("asgwaeg", posi.toString())
-                sharedCategory!!.toList()
-                when ("1") {
+
+                when (1) {
                     in sharedCategory -> g += "디카페인 "
                 }
-                when ("2") {
+                when (2) {
                     in sharedCategory -> g += "두유 "
                 }
-                when ("3") {
+                when (3) {
                     in sharedCategory -> g += "저지방우유 "
                 }
-                when ("4") {
+                when (4) {
                     in sharedCategory -> g += "무지방우유 "
                 }
 
                 cafeList[posi!!].cafeMenuPrice = sharedPrice.toString()
                 cafeList[posi].cafeMenuName = shareCafeMenu.toString()
                 cafeList[posi].cafeMenuCategory = g
+
+                cafeMenu[posi].price = sharedPrice.toString()
+                cafeMenu[posi].menuName = shareCafeMenu.toString()
+                cafeMenu[posi].category = sharedCategory
+
 
                 cafeReportMenuAdapter.data = cafeList
                 cafeReportMenuAdapter.notifyDataSetChanged()
@@ -237,10 +300,10 @@ class CafeReportFragment : Fragment() {
             binding.clCafeSearchAfter.visibility = View.VISIBLE
             binding.clGoToCafeSearch.visibility = View.INVISIBLE
 
-            val placeName = data?.getStringExtra("placeName")
-            val placeAddress = data?.getStringExtra("placeAddress")
-            val placeLongitude = data?.getDoubleExtra("placeLongitude", -1.1)
-            val placeLatitude = data?.getDoubleExtra("placeLatitude", -1.1)
+            placeName = data?.getStringExtra("placeName").toString()
+            placeAddress = data?.getStringExtra("placeAddress").toString()
+            placeLongitude = data?.getDoubleExtra("placeLongitude", -1.1)!!
+            placeLatitude = data?.getDoubleExtra("placeLatitude", -1.1)
 
             Log.d(
                 "tgggfffw",
