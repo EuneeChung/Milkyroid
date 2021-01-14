@@ -53,6 +53,10 @@ class HomeViewModel : ViewModel() {
         _loading.value = true
     }
 
+    fun isLoadingEnd() {
+        _loading.value = false
+    }
+
     fun chooseLocation(index: Int) {
         _isSelectedList.value = MutableList(5) { i-> index == i }
     }
