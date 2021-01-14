@@ -1,5 +1,7 @@
 package com.milkyway.milkyway.util
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat.getColor
@@ -11,6 +13,7 @@ import com.milkyway.milkyway.data.model.ResponseAddUniverse
 import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
+import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
@@ -22,14 +25,16 @@ import retrofit2.Response
 object MarkerDrawer {
 
     private val markers = mutableListOf<Marker>()
-    private lateinit var cafeList: List<AroundCafe>
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var cafeList : List<AroundCafe>
+    private lateinit var binding : FragmentHomeBinding
     private lateinit var token : String
-    
-    fun init(initBinding: FragmentHomeBinding, list: List<AroundCafe>, initToken : String) {
+    private lateinit var context : Context
+
+    fun init(initBinding : FragmentHomeBinding, list : List<AroundCafe>, initToken : String, initContext : Context) {
         binding = initBinding
         cafeList = list
         token = initToken
+        context = initContext
         clear()
     }
 
@@ -98,6 +103,12 @@ object MarkerDrawer {
         }
 
         binding.tvLikeCount.text = cafeList[index].universeCount.toString()
+
+        binding.layoutHomeCard.setOnClickListener {
+            val intent = Intent(context, CafeDetailActivity::class.java)
+            intent.putExtra("cafeId", cafeList[index].id)
+            context.startActivity(intent)
+        }
     }
 
     fun drawMarkers(map: NaverMap) {
