@@ -2,7 +2,6 @@ package com.milkyway.milkyway.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
+import com.milkyway.milkyway.ui.home.homesearch.CafeSearchActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer
@@ -89,12 +88,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         homeBottomSheetBehavior=BottomSheetBehavior.from(binding.bottomsheetHome.root)
 
         binding.btnSearch.setOnClickListener {
-            //TODO 네비게이션
-            view.findNavController().navigate(R.id.action_homeFragment_to_homeSearchResult)
-//            val placeSearchIntent = Intent(context as MainActivity, CafeSearchActivity::class.java)
-//            startActivityForResult(placeSearchIntent, CafeSearchActivity.REQUEST_CODE)
+            val intent = Intent(context, CafeSearchActivity::class.java)
+            startActivity(intent)
         }
-
     }
 
     override fun onMapReady(p0: NaverMap) {
@@ -213,19 +209,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == SEARCH_RESULT_HOME) {
-
-            val cafeName = data?.getStringExtra("cafeName")
-            val cafeAddress = data?.getStringExtra("cafeAddress")
-            val longitude = data?.getDoubleExtra("longitude",-1.1)
-            val latitude = data?.getDoubleExtra("latitude",-1.1)
-            val businessHours = data?.getStringExtra("businessHours")
-            Log.d("agwegawegw",cafeName.toString()+cafeAddress.toString()+longitude.toString()+latitude.toString()+businessHours)
-        }
-    }
-
     private fun loading() {
         homeViewModel.isLoading()
         binding.imgLoading.playAnimation()
@@ -233,7 +216,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-        const val SEARCH_RESULT_HOME = 3
     }
 
     override fun onResume() {

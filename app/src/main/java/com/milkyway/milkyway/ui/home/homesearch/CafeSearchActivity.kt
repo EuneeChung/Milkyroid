@@ -23,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.CafeSearchData
+import com.milkyway.milkyway.ui.home.HomeResultActivity
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -70,13 +71,13 @@ class CafeSearchActivity : AppCompatActivity() {
         //recycler 에서 아이템 클릭
         cafeSearchAdapter.itemClick=object :CafeSearchAdapter.ItemClick{
             override fun onClick(view: View, position: Int) {
-                val intent = Intent()
+                val intent = Intent(this@CafeSearchActivity, HomeResultActivity::class.java)
                 intent.putExtra("cafeName",cafeSearchAdapter.datas[position].cafeName)
                 intent.putExtra("cafeAddress",cafeSearchAdapter.datas[position].cafeAddress)
                 intent.putExtra("longitude",cafeSearchAdapter.datas[position].longitude)
                 intent.putExtra("latitude",cafeSearchAdapter.datas[position].latitude)
                 intent.putExtra("businessHours",cafeSearchAdapter.datas[position].businessHours)
-                setResult(3,intent)
+                startActivity(intent)
                 finish()
             }
         }
