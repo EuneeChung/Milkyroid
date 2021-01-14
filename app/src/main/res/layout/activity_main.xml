@@ -36,6 +36,8 @@
             android:layout_height="54dp"
             app:menu="@menu/bottom_menu"
             android:background="@color/white"
+            app:itemTextAppearanceInactive="@style/TextRegular12"
+            app:itemTextAppearanceActive="@style/TextBold12"
             app:labelVisibilityMode="labeled"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
