@@ -49,6 +49,10 @@ class UniverseViewModel : ViewModel() {
         _loading.value = true
     }
 
+    fun updateUniverseData(markers : List<AroundUniverse>) {
+        _markers.value = markers
+    }
+
     fun requestUniverseData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val universe = RetrofitBuilder.service.universe(token)

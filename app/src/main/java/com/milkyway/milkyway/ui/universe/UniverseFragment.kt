@@ -160,7 +160,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMyUniverseListView() {
-        myUniverseListAdapter = UniverseAdapter(requireContext())
+        myUniverseListAdapter = UniverseAdapter(requireContext(), universeViewModel)
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
 
         myUniverseListAdapter.onClickListener =  {
@@ -198,7 +198,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
                         .show{
                             universeBottomSheetViewModel.setConfirmDeleteClick()
                             requestDeleteMyUniverse()
-                            myUniverseListAdapter.notifyItemRemoved(myUniverseListAdapter.clickItemPosition)
+                            myUniverseListAdapter.deleteData()
                             confirmDeleteDialog.dismiss()
                         }
                     Log.e("confirmDelete", confirmDelete.toString())
