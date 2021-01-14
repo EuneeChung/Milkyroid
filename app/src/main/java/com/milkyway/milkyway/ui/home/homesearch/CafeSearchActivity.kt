@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.CafeSearchData
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -100,7 +101,7 @@ class CafeSearchActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_place_search)
 
         val viewModel = ViewModelProvider(this).get(CafeSearchViewModel::class.java)
-        viewModel.recyclerListData.observe(this, Observer<MutableList<CafeSearchData>> {recyclerListData->
+        viewModel.recyclerListData.observe(this, Observer<MutableList<CafeSearchData>> { recyclerListData->
             recyclerListData?.let {
                 Log.d("d", it.toString())
                 if (it.size>0) {

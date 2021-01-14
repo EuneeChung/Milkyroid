@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.milkyway.milkyway.data.model.CafeSearchData
 import com.milkyway.milkyway.data.model.CafeSearchResponse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import retrofit2.Call

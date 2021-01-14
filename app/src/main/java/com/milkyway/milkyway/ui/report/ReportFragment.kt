@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.ui.report.adapter.ReportViewPagerAdapter
 import com.milkyway.milkyway.ui.report.cafereport.CafeReportFragment
 import com.milkyway.milkyway.ui.report.myreport.MyReportFragment
 

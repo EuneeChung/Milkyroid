@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report.cafereport
+package com.milkyway.milkyway.data.model
 
 data class CafeReportMenuData(
     var cafeMenuName: String,

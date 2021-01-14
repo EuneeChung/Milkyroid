@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
+import com.milkyway.milkyway.data.model.CafeReportMenuData
 
 
 class CafeReportMenuAdapter(context : Context) : RecyclerView.Adapter<CafeReportMenuViewHolder>() {
@@ -48,18 +49,3 @@ class CafeReportMenuAdapter(context : Context) : RecyclerView.Adapter<CafeReport
     }
 
 }
-
-
-//val popupMenu: PopupMenu = PopupMenu(
-//    ContextThemeWrapper(
-//        context,
-//        R.style.PopupMenuStyle
-//    ), holder.btnViewOption
-//)
-//popupMenu.inflate(R.menu.option_menu)
-//popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener() {
-//    onMenuItemClick(context, it, position)
-//})
-//popupMenu.show()
-
-

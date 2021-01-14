@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report.adapter
+package com.milkyway.milkyway.ui.report
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

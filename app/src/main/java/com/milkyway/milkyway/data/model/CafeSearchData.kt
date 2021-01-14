@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.home.homesearch
+package com.milkyway.milkyway.data.model
 
 
 data class CafeSearchData (

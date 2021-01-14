@@ -106,10 +106,18 @@ interface MilkyWayService {
         @Path("cafeId") cafeId: Int
     ): ResponseDeleteCancel
 
+
     // universe add - CafeDetail
     @POST("universe/universeOn")
     suspend fun addUniverseDetail(
         @Header("token") token : String,
         @Body body : RequestCafeId
     ) : ResponseAddUniverse
+
+    //Cafe Report
+    @POST("/report")
+    fun requestCafeReport(
+        @Header("token") token : String,
+        @Body body : RequestReport
+    ) : Call<BaseResponse<Unit>>
 }

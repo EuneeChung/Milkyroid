@@ -1,9 +1,9 @@
 package com.milkyway.milkyway.data.model
 
 data class PlaceSearch(
-    var cafeName: String,
-    var cafeAddress: String,
-    var longitude: Double,
-    var latitude: Double,
-    var isReported: Boolean
+    val cafeName: String,
+    val cafeAddress: String,
+    val longitude: Double,
+    val latitude: Double,
+    val isReported: Boolean
 )
