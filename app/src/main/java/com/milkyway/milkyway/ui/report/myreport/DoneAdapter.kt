@@ -10,8 +10,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.DoneReport
+import com.milkyway.milkyway.data.remote.response.DoneReport
 import com.milkyway.milkyway.ui.detail.CafeDetailActivity
+
 
 class DoneAdapter (private val context : Context, var datas : List<DoneReport>) : RecyclerView.Adapter<DoneAdapter.DoneViewHolder>() {
 

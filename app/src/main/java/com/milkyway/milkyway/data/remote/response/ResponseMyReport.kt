@@ -1,6 +1,4 @@
-package com.milkyway.milkyway.data.model
-
-import com.google.gson.annotations.SerializedName
+package com.milkyway.milkyway.data.remote.response
 
 data class ResponseMyReport(
     val status : String,

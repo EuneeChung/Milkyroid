@@ -1,11 +1,11 @@
-package com.milkyway.milkyway.ui.report.search
+package com.milkyway.milkyway.ui.search.reportsearch
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.milkyway.milkyway.data.model.PlaceSearchData
-import com.milkyway.milkyway.data.model.PlaceSearchResponse
+import com.milkyway.milkyway.data.remote.response.ResponsePlaceSearch
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,10 +26,10 @@ class PlaceSearchActivityViewModel : ViewModel() {
                 )
             val placeDatas: MutableList<PlaceSearchData> = mutableListOf()
             search.enqueue(
-                object : Callback<PlaceSearchResponse> {
+                object : Callback<ResponsePlaceSearch> {
                     override fun onResponse(
-                        call: Call<PlaceSearchResponse>,
-                        response: Response<PlaceSearchResponse>
+                        call: Call<ResponsePlaceSearch>,
+                        response: Response<ResponsePlaceSearch>
                     ) {
                         Log.d("typeCheck", "통신성공")
                         if (response.isSuccessful) {
@@ -53,7 +53,7 @@ class PlaceSearchActivityViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<PlaceSearchResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<ResponsePlaceSearch>, t: Throwable) {
                         Log.d("typeCheck", t.message.toString())
                         _recyclerListData.postValue(null)
                     }

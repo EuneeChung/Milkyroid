@@ -32,7 +32,9 @@ class CafeReportMenuAdapter(context : Context) : RecyclerView.Adapter<CafeReport
         }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int {
+        return data.size
+    }
 
     fun removeItem(position: Int) {
         data.removeAt(position)
@@ -47,5 +49,4 @@ class CafeReportMenuAdapter(context : Context) : RecyclerView.Adapter<CafeReport
     interface ItemClick {
         fun onClick(view: View, position: Int)
     }
-
 }

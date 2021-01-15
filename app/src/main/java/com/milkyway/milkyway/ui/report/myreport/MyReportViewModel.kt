@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.milkyway.milkyway.data.model.*
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.response.MyReport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

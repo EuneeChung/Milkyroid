@@ -23,7 +23,6 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,9 +32,9 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ui.main.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.home.homesearch.CafeSearchActivity"
+        <activity android:name=".ui.search.homesearch.CafeSearchActivity"
             android:screenOrientation="portrait" />
 
         <activity android:name=".ui.home.HomeResultActivity"
@@ -53,7 +52,7 @@
         <activity android:name=".ui.report.cafereport.CafeReportMenuActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.report.search.PlaceSearchActivity"
+        <activity android:name=".ui.search.reportsearch.PlaceSearchActivity"
             android:screenOrientation="portrait" />
 
     </application>

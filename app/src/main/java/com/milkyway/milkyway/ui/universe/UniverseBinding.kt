@@ -2,7 +2,7 @@ package com.milkyway.milkyway.ui.universe
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.milkyway.milkyway.data.model.AroundUniverse
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 
 object UniverseBinding {
     @BindingAdapter("setListItem")

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="cafe"
-            type="com.milkyway.milkyway.data.model.AroundUniverse"/>
+            type="com.milkyway.milkyway.data.remote.response.AroundUniverse"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

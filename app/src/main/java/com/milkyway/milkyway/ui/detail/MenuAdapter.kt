@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.CafeMenu
+import com.milkyway.milkyway.data.remote.response.CafeMenu
 import java.text.DecimalFormat
 
 class MenuAdapter (private val context : Context, var datas : List<CafeMenu>) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {

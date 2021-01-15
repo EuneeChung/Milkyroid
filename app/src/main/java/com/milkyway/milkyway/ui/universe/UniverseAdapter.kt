@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.BR
-import com.milkyway.milkyway.data.model.AroundUniverse
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.databinding.ItemMyuniverseBottomsheetBinding
 import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 
@@ -39,7 +39,7 @@ class UniverseAdapter(private val context : Context, private val universeViewMod
     }
 
     inner class MyUniverseListViewHolder(val binding:ItemMyuniverseBottomsheetBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(data:AroundUniverse,position: Int){
+        fun bind(data: AroundUniverse, position: Int){
             binding.setVariable(BR.cafe, data)
             binding.itemBtnDeleteMyuniverse.setOnClickListener{
                 Log.e("data.cafeId",data.id.toString())

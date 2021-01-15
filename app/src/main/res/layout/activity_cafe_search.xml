@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/box_inset_layout_padding"
     android:id="@+id/cl_cafe_search"
-    tools:context=".ui.home.homesearch.CafeSearchActivity">
+    tools:context=".ui.search.homesearch.CafeSearchActivity">
 
     <ImageView
         android:id="@+id/btn_back_search"
