@@ -84,23 +84,23 @@
 
 > 일시 : 화 목 토 전체 회의 이후
 
-1주차 
+1주차
 
-- [20.12.29 1차 회의 - 뷰 분배&규칙 정리](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20201229%5D-Milkyroid-1%EC%B0%A8-%ED%9A%8C%EC%9D%98)
-- [20.12.31 2차 회의 - 앱잼 목표&디자인 패턴](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20201231%5D-Milkyroid-2%EC%B0%A8-%ED%9A%8C%EC%9D%98)
-- [21.01.02 3차 회의 - 스프린트 재조정](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210102%5D-Milkyroid-3%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20201229 1차 회의 - 뷰 분배&규칙 정리](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20201229%5D-Milkyroid-1%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20201231 2차 회의 - 앱잼 목표&디자인 패턴](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20201231%5D-Milkyroid-2%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20210102 3차 회의 - 스프린트 재조정](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210102%5D-Milkyroid-3%EC%B0%A8-%ED%9A%8C%EC%9D%98)
 
 2주차
 
-- [21.01.05 4차 회의 - 진행상황 공유, pull request 사용](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210105%5D-Milkyroid-4%EC%B0%A8-%ED%9A%8C%EC%9D%98)
-- [20210107 5차 회의 - BindAdapter](https://github.com/MilkyOnOurWay/Milkyroid/wiki/[20210107]-Milkyroid-5차-회의)
-- [20210109 6차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/[20210107]-Milkyroid-6차-회의)
+- [20210105 4차 회의 - 진행상황 공유, pull request 사용](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210105%5D-Milkyroid-4%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20210107 5차 회의 - BindAdapter](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210107%5D-Milkyroid-5%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20210109 6차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210107%5D-Milkyroid-6%EC%B0%A8-%ED%9A%8C%EC%9D%98)
 
 3주차
 
-- [20210112 7차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/[20210112]-Milkyroid-7차-회의)
-- [20210114 8차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/[20210112]-Milkyroid-8차-회의)
-- [20210115 9차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/[20210112]-Milkyroid-9차-회의)
+- [20210112 7차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210112%5D-Milkyroid-7%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20210114 8차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210112%5D-Milkyroid-8%EC%B0%A8-%ED%9A%8C%EC%9D%98)
+- [20210115 9차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/%5B20210112%5D-Milkyroid-9%EC%B0%A8-%ED%9A%8C%EC%9D%98)
 
 
 <br/>
@@ -378,7 +378,7 @@ implementation "androidx.datastore:datastore-preferences:1.0.0-alpha05"
 <br/>
 
 
-## **🌈 Asset **
+## 🌈 Asset 
 
 - 리사이클러뷰 배경을 그림자를 넣어 커스텀 했었는데 디자인 상 주어진 이미지를 사용하는 것이 더 좋을 것이라고 판단하여 이미지를 받아 적용.
 
