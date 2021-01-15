@@ -14,11 +14,11 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/universe_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_universe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -32,7 +32,7 @@
                 android:id="@+id/img_universe_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/img_universe_logo"
@@ -40,37 +40,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/tv_nickname"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textSize="16dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_bold"
+                android:alpha="0"
                 app:layout_constraintTop_toBottomOf="@id/img_universe_logo"
-                app:layout_constraintStart_toStartOf="@id/img_universe_logo"/>
+                app:layout_constraintStart_toStartOf="@id/img_universe_logo">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/universe_nickname"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:fontFamily="@font/roboto_regular"
-                app:layout_constraintTop_toTopOf="@id/tv_nickname"
-                app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
-                app:layout_constraintStart_toEndOf="@id/tv_nickname"/>
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/universe_title"
-                android:textSize="16dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/roboto_regular"
-                app:layout_constraintTop_toBottomOf="@id/tv_nickname"
-                app:layout_constraintStart_toStartOf="@id/tv_nickname"/>
+                <TextView
+                    android:id="@+id/tv_nickname_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/universe_nickname"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_regular"
+                    app:layout_constraintTop_toTopOf="@id/tv_nickname"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+                    app:layout_constraintStart_toEndOf="@id/tv_nickname"/>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/universe_title"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nickname"
+                    app:layout_constraintStart_toStartOf="@id/tv_nickname"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageButton
                 android:id="@+id/btn_current_location"
