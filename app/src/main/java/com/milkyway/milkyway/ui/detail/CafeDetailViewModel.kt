@@ -1,15 +1,15 @@
-package com.milkyway.milkyway.ui.report.detail
+package com.milkyway.milkyway.ui.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.request.RequestCafeId
 import com.milkyway.milkyway.data.remote.response.AddUniverseData
 import com.milkyway.milkyway.data.remote.response.CafeInfo
 import com.milkyway.milkyway.data.remote.response.CafeMenu
-import com.milkyway.milkyway.data.remote.request.RequestCafeId
-import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

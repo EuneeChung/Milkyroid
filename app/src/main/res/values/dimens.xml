@@ -16,4 +16,7 @@
     <dimen name="dialog_width">320dp</dimen>
     <dimen name="dialog_confirm_height">222dp</dimen>
     <dimen name="dialog_delete_height">386dp</dimen>
+
+    <dimen name="margin_card_on">10dp</dimen>
+    <dimen name="margin_card_off">93dp</dimen>
 </resources>

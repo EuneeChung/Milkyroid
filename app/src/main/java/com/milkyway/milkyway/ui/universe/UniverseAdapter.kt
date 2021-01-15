@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.BR
 import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.databinding.ItemMyuniverseBottomsheetBinding
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 
-class UniverseAdapter(private val context : Context) : RecyclerView.Adapter<UniverseAdapter.MyUniverseListViewHolder>(){
-    var list = emptyList<AroundUniverse>()
+class UniverseAdapter(private val context : Context, private val universeViewModel: UniverseViewModel) : RecyclerView.Adapter<UniverseAdapter.MyUniverseListViewHolder>(){
+    var list = mutableListOf<AroundUniverse>()
     lateinit var onClickListener: ()-> Unit
     var clickItemCafeId=0
     var clickItemPosition=0
@@ -28,9 +28,14 @@ class UniverseAdapter(private val context : Context) : RecyclerView.Adapter<Univ
         holder.bind(list[position],position)
     }
 
-    internal fun setData(list : List<AroundUniverse>) {
+    internal fun setData(list : MutableList<AroundUniverse>) {
         this.list = list
         notifyDataSetChanged()
+    }
+
+    fun deleteData() {
+        this.list.removeAt(clickItemPosition)
+        universeViewModel.updateUniverseData(this.list)
     }
 
     inner class MyUniverseListViewHolder(val binding:ItemMyuniverseBottomsheetBinding):RecyclerView.ViewHolder(binding.root){

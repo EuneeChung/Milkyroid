@@ -12,6 +12,8 @@
         android:id="@+id/tab_report"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        app:tabTextColor="@color/gray_9a9792"
+        app:tabSelectedTextColor="@color/blue_3320a6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

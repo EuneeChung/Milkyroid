@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report.detail
+package com.milkyway.milkyway.ui.detail
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -67,7 +67,8 @@ class CafeDetailActivity : AppCompatActivity() {
 
     private fun setMenuData(binding: ActivityCafeDetailBinding) {
         // 어댑터에 context 객체를 파라미터로 전달
-        val menuAdapter = MenuAdapter(this, datas)
+        val menuAdapter =
+            MenuAdapter(this, datas)
 
         binding.rvDetailMenu.adapter = menuAdapter
         binding.rvDetailMenu.layoutManager = LinearLayoutManager(this)

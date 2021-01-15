@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report.detail
+package com.milkyway.milkyway.ui.detail
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.remote.response.CafeMenu
+import java.text.DecimalFormat
 
 class MenuAdapter (private val context : Context, var datas : List<CafeMenu>) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 //class MenuAdapter (private val context : Context) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
@@ -33,18 +34,24 @@ class MenuAdapter (private val context : Context, var datas : List<CafeMenu>) : 
         private val menutag = itemView.findViewById<TextView>(R.id.item_detail_menutag)
 
 
-        fun onBind(cafeMenu: CafeMenu){
+        fun onBind(cafeMenu: CafeMenu) {
             menutitle.text = cafeMenu.menuName
-            menuprice.text = cafeMenu.price
+            menuprice.text = makeCommaNumber(input = (cafeMenu.price).toInt())
+//            menuprice.text = cafeMenu.price
 
-            if(cafeMenu.category.any { it == 1 })
+            if (cafeMenu.category.any { it == 1 })
                 menutag.text = "${menutag.text}디카페인  "
-            if(cafeMenu.category.any { it == 2 })
+            if (cafeMenu.category.any { it == 2 })
                 menutag.text = "${menutag.text}두유  "
-            if(cafeMenu.category.any { it == 3 })
+            if (cafeMenu.category.any { it == 3 })
                 menutag.text = "${menutag.text}저지방우유  "
-            if(cafeMenu.category.any { it == 4 })
+            if (cafeMenu.category.any { it == 4 })
                 menutag.text = "${menutag.text}무지방우유  "
+        }
+
+        fun makeCommaNumber(input: Int): String {
+            val formatter = DecimalFormat("###,###")
+            return formatter.format(input)
         }
     }
 }

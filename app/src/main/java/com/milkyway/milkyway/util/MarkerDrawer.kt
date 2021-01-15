@@ -13,7 +13,7 @@ import com.milkyway.milkyway.data.remote.response.ResponseAddUniverse
 import com.milkyway.milkyway.data.remote.response.ResponseDeleteUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
-import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
+import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.Marker
@@ -68,6 +68,27 @@ object MarkerDrawer {
                 true
             }
         }
+    }
+
+    fun findData(position: LatLng) : AroundCafe? {
+        for(i in cafeList.indices) {
+            if (position.latitude == cafeList[i].latitude && position.longitude == cafeList[i].longitude)
+                return cafeList[i]
+        }
+        return null
+    }
+
+    fun findIndex(position: LatLng) : Int? {
+        for(i in cafeList.indices) {
+            if (position.latitude == cafeList[i].latitude && position.longitude == cafeList[i].longitude)
+                return i
+        }
+        return null
+    }
+    fun updateData(index: Int) {
+        cafeList[index].isUniversed = !cafeList[index].isUniversed
+        if(cafeList[index].isUniversed) cafeList[index].universeCount += 1
+        else cafeList[index].universeCount -= 1
     }
 
     private fun markerClick(index: Int) {

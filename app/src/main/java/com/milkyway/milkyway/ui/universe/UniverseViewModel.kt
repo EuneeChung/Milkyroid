@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -47,6 +47,10 @@ class UniverseViewModel : ViewModel() {
 
     fun isLoading() {
         _loading.value = true
+    }
+
+    fun updateUniverseData(markers : List<AroundUniverse>) {
+        _markers.value = markers
     }
 
     fun requestUniverseData(token : String) = viewModelScope.launch(Dispatchers.IO) {

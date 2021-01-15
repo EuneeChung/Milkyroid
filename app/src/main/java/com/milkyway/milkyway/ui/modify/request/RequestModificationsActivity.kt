@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.ActivityRequestModificationsBinding
-import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
+import com.milkyway.milkyway.util.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

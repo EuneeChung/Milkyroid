@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.remote.response.IngReport
 
+
 class IngAdapter (private val context : Context, var datas : List<IngReport>) : RecyclerView.Adapter<IngAdapter.IngViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngAdapter.IngViewHolder {

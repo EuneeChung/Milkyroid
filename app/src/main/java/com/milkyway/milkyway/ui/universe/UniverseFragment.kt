@@ -13,6 +13,7 @@ import androidx.lifecycle.whenResumed
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
+import com.milkyway.milkyway.util.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.UniverseMarkerDrawer
 import com.naver.maps.map.LocationTrackingMode
@@ -159,7 +160,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMyUniverseListView() {
-        myUniverseListAdapter = UniverseAdapter(requireContext())
+        myUniverseListAdapter = UniverseAdapter(requireContext(), universeViewModel)
         binding.bottomSheetUniverse.rvUniverseBottomSheet.adapter = myUniverseListAdapter
 
         myUniverseListAdapter.onClickListener =  {
@@ -197,7 +198,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
                         .show{
                             universeBottomSheetViewModel.setConfirmDeleteClick()
                             requestDeleteMyUniverse()
-                            myUniverseListAdapter.notifyItemRemoved(myUniverseListAdapter.clickItemPosition)
+                            myUniverseListAdapter.deleteData()
                             confirmDeleteDialog.dismiss()
                         }
                     Log.e("confirmDelete", confirmDelete.toString())
@@ -208,14 +209,20 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun drawMarkers(p0 : NaverMap) {
         universeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
-                UniverseMarkerDrawer.apply {
-                    init(binding, markers, requireContext())
-                    setMarkers()
-                    setIcon()
-                    setClickListener{
-                        universeViewModel.setMarkerClick()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    whenResumed {
+                        DataStore(requireContext()).getToken.collect {
+                            UniverseMarkerDrawer.apply {
+                                init(binding, markers, it!!, requireActivity(), universeViewModel)
+                                setMarkers()
+                                setIcon()
+                                setClickListener {
+                                    universeViewModel.setMarkerClick()
+                                }
+                                drawMarkers(p0)
+                            }
+                        }
                     }
-                    drawMarkers(p0)
                 }
             }
         })
