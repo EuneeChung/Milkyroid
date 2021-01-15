@@ -5,9 +5,9 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.AroundUniverse
-import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.response.ResponseDeleteUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 import com.milkyway.milkyway.ui.universe.UniverseViewModel

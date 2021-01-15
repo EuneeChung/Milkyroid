@@ -1,11 +1,11 @@
-package com.milkyway.milkyway.ui.home.homesearch
+package com.milkyway.milkyway.ui.search.homesearch
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.milkyway.milkyway.data.model.CafeSearchData
-import com.milkyway.milkyway.data.model.CafeSearchResponse
+import com.milkyway.milkyway.data.remote.response.ResponseCafeSearch
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,10 +25,10 @@ class CafeSearchViewModel : ViewModel() {
 
             val cafeDatas: MutableList<CafeSearchData> = mutableListOf()
             search.enqueue(
-                object : Callback<CafeSearchResponse> {
+                object : Callback<ResponseCafeSearch> {
                     override fun onResponse(
-                        call: Call<CafeSearchResponse>,
-                        response: Response<CafeSearchResponse>
+                        call: Call<ResponseCafeSearch>,
+                        response: Response<ResponseCafeSearch>
                     ) {
                         Log.d("typeCheck", "통신성공")
                         if (response.isSuccessful) {
@@ -51,7 +51,7 @@ class CafeSearchViewModel : ViewModel() {
                             _recyclerListData.postValue(cafeDatas)
                         }
                     }
-                    override fun onFailure(call: Call<CafeSearchResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<ResponseCafeSearch>, t: Throwable) {
                         Log.d("typeCheck", t.message.toString())
                         _recyclerListData.postValue(null)
                     }

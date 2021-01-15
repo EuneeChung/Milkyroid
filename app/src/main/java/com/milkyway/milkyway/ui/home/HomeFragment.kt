@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
-import com.milkyway.milkyway.ui.home.homesearch.CafeSearchActivity
+import com.milkyway.milkyway.ui.search.homesearch.CafeSearchActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer

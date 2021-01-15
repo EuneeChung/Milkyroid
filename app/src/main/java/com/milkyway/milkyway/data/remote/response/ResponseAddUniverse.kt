@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.data.model
+package com.milkyway.milkyway.data.remote.response
 
 data class ResponseAddUniverse(
     val status: Int,

@@ -15,14 +15,15 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayout
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.BaseResponse
-import com.milkyway.milkyway.data.model.CafeReportMenu
 import com.milkyway.milkyway.data.model.CafeReportMenuData
-import com.milkyway.milkyway.data.model.RequestReport
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.request.CafeReportMenu
+import com.milkyway.milkyway.data.remote.request.RequestReport
+import com.milkyway.milkyway.data.remote.response.BaseResponse
 import com.milkyway.milkyway.databinding.FragmentCafeReportBinding
 import com.milkyway.milkyway.ui.main.MainActivity
-import com.milkyway.milkyway.ui.report.search.PlaceSearchActivity
+import com.milkyway.milkyway.ui.report.dialog.ShowReportOkDialog
+import com.milkyway.milkyway.ui.search.reportsearch.PlaceSearchActivity
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -44,7 +45,7 @@ class CafeReportFragment : Fragment() {
     private var shareCafeMenu : String = ""
     private var sharedPrice : String = ""
     private var sharedCategory = arrayListOf<Int>()
-
+    private lateinit var chipGroup: ChipGroup
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,8 +59,7 @@ class CafeReportFragment : Fragment() {
         binding.clGoToCafeSearch.visibility = View.VISIBLE
 
         //칩 체크 확인
-        val chipGroup: ChipGroup = binding.chipGroupHoneyTip
-
+        chipGroup= binding.chipGroupHoneyTip
         for (index in 0 until chipGroup.childCount) {
             val chip: Chip = chipGroup.getChildAt(index) as Chip
             chip.setOnCheckedChangeListener { view, isChecked ->
@@ -85,10 +85,12 @@ class CafeReportFragment : Fragment() {
 
             //카페메뉴 초기화
             cafeReportMenuAdapter.clearData()
+            buttonActive()
         }
 
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -123,6 +125,10 @@ class CafeReportFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    private fun buttonActive(){
+        binding.btnReportMenuOk.isEnabled = cafeReportMenuAdapter.itemCount>0 && !binding.tvCafeReportName.text.isNullOrBlank()
+    }
+
     //메뉴 추가
     fun onAddMenuClick(view: View) {
         val addMenuIntent = Intent(context as MainActivity, CafeReportMenuActivity::class.java)
@@ -153,6 +159,8 @@ class CafeReportFragment : Fragment() {
             }
             R.id.delete -> {
                 cafeReportMenuAdapter.removeItem(position)
+                cafeReportMenuAdapter.notifyDataSetChanged()
+                buttonActive()
             }
         }
         return false
@@ -178,10 +186,18 @@ class CafeReportFragment : Fragment() {
             }
         }
 
-
         //탭 변경
         val tabLayout = activity?.findViewById<TabLayout>(R.id.tab_report)
         tabLayout?.selectTab(tabLayout.getTabAt(1))
+        //칩 초기화
+        chipGroup.clearCheck()
+        honeyList.clear()
+        //카페명 초기화
+        binding.clCafeSearchAfter.visibility = View.INVISIBLE
+        binding.clGoToCafeSearch.visibility = View.VISIBLE
+        //카페메뉴 초기화
+        cafeReportMenuAdapter.clearData()
+        buttonActive()
     }
 
     //서버통신
@@ -259,6 +275,7 @@ class CafeReportFragment : Fragment() {
 
                 cafeReportMenuAdapter.data = cafeList
                 cafeReportMenuAdapter.notifyDataSetChanged()
+                buttonActive()
             }
 
             if (requestCode == CafeReportMenuActivity.EDIT_CODE) {
@@ -290,9 +307,9 @@ class CafeReportFragment : Fragment() {
                 cafeMenu[posi].menuName = shareCafeMenu.toString()
                 cafeMenu[posi].category = sharedCategory
 
-
                 cafeReportMenuAdapter.data = cafeList
                 cafeReportMenuAdapter.notifyDataSetChanged()
+                buttonActive()
             }
         }
 
@@ -312,6 +329,7 @@ class CafeReportFragment : Fragment() {
 
             binding.tvCafeReportName.text = placeName
             binding.textView13.text = placeAddress
+            buttonActive()
         }
     }
 

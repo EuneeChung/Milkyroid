@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.home.homesearch
+package com.milkyway.milkyway.ui.search.reportsearch
 
 import android.app.Activity
 import android.content.Context
@@ -22,27 +22,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.CafeSearchData
-import com.milkyway.milkyway.ui.home.HomeResultActivity
+import com.milkyway.milkyway.data.model.PlaceSearchData
 import com.milkyway.milkyway.util.DataStore
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class CafeSearchActivity : AppCompatActivity() {
 
-    lateinit var cafeSearchAdapter: CafeSearchAdapter
-    val cafeDatas: MutableList<CafeSearchData> = mutableListOf()
+class PlaceSearchActivity : AppCompatActivity() {
+
+    lateinit var placeSearchAdapter: PlaceSearchAdapter
+    val placeDatas: MutableList<PlaceSearchData> = mutableListOf()
+    private val dataStore = DataStore(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cafe_search)
-        val clCafeSearch = findViewById<ConstraintLayout>(R.id.cl_cafe_search)
+        setContentView(R.layout.activity_place_search)
+        val clPlaceSearch = findViewById<ConstraintLayout>(R.id.cl_place_search)
         val rv = findViewById<RecyclerView>(R.id.rv_place_search)
         val btn_back = findViewById<ImageView>(R.id.btn_back_search)
         val emptyView = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
 
-        cafeSearchAdapter = CafeSearchAdapter()
-        rv.adapter = cafeSearchAdapter
+        placeSearchAdapter = PlaceSearchAdapter()
+        rv.adapter = placeSearchAdapter
         createData()
 
         //뒤로가기
@@ -51,7 +52,7 @@ class CafeSearchActivity : AppCompatActivity() {
         }
 
         //키보드 숨기기
-        clCafeSearch.setOnClickListener {
+        clPlaceSearch.setOnClickListener {
             hideKeyboard()
         }
         emptyView.setOnClickListener {
@@ -69,15 +70,14 @@ class CafeSearchActivity : AppCompatActivity() {
         })
 
         //recycler 에서 아이템 클릭
-        cafeSearchAdapter.itemClick=object :CafeSearchAdapter.ItemClick{
+        placeSearchAdapter.itemClick=object : PlaceSearchAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
-                val intent = Intent(this@CafeSearchActivity, HomeResultActivity::class.java)
-                intent.putExtra("cafeName",cafeSearchAdapter.datas[position].cafeName)
-                intent.putExtra("cafeAddress",cafeSearchAdapter.datas[position].cafeAddress)
-                intent.putExtra("longitude",cafeSearchAdapter.datas[position].longitude)
-                intent.putExtra("latitude",cafeSearchAdapter.datas[position].latitude)
-                intent.putExtra("businessHours",cafeSearchAdapter.datas[position].businessHours)
-                startActivity(intent)
+                val intent = Intent()
+                intent.putExtra("placeName", placeSearchAdapter.datas[position].cafeName)
+                intent.putExtra("placeAddress", placeSearchAdapter.datas[position].cafeAddress)
+                intent.putExtra("placeLongitude", placeSearchAdapter.datas[position].longitude)
+                intent.putExtra("placeLatitude", placeSearchAdapter.datas[position].latitude)
+                setResult(2, intent)
                 finish()
             }
         }
@@ -101,23 +101,21 @@ class CafeSearchActivity : AppCompatActivity() {
         val emptyText: TextView= findViewById<TextView>(R.id.tv_empty_place_search)
         val recyclerView = findViewById<RecyclerView>(R.id.rv_place_search)
 
-        val viewModel = ViewModelProvider(this).get(CafeSearchViewModel::class.java)
-        viewModel.recyclerListData.observe(this, Observer<MutableList<CafeSearchData>> { recyclerListData->
-            recyclerListData?.let {
-                Log.d("d", it.toString())
-                if (it.size>0) {
-                    emptyView.visibility=View.INVISIBLE
-                    emptyImage.visibility=View.INVISIBLE
-                    emptyText.visibility=View.INVISIBLE
-                    recyclerView.visibility=View.VISIBLE
-                    cafeSearchAdapter.datas = it
-                    cafeSearchAdapter.notifyDataSetChanged()
-                } else {
-                    emptyImage.visibility=View.VISIBLE
-                    emptyText.visibility=View.VISIBLE
-                    recyclerView.visibility=View.INVISIBLE
-                    this.hideKeyboard()
-                }
+        val viewModel = ViewModelProvider(this).get(PlaceSearchActivityViewModel::class.java)
+        viewModel.recyclerListData.observe(this, Observer<MutableList<PlaceSearchData>> {
+            Log.d("d", it!!.toString())
+            if (it.size > 0) {
+                emptyView.visibility = View.INVISIBLE
+                emptyImage.visibility=View.INVISIBLE
+                emptyText.visibility=View.INVISIBLE
+                recyclerView.visibility = View.VISIBLE
+                placeSearchAdapter.datas = it
+                placeSearchAdapter.notifyDataSetChanged()
+            } else {
+                emptyImage.visibility=View.VISIBLE
+                emptyText.visibility=View.VISIBLE
+                recyclerView.visibility = View.INVISIBLE
+                this.hideKeyboard()
             }
         })
 
@@ -142,7 +140,7 @@ class CafeSearchActivity : AppCompatActivity() {
             emptyView.visibility=View.VISIBLE
             recyclerView.visibility=View.INVISIBLE
             searchBox.text.clear()
-            cafeSearchAdapter.clearData()
+            placeSearchAdapter.clearData()
         }
 
         //키보드 검색버튼
@@ -150,8 +148,8 @@ class CafeSearchActivity : AppCompatActivity() {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     lifecycleScope.launch {
-                        DataStore(this@CafeSearchActivity).getToken.collect {
-                            viewModel.makeApiCall(searchBox.text.toString(),it!!)
+                        DataStore(this@PlaceSearchActivity).getToken.collect {
+                            viewModel.makeApiCall(searchBox.text.toString(), it!!)
                         }
                     }
                     return true
@@ -162,6 +160,6 @@ class CafeSearchActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val REQUEST_CODE = 2005
+        const val REQUEST_CODE = 2002
     }
 }

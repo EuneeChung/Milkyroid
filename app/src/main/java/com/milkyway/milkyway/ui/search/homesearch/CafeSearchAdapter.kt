@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.home.homesearch
+package com.milkyway.milkyway.ui.search.homesearch
 
 import android.graphics.Color
 import android.view.LayoutInflater

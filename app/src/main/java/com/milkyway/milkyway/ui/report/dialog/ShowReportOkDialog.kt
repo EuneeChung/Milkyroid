@@ -1,4 +1,4 @@
-package com.milkyway.milkyway.ui.report.cafereport
+package com.milkyway.milkyway.ui.report.dialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context

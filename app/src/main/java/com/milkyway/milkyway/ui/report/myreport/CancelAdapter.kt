@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.milkyway.milkyway.data.model.CancelReport
+import com.milkyway.milkyway.data.remote.response.CancelReport
 import com.milkyway.milkyway.databinding.ItemMyreportCancelBinding
 
 class CancelAdapter () : RecyclerView.Adapter<CancelAdapter.CancelViewHolder>() {
