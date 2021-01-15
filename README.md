@@ -6,12 +6,33 @@
 2020.12.26 ~ ing 🤍
 
 
+<br/>
 
 ## 🌌Work Flow
 
 <img src ="https://user-images.githubusercontent.com/63637706/104713874-d0b98800-5767-11eb-8bd8-2aa110f883a5.jpg"/>
 
 
+## 🤳Simulation
+
+<div align="center">
+<h4>Lottie</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104729264-86420680-577b-11eb-8681-38698ad11816.gif" width ="300px" heingt="600px"/>
+<h4>Naver Map</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104727887-70334680-5779-11eb-8534-a91034052552.gif" width ="300px" height="600px"/>
+<h4>Universe</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104730600-b1c5f080-577d-11eb-9f61-33dbd223a660.gif" width ="300px" height="600px"/>
+<h4>Report Menu</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104727919-7cb79f00-5779-11eb-97e2-72eb4263d35e.gif" width ="300px" height="600px"/>
+<h4>Edit</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104727926-7e816280-5779-11eb-9c2a-9ec8a72d4202.gif" width ="300px" heignt="600px"/> 
+<h4>Delete</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104727932-7f19f900-5779-11eb-831a-36a0189c6f0a.gif" width ="300px" height="600px"/>
+<h4>Search</h4> 
+<img src="https://user-images.githubusercontent.com/63637706/104728560-6a8a3080-577a-11eb-938f-7cfcf2d7b1f2.gif" width ="300px" height="600px"/> 
+</div>
+
+<br/>
 
 ## 🤹‍♀️Role
 
@@ -55,6 +76,7 @@
 ```
 
 
+<br/>
 
 ## 🎫Meeting Log
 
@@ -81,12 +103,13 @@
 - [20210115 9차 회의 - 진행상황 공유](https://github.com/MilkyOnOurWay/Milkyroid/wiki/[20210112]-Milkyroid-9차-회의)
 
 
+<br/>
 
 ## 👪 Communication
 
 #### [Milkyroid - Kanban board](https://github.com/MilkyOnOurWay/Milkyroid/projects/1)
 
-
+<br/>
 
 ## 🔧TOOLS
 
@@ -94,7 +117,17 @@
 - Zeplin/Figma
 - Postman
 
+<br/>
 
+## 🎸Design Pattern
+
+- DataBinding
+- ViewModel
+- Data Store
+- Coroutine
+
+
+<br/>
 
 ## 🎠ID Naming
 
@@ -129,6 +162,7 @@
   
         ex) item_home_title
 
+<br/>
 
 
 ## 🧶Branching
@@ -149,6 +183,7 @@
     
       ex) feature/36_home_layout
 
+<br/>
 
 
 ## 💫Issue Naming
@@ -162,7 +197,7 @@
     
     ex) [layout] 마이 유니버스 등록
 
-
+<br/>
 
 ## 💬Commit Message
 
@@ -172,6 +207,7 @@
 
     ex)  [feature] #1  Add feature 
 
+<br/>
 
 
 ## 🎪Project Structure
@@ -285,6 +321,7 @@
 ```
 
 
+<br/>
 
 ## 🎢Dependency
 
@@ -337,6 +374,8 @@ implementation 'com.airbnb.android:lottie:3.0.7'
 // Preferences DataStore -> DataStore for Saving Data
 implementation "androidx.datastore:datastore-preferences:1.0.0-alpha05"
 ```
+
+<br/>
 
 
 ## **🌈 Asset **
@@ -391,6 +430,7 @@ cafedetailViewModel.isSelected.observe(this, Observer { isSelected ->
 
 
 
+
 ## **📝 ConstraintLayout**
 
 - 절대 크기 지정
@@ -434,9 +474,12 @@ cafedetailViewModel.isSelected.observe(this, Observer { isSelected ->
 
 
 
+<br/>
+
 ## ✨Core Implementation Code
 
 > In MilkyWay
+
 
 
 
@@ -674,6 +717,7 @@ fun notCompassIcon() {
 ```
 
 
+<br/>
 
 #### 2. Nickname
 
@@ -733,6 +777,7 @@ object NicknameBinding {
 ```
 
 
+<br/>
 
 #### 3. DataStore
 
@@ -771,6 +816,7 @@ class DataStore(context: Context) {
 ```
 
 
+<br/>
 
 #### 4. Keyboard
 
@@ -808,6 +854,7 @@ emptyView.setOnClickListener {
             hideKeyboard()
 ```
 
+<br/>
 
 
 #### 5. RecyclerView
@@ -868,6 +915,7 @@ cafeReportMenuAdapter.itemClick = object : CafeReportMenuAdapter.ItemClick {
     }
 ```
 
+<br/>
 
 
 #### 6. Custom Dialog
@@ -955,6 +1003,7 @@ private fun observeDeleteClick(cafeId:Int){
 }
 ```
 
+<br/>
 
 
 #### 7. Recyclerview Delete
@@ -995,6 +1044,7 @@ cancelAdapter.onClickListener = {
 notifyItemRemoved()를 쓰는 대신 어댑터에서 datas.removeAt(clickItemPosition), notifyDataSetChanged()를 호출하는 함수→ setDeleteCancelClick를 만들어 서버통신이 되면 각 id를 통해 선택한 아이템만 삭제되도록 구현.
 
 
+<br/>
 
 
 
