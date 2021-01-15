@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.FragmentHomeSearchResultBinding
-import com.milkyway.milkyway.ui.home.homesearch.CafeSearchActivity
+import com.milkyway.milkyway.ui.search.homesearch.CafeSearchActivity
 import com.milkyway.milkyway.ui.home.result.HomeSearchResultViewModel
 import com.milkyway.milkyway.ui.main.MainActivity
 

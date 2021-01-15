@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".ui.report.search.PlaceSearchActivity">
+    tools:context=".ui.search.reportsearch.PlaceSearchActivity">
 
     <ImageView
         android:id="@+id/btn_back_search"

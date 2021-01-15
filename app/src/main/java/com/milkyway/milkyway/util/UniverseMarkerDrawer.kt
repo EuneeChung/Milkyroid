@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.AroundUniverse
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng

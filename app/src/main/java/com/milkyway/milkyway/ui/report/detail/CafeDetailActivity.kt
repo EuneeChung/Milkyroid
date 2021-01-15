@@ -16,7 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.CafeMenu
+import com.milkyway.milkyway.data.remote.response.CafeMenu
 import com.milkyway.milkyway.databinding.ActivityCafeDetailBinding
 import com.milkyway.milkyway.ui.modify.ModifyActivity
 import com.milkyway.milkyway.util.DataStore

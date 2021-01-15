@@ -1,14 +1,13 @@
 package com.milkyway.milkyway.ui.report.detail
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.CafeMenu
+import com.milkyway.milkyway.data.remote.response.CafeMenu
 
 class MenuAdapter (private val context : Context, var datas : List<CafeMenu>) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 //class MenuAdapter (private val context : Context) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {

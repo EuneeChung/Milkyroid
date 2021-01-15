@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="라떼는 말이야"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     app:layout_constraintBottom_toTopOf="@+id/textView13"
@@ -240,9 +240,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_chip_honey_tip"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5">
 
@@ -343,20 +345,22 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_325">
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_report_menu_ok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/border_navy_fill_round_40"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/selector_home_chip_color"
+                android:background="@drawable/border_white_fill_round_40"
+                app:backgroundTint="@drawable/selector_btn_active_color"
                 android:fontFamily="@font/roboto_bold"
                 android:onClick="@{CafeReportFragment::onReportOkClick}"
-                android:paddingVertical="16dp"
+                android:paddingVertical="15dp"
                 android:text="제보 완료"
                 android:textAlignment="center"
-                android:textColor="@color/white"
                 android:textSize="15dp"
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

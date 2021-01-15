@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.milkyway.milkyway.R
@@ -19,6 +20,8 @@ import java.text.DecimalFormat
 class CafeReportMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCafeReportMenuBinding
     var pointNumStr = "";
+    var cp: String =""
+    var cn: String =""
     private val categoryList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +29,17 @@ class CafeReportMenuActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_cafe_report_menu)
         binding.cafeReportMenuActivity = this
-        binding.lifecycleOwner = this
-
+        binding.btnAddMenuOk.isEnabled=false
         binding.clCafeReportMenu.setOnClickListener {
             hideKeyboard()
         }
+
+        binding.etCafePrice.addTextChangedListener(myTextWatcher)
+        binding.etCafeMenuName.addTextChangedListener(myTextWatcher)
+        binding.cbNoCaffeine.setOnCheckedChangeListener(myCheckWatcher)
+        binding.cbDoyou.setOnCheckedChangeListener(myCheckWatcher)
+        binding.cbLowMilk.setOnCheckedChangeListener(myCheckWatcher)
+        binding.cbNoMilk.setOnCheckedChangeListener(myCheckWatcher)
 
         val preference: SharedPreferences = this.getSharedPreferences("temp", Context.MODE_PRIVATE)
         val editor:SharedPreferences.Editor= preference.edit()
@@ -45,19 +54,25 @@ class CafeReportMenuActivity : AppCompatActivity() {
         if (category!=null)
         {
             when (1) {
-                in category -> binding.cbNoCaffeine.isChecked=true
+                in category ->
+                {binding.cbNoCaffeine.isChecked = true }
             }
             when (2) {
-                in category  -> binding.cbDoyou.isChecked=true
+                in category -> {binding.cbDoyou.isChecked = true }
             }
             when (3) {
-                in category  -> binding.cbLowMilk.isChecked=true
+                in category -> {
+                    binding.cbLowMilk.isChecked = true
+                }
             }
             when (4) {
-                in category  -> binding.cbNoMilk.isChecked=true
+                in category -> {
+                    binding.cbNoMilk.isChecked = true
+                }
             }
         }
 
+        deliveryCafeMenu(editor)
 
 
 
@@ -65,57 +80,59 @@ class CafeReportMenuActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        binding.etCafePrice.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (!TextUtils.isEmpty(p0.toString()) && !p0.toString().equals(pointNumStr)) {
-                    pointNumStr = makeCommaNumber(Integer.parseInt(p0.toString().replace(",", "")))
-                    binding.etCafePrice.setText(pointNumStr)
-                    binding.etCafePrice.setSelection(pointNumStr.length)
-                }
-                /*
-                if (!TextUtils.isEmpty(p0.toString())) {
-
-                    }
-                } else {
-                    binding.btnAddMenuOk.isEnabled = false
-                    binding.btnAddMenuOk.setBackgroundResource(R.drawable.border_gray_fill_round_40)
-                }
-
-                 */
-            }
-        })
-
-        binding.btnAddMenuOk.isEnabled = true
-        binding.btnAddMenuOk.setBackgroundResource(R.drawable.border_navy_fill_round_40)
         binding.btnAddMenuOk.setOnClickListener {
-            if (binding.cbNoCaffeine.isChecked) {
-                categoryList.add(1)
-            }
-            if (binding.cbDoyou.isChecked) {
-                categoryList.add(2)
-            }
-            if (binding.cbLowMilk.isChecked) {
-                categoryList.add(3)
-            }
-            if (binding.cbNoMilk.isChecked) {
-                categoryList.add(4)
-            }
 
             deliveryCafeMenu(editor)
-
-            Log.d("posi",intent.getIntExtra("posi",-1).toString())
-            setResult(1,intent.putIntegerArrayListExtra("categoryList",categoryList))
+            Log.d("posi", intent.getIntExtra("posi", -1).toString())
+            setResult(1, intent.putIntegerArrayListExtra("categoryList", categoryList))
             finish()
         }
     }
 
-    fun Activity.hideKeyboard() {
+    private val myTextWatcher: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            cp = binding.etCafePrice.text.toString().trim()
+            cn = binding.etCafeMenuName.text.toString().trim()
+            buttonActive()
+
+            if (!TextUtils.isEmpty(cp.toString()) && cp.toString() != pointNumStr) {
+                pointNumStr = makeCommaNumber(Integer.parseInt(cp.toString().replace(",", "")))
+                binding.etCafePrice.setText(pointNumStr)
+                binding.etCafePrice.setSelection(pointNumStr.length)
+            }
+        }
+        override fun afterTextChanged(s: Editable) {}
+    }
+
+    private var myCheckWatcher = CompoundButton.OnCheckedChangeListener{view, isChecked ->
+        if(isChecked){
+            when(view)
+            {
+                binding.cbNoCaffeine->{categoryList.add(1)}
+                binding.cbDoyou->{categoryList.add(2)}
+                binding.cbLowMilk->{categoryList.add(3)}
+                binding.cbNoMilk->{categoryList.add(4)}
+            }
+        }
+        else
+        {
+            when(view)
+            {
+                binding.cbNoCaffeine->{categoryList.remove(1)}
+                binding.cbDoyou->{categoryList.remove(2)}
+                binding.cbLowMilk->{categoryList.remove(3)}
+                binding.cbNoMilk->{categoryList.remove(4)}
+            }
+        }
+        buttonActive()
+    }
+
+    fun buttonActive(){
+        binding.btnAddMenuOk.isEnabled=(cp.isNotBlank() && cn.isNotBlank() && categoryList.isNotEmpty())
+    }
+
+    private fun Activity.hideKeyboard() {
         hideKeyboard(currentFocus ?: View(this))
     }
 
@@ -130,9 +147,10 @@ class CafeReportMenuActivity : AppCompatActivity() {
     }
 
     private fun deliveryCafeMenu(editor: SharedPreferences.Editor) {
-        editor.putString("menu",binding.etCafeMenuName.text.toString())
-        editor.putString("price",binding.etCafePrice.text.toString())
-        editor.putInt("posi",intent.getIntExtra("posi",-1))
+        editor.putString("menu", binding.etCafeMenuName.text.toString())
+        editor.putString("price", binding.etCafePrice.text.toString())
+        editor.putInt("posi", intent.getIntExtra("posi", -1))
+        editor.clear()
         editor.apply()
         editor.commit()
     }

@@ -1,7 +1,7 @@
-package com.milkyway.milkyway.data.model
+package com.milkyway.milkyway.data.remote.response
 
 
-data class PlaceSearchResponse(
+data class ResponsePlaceSearch(
     val status: Int,
     val message: String,
     val data: ArrayList<PlaceSearch>

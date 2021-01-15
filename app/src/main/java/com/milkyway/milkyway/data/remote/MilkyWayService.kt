@@ -1,6 +1,7 @@
 package com.milkyway.milkyway.data.remote
 
-import com.milkyway.milkyway.data.model.*
+import com.milkyway.milkyway.data.remote.request.*
+import com.milkyway.milkyway.data.remote.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -73,18 +74,18 @@ interface MilkyWayService {
     ): ResponseModify
 
     //ReportPlaceSearch
-    @GET("/search/report/cafe")
+    @GET("search/report/cafe")
     fun requestPlaceSearch(
         @Header("token") token: String,
         @Query("query") query: String
-    ): Call<PlaceSearchResponse>
+    ): Call<ResponsePlaceSearch>
 
     //HomeCafeSearch
-    @GET("/search/{toString}")
+    @GET("search/{toString}")
     fun requestCafeSearch(
         @Header("token") token: String,
         @Path("toString") toString: String
-    ): Call<CafeSearchResponse>
+    ): Call<ResponseCafeSearch>
 
     // MyReportFragment
     @GET("report")
@@ -115,7 +116,7 @@ interface MilkyWayService {
     ) : ResponseAddUniverse
 
     //Cafe Report
-    @POST("/report")
+    @POST("report")
     fun requestCafeReport(
         @Header("token") token : String,
         @Body body : RequestReport

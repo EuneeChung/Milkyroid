@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.milkyway.milkyway.data.model.AroundUniverse
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

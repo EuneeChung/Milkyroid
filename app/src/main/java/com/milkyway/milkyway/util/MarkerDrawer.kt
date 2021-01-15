@@ -7,10 +7,10 @@ import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.AroundCafe
-import com.milkyway.milkyway.data.model.RequestCafeId
-import com.milkyway.milkyway.data.model.ResponseAddUniverse
-import com.milkyway.milkyway.data.model.ResponseDeleteUniverse
+import com.milkyway.milkyway.data.remote.response.AroundCafe
+import com.milkyway.milkyway.data.remote.request.RequestCafeId
+import com.milkyway.milkyway.data.remote.response.ResponseAddUniverse
+import com.milkyway.milkyway.data.remote.response.ResponseDeleteUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.milkyway.milkyway.ui.report.detail.CafeDetailActivity

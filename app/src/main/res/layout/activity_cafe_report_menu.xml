@@ -207,24 +207,23 @@
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/cb_low_milk" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="입력 완료"
         android:id="@+id/btn_add_menu_ok"
-        android:textColor="@color/white"
-        android:paddingVertical="16dp"
+        android:paddingVertical="15dp"
         android:fontFamily="@font/roboto_bold"
-        android:background="@drawable/border_gray_fill_round_40"
+        android:textColor="@color/selector_home_chip_color"
+        android:background="@drawable/border_white_fill_round_40"
+        app:backgroundTint="@drawable/selector_btn_active_color"
         android:layout_marginHorizontal="20dp"
         android:textAlignment="center"
-        android:textSize="15dp"
+        android:textSize="16dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:enabled="false"
-        />
-
+        android:enabled="false" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

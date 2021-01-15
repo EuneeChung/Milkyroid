@@ -15,9 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.model.CancelReport
-import com.milkyway.milkyway.data.model.DoneReport
-import com.milkyway.milkyway.data.model.IngReport
+import com.milkyway.milkyway.data.remote.response.CancelReport
+import com.milkyway.milkyway.data.remote.response.DoneReport
+import com.milkyway.milkyway.data.remote.response.IngReport
 import com.milkyway.milkyway.databinding.FragmentMyReportBinding
 import com.milkyway.milkyway.ui.universe.ConfirmAlertDialog
 import com.milkyway.milkyway.util.DataStore
