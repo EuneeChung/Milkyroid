@@ -29,6 +29,16 @@ class UniverseViewModel : ViewModel() {
     val loading : LiveData<Boolean>
         get() = _loading
 
+    private val _deleteUniverse: MutableLiveData<Boolean> = MutableLiveData(false)
+    val deleteUniverse: LiveData<Boolean>
+        get() = _deleteUniverse
+
+    private val _confirmDelete: MutableLiveData<Boolean> = MutableLiveData(false)
+    val confirmDelete: LiveData<Boolean>
+        get() = _confirmDelete
+
+    val clickCafeId: MutableLiveData<Int> = MutableLiveData(0)
+
     fun compassIcon() {
         _compass.value = !_compass.value!!
     }
@@ -53,6 +63,14 @@ class UniverseViewModel : ViewModel() {
         _markers.value = markers
     }
 
+    fun setDeleteUniverseClick() {
+        _deleteUniverse.value = !_deleteUniverse.value!!
+    }
+
+    fun setConfirmDeleteClick() {
+        _confirmDelete.value = !_confirmDelete.value!!
+    }
+
     fun requestUniverseData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val universe = RetrofitBuilder.service.universe(token)
@@ -60,6 +78,16 @@ class UniverseViewModel : ViewModel() {
             _markers.postValue(universe.data.aroundUniverse)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
+        }
+    }
+
+    fun requestDeleteUniverse(token: String) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val delete = RetrofitBuilder.service.deleteUniverse(token, clickCafeId.value!!)
+            Log.d("response universe", delete.toString())
+        } catch (e: HttpException) {
+            Log.d("request", e.toString())
+            Log.d("requestMessage", e.response().toString())
         }
     }
 }
