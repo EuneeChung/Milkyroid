@@ -37,6 +37,7 @@ class UniverseAdapter(private val context : Context, private val universeViewMod
         this.list.removeAt(clickItemPosition)
         universeViewModel.updateUniverseData(this.list)
     }
+
     inner class MyUniverseListViewHolder(val binding:ItemMyuniverseBottomsheetBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data:AroundUniverse,position: Int){
             binding.setVariable(BR.cafe, data)

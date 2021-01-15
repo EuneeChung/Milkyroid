@@ -209,14 +209,20 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
     private fun drawMarkers(p0 : NaverMap) {
         universeViewModel.markers.observe(this, Observer{ markers->
             markers?.let {
-                UniverseMarkerDrawer.apply {
-                    init(binding, markers, requireContext())
-                    setMarkers()
-                    setIcon()
-                    setClickListener{
-                        universeViewModel.setMarkerClick()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    whenResumed {
+                        DataStore(requireContext()).getToken.collect {
+                            UniverseMarkerDrawer.apply {
+                                init(binding, markers, it!!, requireActivity(), universeViewModel)
+                                setMarkers()
+                                setIcon()
+                                setClickListener {
+                                    universeViewModel.setMarkerClick()
+                                }
+                                drawMarkers(p0)
+                            }
+                        }
                     }
-                    drawMarkers(p0)
                 }
             }
         })
