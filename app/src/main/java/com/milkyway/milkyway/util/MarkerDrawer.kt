@@ -7,11 +7,11 @@ import android.view.View
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.remote.response.AroundCafe
+import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.data.remote.request.RequestCafeId
+import com.milkyway.milkyway.data.remote.response.AroundCafe
 import com.milkyway.milkyway.data.remote.response.ResponseAddUniverse
 import com.milkyway.milkyway.data.remote.response.ResponseDeleteUniverse
-import com.milkyway.milkyway.data.remote.RetrofitBuilder
 import com.milkyway.milkyway.databinding.FragmentHomeBinding
 import com.milkyway.milkyway.ui.detail.CafeDetailActivity
 import com.naver.maps.geometry.LatLng
@@ -162,7 +162,7 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
                         cafeList[index].isUniversed = true
                         cafeList[index].universeCount = it.data.universeCount
-                        Toast.customToast("나의 유니버스에 추가되었습니다", context)
+                        Toast.customToast("카페가 나의 유니버스에 들어왔어요.", context)
                     } ?: Log.d("response", response.body().toString())
             }
         })
@@ -191,7 +191,7 @@ object MarkerDrawer {
                         markers[index].icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
                         cafeList[index].isUniversed = false
                         cafeList[index].universeCount = it.data.universeCount
-                        Toast.customToast("나의 유니버스에서 삭제되었습니다", context)
+                        Toast.customToast("카페가 나의 유니버스를 탈출했어요.", context)
                     } ?: Log.d("response", response.body().toString())
             }
         })

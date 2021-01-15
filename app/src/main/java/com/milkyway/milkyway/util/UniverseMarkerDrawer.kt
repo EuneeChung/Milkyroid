@@ -5,8 +5,8 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import com.milkyway.milkyway.R
-import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.response.AroundUniverse
 import com.milkyway.milkyway.data.remote.response.ResponseDeleteUniverse
 import com.milkyway.milkyway.databinding.FragmentUniverseBinding
 import com.milkyway.milkyway.ui.detail.CafeDetailActivity
@@ -126,7 +126,7 @@ object UniverseMarkerDrawer {
                         universeList.removeAt(index)
                         universeViewModel.updateUniverseData(universeList)
                         universeViewModel.setMapClick()
-                        Toast.customToast("나의 유니버스에서 삭제되었습니다", context)
+                        Toast.customToast("카페가 나의 유니버스를 탈출했어요.", context)
                     } ?: Log.d("response", response.body().toString())
             }
         })

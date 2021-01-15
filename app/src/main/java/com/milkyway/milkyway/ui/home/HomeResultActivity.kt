@@ -233,7 +233,7 @@ class HomeResultActivity : AppCompatActivity(), OnMapReadyCallback {
                         binding.tvLikeCount.text = it.data.universeCount.toString()
                         marker.icon = OverlayImage.fromResource(R.drawable.ic_marker_universe_selected)
                         MarkerDrawer.updateData(cafeIndex)
-                        Toast.customToast("나의 유니버스에서 추가되었습니다", this@HomeResultActivity)
+                        Toast.customToast("카페가 나의 유니버스에 들어왔어요.", this@HomeResultActivity)
                     } ?: Log.d("response", response.body().toString())
             }
         })
@@ -262,7 +262,7 @@ class HomeResultActivity : AppCompatActivity(), OnMapReadyCallback {
                         binding.tvLikeCount.text = it.data.universeCount.toString()
                         marker.icon = OverlayImage.fromResource(R.drawable.ic_marker_selected)
                         MarkerDrawer.updateData(cafeIndex)
-                        Toast.customToast("나의 유니버스에서 삭제되었습니다", this@HomeResultActivity)
+                        Toast.customToast("카페가 나의 유니버스를 탈출했어요.", this@HomeResultActivity)
                     } ?: Log.d("response", response.body().toString())
             }
         })

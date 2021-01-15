@@ -107,7 +107,7 @@ class CafeDetailActivity : AppCompatActivity() {
                 binding.tvDetailUniverseCount.setTextColor(getColor(R.color.gray_9a9792))
                 binding.btnDetailUniverse.setOnClickListener {
                     requestAddUniverseData()
-                    Toast.customToast("나의 유니버스에 추가되었습니다", this)
+                    Toast.customToast("카페가 나의 유니버스에 들어왔어요.", this)
                     Log.d("추가", cafedetailViewModel.isSelected.value.toString())
                 }
             }
@@ -117,7 +117,7 @@ class CafeDetailActivity : AppCompatActivity() {
                 binding.tvDetailUniverseCount.typeface = ResourcesCompat.getFont(binding.tvDetailUniverseCount.context, R.font.roboto_bold)
                 binding.btnDetailUniverse.setOnClickListener {
                     requestDeleteUniverseData()
-                    Toast.customToast("나의 유니버스에서 삭제되었습니다", this)
+                    Toast.customToast("카페가 나의 유니버스를 탈출했어요.", this)
                     Log.d("삭제", cafedetailViewModel.isSelected.value.toString())
                 }
             }
@@ -181,7 +181,7 @@ class CafeDetailActivity : AppCompatActivity() {
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
                     binding.tvDetailUniverseCount.setTextColor(getColor(R.color.blue_3320a6))
                     binding.tvDetailUniverseCount.typeface = ResourcesCompat.getFont(binding.tvDetailUniverseCount.context, R.font.roboto_bold)
-                    Toast.customToast("나의 유니버스에 추가되었습니다", this)
+                    Toast.customToast("카페가 나의 유니버스에 들어왔어요.", this)
                     Log.d("추가카운트", "$num")
                     binding.btnDetailUniverse.setOnClickListener{
                         requestDeleteUniverseData()
@@ -190,7 +190,7 @@ class CafeDetailActivity : AppCompatActivity() {
                     num -= 1
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
                     binding.tvDetailUniverseCount.setTextColor(getColor(R.color.gray_9a9792))
-                    Toast.customToast("나의 유니버스에서 삭제되었습니다", this)
+                    Toast.customToast("카페가 나의 유니버스를 탈출했어요.", this)
                     Log.d("삭제카운트", "$num")
                     binding.btnDetailUniverse.setOnClickListener{
                         requestAddUniverseData()
