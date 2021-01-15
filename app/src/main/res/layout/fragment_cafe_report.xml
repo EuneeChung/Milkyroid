@@ -9,361 +9,381 @@
             type="com.milkyway.milkyway.ui.report.cafereport.CafeReportFragment" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00ff0000">
+        android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:overScrollMode="never"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_cafe_report"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".ui.report.cafereport.CafeReportFragment">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/btn_cafe_report_clean"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/border_white_fill_round_30"
-                android:fontFamily="@font/roboto_bold"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="7dp"
-                android:text="초기화"
-                android:textColor="@color/gray_9a9792"
-                android:textSize="12dp"
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="43dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="카페명"
-                android:textColor="@color/black"
-                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_go_to_cafe_search"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="4dp"
-                android:onClick="@{CafeReportFragment::onCafeSearchClick}"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_report_search"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="카페 검색하기"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_cafe_search_after"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="4dp"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView">
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_location"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_cafe_report_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView13"
-                    app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="19dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="서울시 종로구 2-12"
-                    android:textColor="@color/gray_9a9792"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/tv_cafe_report_name"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_cafe_report_name" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
-                    android:onClick="@{CafeReportFragment::onCafeSearchClick}"
-                    android:padding="20dp"
-                    android:paddingVertical="15dp"
-                    android:text="카페 재검색"
-                    android:textColor="#9A9792"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/roboto_bold"
-                android:paddingBottom="4dp"
-                android:text="카페 메뉴"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/cl_go_to_cafe_search" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_cafe_menu"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fragment_cafe_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:listitem="@layout/item_cafe_report_menu" />
+                    tools:context=".ui.report.cafereport.CafeReportFragment">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/btn_cafe_report_clean"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/border_white_fill_round_30"
+                        android:fontFamily="@font/roboto_bold"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="7dp"
+                        android:text="초기화"
+                        android:textColor="@color/gray_9a9792"
+                        android:textSize="12dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="43dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="카페명"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_go_to_cafe_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="4dp"
+                        android:onClick="@{CafeReportFragment::onCafeSearchClick}"
+                        android:visibility="invisible"
+                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:src="@drawable/ic_report_search"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="카페 검색하기"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                            app:layout_constraintStart_toEndOf="@+id/imageView"
+                            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_cafe_search_after"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:src="@drawable/ic_location"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_cafe_report_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toTopOf="@+id/textView13"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text=""
+                            android:textColor="@color/gray_9a9792"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/tv_cafe_report_name"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_cafe_report_name" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:onClick="@{CafeReportFragment::onCafeSearchClick}"
+                            android:padding="20dp"
+                            android:layout_marginVertical="2dp"
+                            android:paddingVertical="15dp"
+                            android:text="카페 재검색"
+                            android:textColor="@color/gray_9a9792"
+                            android:textSize="12dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:paddingBottom="4dp"
+                        android:text="카페 메뉴"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_go_to_cafe_search" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView3"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_cafe_menu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:listitem="@layout/item_cafe_report_menu" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_add_cafe_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:onClick="@{CafeReportFragment::onAddMenuClick}"
+                        app:layout_constraintStart_toStartOf="@+id/textView3"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:src="@drawable/ic_plus"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="메뉴 추가하기"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="밀키의 꿀팁"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView3"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_add_cafe_menu" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_chip_honey_tip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroup_honey_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            app:chipMinTouchTargetSize="0dp"
+                            app:chipSpacingHorizontal="8dp"
+                            app:chipSpacingVertical="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="#전메뉴두유가능"
+                                android:textAppearance="@style/HoneyChipTheme"
+                                app:chipBackgroundColor="@color/white"
+                                app:chipMinTouchTargetSize="0dp"
+                                app:chipStrokeColor="@color/chip_honey_tip_bg_states"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@android:color/transparent" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="#옵션추가비용500원"
+                                android:textAppearance="@style/HoneyChipTheme"
+                                app:chipBackgroundColor="@color/white"
+                                app:chipMinTouchTargetSize="0dp"
+                                app:chipStrokeColor="@color/chip_honey_tip_bg_states"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@android:color/transparent" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="#제로웨이스트가능"
+                                android:textAppearance="@style/HoneyChipTheme"
+                                app:chipBackgroundColor="@color/white"
+                                app:chipMinTouchTargetSize="0dp"
+                                app:chipStrokeColor="@color/chip_honey_tip_bg_states"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@android:color/transparent" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="#두유가져가면받아줌"
+                                android:textAppearance="@style/HoneyChipTheme"
+                                app:chipBackgroundColor="@color/white"
+                                app:chipMinTouchTargetSize="0dp"
+                                app:chipStrokeColor="@color/chip_honey_tip_bg_states"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@android:color/transparent" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="#지점마다다름"
+                                android:textAppearance="@style/HoneyChipTheme"
+                                app:chipBackgroundColor="@color/white"
+                                app:chipMinTouchTargetSize="0dp"
+                                app:chipStrokeColor="@color/chip_honey_tip_bg_states"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@android:color/transparent" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="#메뉴에모든재료표기"
+                                android:textAppearance="@style/HoneyChipTheme"
+                                app:chipBackgroundColor="@color/white"
+                                app:chipMinTouchTargetSize="0dp"
+                                app:chipStrokeColor="@color/chip_honey_tip_bg_states"
+                                app:chipStrokeWidth="1dp"
+                                app:rippleColor="@android:color/transparent" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_add_cafe_menu"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:onClick="@{CafeReportFragment::onAddMenuClick}"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_325">
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_report_menu_ok"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_plus"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/border_white_fill_round_40"
+                    android:enabled="false"
+                    android:fontFamily="@font/roboto_bold"
+                    android:onClick="@{CafeReportFragment::onReportOkClick}"
+                    android:paddingVertical="15dp"
+                    android:text="제보 완료"
+                    android:textAlignment="center"
+                    android:textColor="@color/selector_home_chip_color"
+                    android:textSize="15dp"
+                    app:backgroundTint="@drawable/selector_btn_active_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="메뉴 추가하기"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                    app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toTopOf="@+id/imageView3" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="밀키의 꿀팁"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/cl_add_cafe_menu" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_chip_honey_tip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroup_honey_tip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    app:chipMinTouchTargetSize="0dp"
-                    app:chipSpacingHorizontal="8dp"
-                    app:chipSpacingVertical="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="#전메뉴두유가능"
-                        android:textAppearance="@style/HoneyChipTheme"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipMinTouchTargetSize="0dp"
-                        app:chipStrokeColor="@color/chip_honey_tip_bg_states"
-                        app:chipStrokeWidth="1dp"
-                        app:rippleColor="@android:color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="#옵션추가비용500원"
-                        android:textAppearance="@style/HoneyChipTheme"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipMinTouchTargetSize="0dp"
-                        app:chipStrokeColor="@color/chip_honey_tip_bg_states"
-                        app:chipStrokeWidth="1dp"
-                        app:rippleColor="@android:color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="#제로웨이스트가능"
-                        android:textAppearance="@style/HoneyChipTheme"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipMinTouchTargetSize="0dp"
-                        app:chipStrokeColor="@color/chip_honey_tip_bg_states"
-                        app:chipStrokeWidth="1dp"
-                        app:rippleColor="@android:color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="#두유가져가면받아줌"
-                        android:textAppearance="@style/HoneyChipTheme"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipMinTouchTargetSize="0dp"
-                        app:chipStrokeColor="@color/chip_honey_tip_bg_states"
-                        app:chipStrokeWidth="1dp"
-                        app:rippleColor="@android:color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="#지점마다다름"
-                        android:textAppearance="@style/HoneyChipTheme"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipMinTouchTargetSize="0dp"
-                        app:chipStrokeColor="@color/chip_honey_tip_bg_states"
-                        app:chipStrokeWidth="1dp"
-                        app:rippleColor="@android:color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="#메뉴에모든재료표기"
-                        android:textAppearance="@style/HoneyChipTheme"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipMinTouchTargetSize="0dp"
-                        app:chipStrokeColor="@color/chip_honey_tip_bg_states"
-                        app:chipStrokeWidth="1dp"
-                        app:rippleColor="@android:color/transparent" />
-                </com.google.android.material.chip.ChipGroup>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/img_loading"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_325">
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/milky_way_loading" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_report_menu_ok"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="@color/selector_home_chip_color"
-                android:background="@drawable/border_white_fill_round_40"
-                app:backgroundTint="@drawable/selector_btn_active_color"
-                android:fontFamily="@font/roboto_bold"
-                android:onClick="@{CafeReportFragment::onReportOkClick}"
-                android:paddingVertical="15dp"
-                android:text="제보 완료"
-                android:textAlignment="center"
-                android:textSize="15dp"
-                android:enabled="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

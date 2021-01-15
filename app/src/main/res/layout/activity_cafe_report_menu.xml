@@ -50,7 +50,7 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#E5E5E5"
+            android:background="@color/white_e5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
@@ -144,7 +144,7 @@
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_no_caffeine"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
@@ -156,12 +156,13 @@
         android:text="디카페인"
         android:textColor="@drawable/selector_checkbox_text_color"
         android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_doyou"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:button="@null"
@@ -172,12 +173,13 @@
         android:text="두유"
         android:textColor="@drawable/selector_checkbox_text_color"
         android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/cb_no_caffeine" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_low_milk"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:button="@null"
@@ -188,12 +190,13 @@
         android:text="저지방 우유"
         android:textColor="@drawable/selector_checkbox_text_color"
         android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/cb_doyou" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_no_milk"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:button="@null"
@@ -204,6 +207,7 @@
         android:text="무지방 우유"
         android:textColor="@drawable/selector_checkbox_text_color"
         android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/cb_low_milk" />
 
@@ -225,5 +229,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:enabled="false" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
