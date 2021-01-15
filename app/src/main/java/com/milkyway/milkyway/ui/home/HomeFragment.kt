@@ -180,6 +180,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun bottomSheetSelected(p0 : NaverMap, index : Int) {
+        homeBottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
         homeViewModel.chooseLocation(index)
         Location.cameraMove(p0, index)
     }
