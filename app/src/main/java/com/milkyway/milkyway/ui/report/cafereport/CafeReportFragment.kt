@@ -168,15 +168,6 @@ class CafeReportFragment : Fragment() {
 
     //제보 완료
     fun onReportOkClick(view: View) {
-        //dialog 띄우기
-        lifecycleScope.launch {
-            DataStore(context as MainActivity).getNickname.collect {
-                if (it != null) {
-                    ShowReportOkDialog(context as MainActivity, it).show(null)
-                }
-            }
-        }
-
         //토큰
         lifecycleScope.launch {
             DataStore(context as MainActivity).getToken.collect {
@@ -186,9 +177,12 @@ class CafeReportFragment : Fragment() {
             }
         }
 
-        //탭 변경
-        val tabLayout = activity?.findViewById<TabLayout>(R.id.tab_report)
-        tabLayout?.selectTab(tabLayout.getTabAt(1))
+        binding.imgLoading.visibility=View.VISIBLE
+        binding.imgLoading.playAnimation()
+
+
+
+
         //칩 초기화
         chipGroup.clearCheck()
         honeyList.clear()
@@ -219,6 +213,18 @@ class CafeReportFragment : Fragment() {
             ) {
                 Log.d("카페메뉴", cafeMenu.toString())
                 if (response.isSuccessful) {
+                    //dialog 띄우기
+                        binding.imgLoading.visibility=View.GONE
+                        binding.imgLoading.pauseAnimation()
+
+                    lifecycleScope.launch {
+                        DataStore(context as MainActivity).getNickname.collect {
+                            if (it != null) {
+                                val tabLayout = activity?.findViewById<TabLayout>(R.id.tab_report)
+                                ShowReportOkDialog(context as MainActivity, it,tabLayout).show(null)
+                            }
+                        }
+                    }
                 }
             }
             override fun onFailure(call: Call<BaseResponse<Unit>>, t: Throwable) {

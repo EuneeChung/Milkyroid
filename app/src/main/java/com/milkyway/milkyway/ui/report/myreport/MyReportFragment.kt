@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenResumed
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.remote.response.CancelReport
 import com.milkyway.milkyway.data.remote.response.DoneReport
 import com.milkyway.milkyway.data.remote.response.IngReport
@@ -96,12 +95,12 @@ class MyReportFragment : Fragment() {
             }
         }
         myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
-//            if(it.cancel.isEmpty()&&it.cancel.isEmpty()&&it.cancel.isEmpty()){
-//                binding.clMyreport.visibility = View.GONE
-//                binding.clMyreportEmpty.visibility = View.VISIBLE
-//                Log.d("로그", "전체 없음")
-//            }
-//            else{
+            if(it.cancel.isEmpty()&&it.ing.isEmpty()&&it.done.isEmpty()){
+                binding.clMyreport.visibility = View.GONE
+                binding.clMyreportEmpty.visibility = View.VISIBLE
+                Log.d("로그", "전체 없음")
+            }
+            else{
 //                cancelAdapter.datas = it.cancel
             cancelAdapter.datas = it.cancel as MutableList<CancelReport>   // 서버데이터 들어감
             if (it.cancel.isEmpty()) {
@@ -126,7 +125,7 @@ class MyReportFragment : Fragment() {
                 Log.d("로그", "완료 없음")
             }
             doneAdapter.notifyDataSetChanged()
-//            }
+            }
         })
     }
 

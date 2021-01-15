@@ -5,7 +5,6 @@
     android:id="@+id/cl_place_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/box_inset_layout_padding"
     tools:context=".ui.search.reportsearch.PlaceSearchActivity">
 
     <ImageView
@@ -30,6 +29,7 @@
         android:inputType="text"
         android:paddingVertical="10dp"
         android:paddingStart="12dp"
+        android:fontFamily="@font/roboto_regular"
         android:textColor="@color/black"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_back_search"
@@ -39,8 +39,8 @@
 
     <ImageView
         android:id="@+id/btn_place_search"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_search"
         android:visibility="visible"
@@ -50,8 +50,8 @@
 
     <ImageView
         android:id="@+id/btn_place_search_delete"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:src="@drawable/btn_clear"
         android:visibility="invisible"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="@+id/et_place_search"
         app:layout_constraintTop_toTopOf="@+id/et_place_search" />
 
-    <ImageView
+    <View
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -71,14 +71,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_place_search"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:paddingBottom="20dp"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:visibility="invisible"
         android:overScrollMode="never"
+        android:paddingBottom="20dp"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -98,26 +99,27 @@
             android:id="@+id/img_empty_place_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="222dp"
-            android:visibility="invisible"
             android:src="@drawable/img_noresult"
+            android:visibility="invisible"
+            android:layout_marginBottom="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_empty_place_search"
             app:layout_constraintEnd_toEndOf="@+id/tv_empty_place_search"
-            app:layout_constraintStart_toStartOf="@+id/tv_empty_place_search"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/tv_empty_place_search" />
 
         <TextView
             android:id="@+id/tv_empty_place_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:lineHeight="16dp"
-            android:visibility="invisible"
             android:text="해당하는 이름의 카페가 없어요\n정확한 카페 이름이 맞는지 다시 한번 확인해 주세요!"
             android:textAlignment="center"
             android:textSize="12dp"
+            android:visibility="invisible"
+            android:fontFamily="@font/roboto_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_empty_place_search" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

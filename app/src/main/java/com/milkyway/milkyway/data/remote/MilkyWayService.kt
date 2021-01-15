@@ -1,7 +1,7 @@
 package com.milkyway.milkyway.data.remote
 
-import com.milkyway.milkyway.data.model.RequestChangeNickname
-import com.milkyway.milkyway.data.model.ResponseChangeNickname
+import com.milkyway.milkyway.data.remote.request.RequestChangeNickname
+import com.milkyway.milkyway.data.remote.response.ResponseChangeNickname
 import com.milkyway.milkyway.data.remote.request.*
 import com.milkyway.milkyway.data.remote.response.*
 import retrofit2.Call
