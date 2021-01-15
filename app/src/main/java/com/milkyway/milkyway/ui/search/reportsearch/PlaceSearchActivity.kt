@@ -42,7 +42,7 @@ class PlaceSearchActivity : AppCompatActivity() {
         val btn_back = findViewById<ImageView>(R.id.btn_back_search)
         val emptyView = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
 
-        placeSearchAdapter = PlaceSearchAdapter()
+        placeSearchAdapter = PlaceSearchAdapter(this)
         rv.adapter = placeSearchAdapter
         createData()
 

@@ -1,16 +1,17 @@
 package com.milkyway.milkyway.ui.search.reportsearch
 
-import android.graphics.Color
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.PlaceSearchData
 
-class PlaceSearchAdapter : RecyclerView.Adapter<PlaceSearchAdapter.PlaceSearchViewHolder>() {
+class PlaceSearchAdapter(private val context:Context) : RecyclerView.Adapter<PlaceSearchAdapter.PlaceSearchViewHolder>() {
 
     var datas: MutableList<PlaceSearchData> = mutableListOf()
 
@@ -40,15 +41,15 @@ class PlaceSearchAdapter : RecyclerView.Adapter<PlaceSearchAdapter.PlaceSearchVi
             placeLocation.text = placeSearchData.cafeAddress
 
             if (placeSearchData.isReported) { // 이미 등록된 view
-                placeName.setTextColor(Color.parseColor("#9a9792"))
-                placeLocation.setTextColor(Color.parseColor("#9a9792"))
+                placeName.setTextColor(ContextCompat.getColor(placeName.context,R.color.gray_9a9792))
+                placeLocation.setTextColor(ContextCompat.getColor(placeLocation.context,R.color.gray_9a9792))
                 alreadyCafe.visibility=View.VISIBLE
                 layout.isEnabled = false
             }
 
             if (!placeSearchData.isReported) { // 등록 안된 view
-                placeName.setTextColor(Color.parseColor("#000000"))
-                placeLocation.setTextColor(Color.parseColor("#9a9792"))
+                placeName.setTextColor(ContextCompat.getColor(placeName.context,R.color.black))
+                placeLocation.setTextColor(ContextCompat.getColor(placeLocation.context,R.color.gray_9a9792))
                 alreadyCafe.visibility=View.INVISIBLE
                 layout.isEnabled = true
             }

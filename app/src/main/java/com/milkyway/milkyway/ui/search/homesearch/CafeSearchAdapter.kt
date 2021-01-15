@@ -1,11 +1,11 @@
 package com.milkyway.milkyway.ui.search.homesearch
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.CafeSearchData
@@ -39,8 +39,8 @@ class CafeSearchAdapter : RecyclerView.Adapter<CafeSearchAdapter.CafeSearchViewH
             cafeName.text = cafeSearchData.cafeName
             cafeLocation.text = cafeSearchData.cafeAddress
 
-            cafeName.setTextColor(Color.parseColor("#000000"))
-            cafeLocation.setTextColor(Color.parseColor("#000000"))
+            cafeName.setTextColor(ContextCompat.getColor(cafeName.context,R.color.black))
+            cafeLocation.setTextColor(ContextCompat.getColor(cafeName.context,R.color.black))
             layout.isEnabled = true
         }
     }
