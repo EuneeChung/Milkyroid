@@ -89,9 +89,12 @@ class MyReportFragment : Fragment() {
     private fun setReportData(binding: FragmentMyReportBinding) {
         // 어댑터에 context 객체를 파라미터로 전달 (view.context 때문에 위로 올렸음)
         // 토큰값 얻어오며 서버요청
+        Log.d("화깅ㄴ","ㄴ앉ㄹㅇ")
         lifecycleScope.launch {
             DataStore(requireContext()).getToken.collect {
-                myReportViewModel.requestReportData(it!!) // 아래는 서버테스트용
+                myReportViewModel.requestReportData(it!!)
+                Log.d("화깅ㄴ2222","ㄴ앉ㄹㅇ")
+
             }
         }
         myReportViewModel.recyclerListData.observe(viewLifecycleOwner, Observer {
@@ -102,6 +105,8 @@ class MyReportFragment : Fragment() {
 //            }
 //            else{
 //                cancelAdapter.datas = it.cancel
+
+            Log.d("리사이", myReportViewModel.recyclerListData.value.toString())
             cancelAdapter.datas = it.cancel as MutableList<CancelReport>   // 서버데이터 들어감
             if (it.cancel.isEmpty()) {
                 binding.tvMyreportCancel.visibility = View.GONE

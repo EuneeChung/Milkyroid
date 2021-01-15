@@ -2,6 +2,7 @@ package com.milkyway.milkyway.ui.detail
 
 import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,6 +12,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -57,6 +59,8 @@ class CafeDetailActivity : AppCompatActivity() {
         showDetailTime(binding)
         setTextBold(binding)
         setBack(binding)
+        cellPhone(binding)
+        webSite(binding)
 
         clickGoToModify(binding)
     }
@@ -100,7 +104,7 @@ class CafeDetailActivity : AppCompatActivity() {
 
             if (it.isUniversed == 0) {
                 binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
-                binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.gray_9a9792))
+                binding.tvDetailUniverseCount.setTextColor(getColor(R.color.gray_9a9792))
                 binding.btnDetailUniverse.setOnClickListener {
                     requestAddUniverseData()
                     Toast.customToast("나의 유니버스에 추가되었습니다", this)
@@ -109,7 +113,8 @@ class CafeDetailActivity : AppCompatActivity() {
             }
             if (it.isUniversed == 1) {
                 binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
-                binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.blue_3320a6))
+                binding.tvDetailUniverseCount.setTextColor(getColor(R.color.blue_3320a6))
+                binding.tvDetailUniverseCount.typeface = ResourcesCompat.getFont(binding.tvDetailUniverseCount.context, R.font.roboto_bold)
                 binding.btnDetailUniverse.setOnClickListener {
                     requestDeleteUniverseData()
                     Toast.customToast("나의 유니버스에서 삭제되었습니다", this)
@@ -174,7 +179,8 @@ class CafeDetailActivity : AppCompatActivity() {
                 if (isSelected) {
                     num += 1
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe_added_detail)
-                    binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.blue_3320a6))
+                    binding.tvDetailUniverseCount.setTextColor(getColor(R.color.blue_3320a6))
+                    binding.tvDetailUniverseCount.typeface = ResourcesCompat.getFont(binding.tvDetailUniverseCount.context, R.font.roboto_bold)
                     Toast.customToast("나의 유니버스에 추가되었습니다", this)
                     Log.d("추가카운트", "$num")
                     binding.btnDetailUniverse.setOnClickListener{
@@ -183,7 +189,7 @@ class CafeDetailActivity : AppCompatActivity() {
                 } else {
                     num -= 1
                     binding.btnDetailUniverse.setBackgroundResource(R.drawable.btn_universe)
-                    binding.tvDetailUniverseCount.setTextColor(resources.getColor(R.color.gray_9a9792))
+                    binding.tvDetailUniverseCount.setTextColor(getColor(R.color.gray_9a9792))
                     Toast.customToast("나의 유니버스에서 삭제되었습니다", this)
                     Log.d("삭제카운트", "$num")
                     binding.btnDetailUniverse.setOnClickListener{
@@ -263,8 +269,24 @@ class CafeDetailActivity : AppCompatActivity() {
     private fun clickGoToModify(binding: ActivityCafeDetailBinding) {
         binding.btnDetailFixrequest.setOnClickListener {
             val intent = Intent(this, ModifyActivity::class.java)
-            intent.putExtra("cafeId", 2)
+            intent.putExtra("cafeId", cafeid)
             startActivity(intent)
+        }
+    }
+
+    // 전화 열기
+    private fun cellPhone(binding: ActivityCafeDetailBinding){
+        binding.tvDetailCall.setOnClickListener{
+            val callintent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + binding.tvDetailCall.text))
+            startActivity(callintent)
+        }
+    }
+
+    // 웹사이트 연결
+    private fun webSite(binding: ActivityCafeDetailBinding){
+        binding.tvDetailWeb.setOnClickListener{
+            val webintent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.tvDetailWeb.text.toString()))
+            startActivity(webintent)
         }
     }
 }
