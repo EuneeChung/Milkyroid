@@ -50,9 +50,9 @@ class DoneAdapter (private val context : Context, var datas : List<DoneReport>) 
             if(doneReport.category.any { it == 2 })
                 item_myreport_done_tag2.isVisible = true
             if(doneReport.category.any { it == 3 })
-                item_myreport_done_tag3.isVisible = true
-            if(doneReport.category.any { it == 4 })
                 item_myreport_done_tag4.isVisible = true
+            if(doneReport.category.any { it == 4 })
+                item_myreport_done_tag3.isVisible = true
 
             // 아이템 클릭 이벤트
             item_cl_done.setOnClickListener(object :View.OnClickListener {
