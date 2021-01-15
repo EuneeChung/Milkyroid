@@ -103,7 +103,7 @@ class PlaceSearchActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProvider(this).get(PlaceSearchActivityViewModel::class.java)
         viewModel.recyclerListData.observe(this, Observer<MutableList<PlaceSearchData>> {
-            Log.d("d", it.toString())
+            Log.d("d", it!!.toString())
             if (it.size > 0) {
                 emptyView.visibility = View.INVISIBLE
                 emptyImage.visibility=View.INVISIBLE

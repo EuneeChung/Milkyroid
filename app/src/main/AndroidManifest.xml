@@ -17,22 +17,22 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="" />
+            android:value="wm0wh5u32a" />
 
         <activity android:name=".ui.splash.SplashActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ui.nickname.NicknameActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ui.main.MainActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.search.homesearch.CafeSearchActivity"
             android:screenOrientation="portrait" />
