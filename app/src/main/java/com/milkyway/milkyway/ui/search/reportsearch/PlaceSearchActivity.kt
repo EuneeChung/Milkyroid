@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.data.model.PlaceSearchData
 import com.milkyway.milkyway.util.DataStore
@@ -41,10 +42,11 @@ class PlaceSearchActivity : AppCompatActivity() {
         val rv = findViewById<RecyclerView>(R.id.rv_place_search)
         val btn_back = findViewById<ImageView>(R.id.btn_back_search)
         val emptyView = findViewById<ConstraintLayout>(R.id.cl_empty_place_search)
+        val loading = findViewById<LottieAnimationView>(R.id.img_loading)
 
         placeSearchAdapter = PlaceSearchAdapter(this)
         rv.adapter = placeSearchAdapter
-        createData()
+        createData(loading)
 
         //뒤로가기
         btn_back.setOnClickListener {
@@ -92,7 +94,7 @@ class PlaceSearchActivity : AppCompatActivity() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun createData() {
+    private fun createData(loading: LottieAnimationView) {
         val searchButton: ImageView = findViewById<ImageView>(R.id.btn_place_search)
         val deleteButton: ImageView = findViewById<ImageView>(R.id.btn_place_search_delete)
         val searchBox: EditText = findViewById<EditText>(R.id.et_place_search)
@@ -103,6 +105,8 @@ class PlaceSearchActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProvider(this).get(PlaceSearchActivityViewModel::class.java)
         viewModel.recyclerListData.observe(this, Observer<MutableList<PlaceSearchData>> {
+            loading.visibility=View.GONE
+            loading.pauseAnimation()
             Log.d("d", it!!.toString())
             if (it.size > 0) {
                 emptyView.visibility = View.INVISIBLE
@@ -147,6 +151,8 @@ class PlaceSearchActivity : AppCompatActivity() {
         searchBox.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    loading.visibility=View.VISIBLE
+                    loading.playAnimation()
                     lifecycleScope.launch {
                         DataStore(this@PlaceSearchActivity).getToken.collect {
                             viewModel.makeApiCall(searchBox.text.toString(), it!!)
