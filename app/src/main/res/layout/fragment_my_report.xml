@@ -261,7 +261,7 @@
                 android:gravity="center"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="4sp"
-                android:text="나만의 카페를 제보하고\n릴리 초이님 만의 밀키웨이를 밝혀 보세요!"
+                android:text="나만의 카페를 제보하고\n더욱 풍성해진 밀키웨이를 탐험해 보세요!"
                 android:textColor="@color/black"
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
