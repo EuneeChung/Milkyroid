@@ -31,7 +31,6 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="12dp"
             android:backgroundTint="@color/white_f6f5f2"
-            style="?android:attr/borderlessButtonStyle"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
             android:lineSpacingExtra="4sp"
