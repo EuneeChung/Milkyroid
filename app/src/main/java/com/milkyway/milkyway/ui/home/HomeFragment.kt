@@ -204,7 +204,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     chip.setTextAppearanceResource(R.style.HomeChipTheme)
                     list.remove(index + 1)
                 }
-                loading()
+                homeViewModel.isLoading()
                 viewLifecycleOwner.lifecycleScope.launch {
                     whenResumed {
                         DataStore(requireContext()).getToken.collect {
@@ -213,13 +213,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                         }
                     }
                 }
+                homeViewModel.setMapClick()
             }
         }
-    }
-
-    private fun loading() {
-        homeViewModel.isLoading()
-        binding.imgLoading.playAnimation()
     }
 
     companion object {
@@ -228,8 +224,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        loading()
         setMarkerData()
+        homeViewModel.isLoading()
         homeViewModel.setMapClick()
         homeViewModel.chooseLocation(-1) // RESET
     }

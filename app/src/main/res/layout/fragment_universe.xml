@@ -159,13 +159,13 @@
                 android:id="@+id/img_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="@{universeViewModel.loading? View.VISIBLE : View.GONE}"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/milky_way_loading"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                loading="@{universeViewModel.loading}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include

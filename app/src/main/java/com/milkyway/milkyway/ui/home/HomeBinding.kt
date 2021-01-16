@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.airbnb.lottie.LottieAnimationView
 import com.milkyway.milkyway.R
 
 object HomeBinding {
@@ -13,6 +14,18 @@ object HomeBinding {
     fun setButtonChange(button : ImageButton, compass : Boolean) {
         if(compass) button.setBackgroundResource(R.drawable.btn_compass)
         else button.setBackgroundResource(R.drawable.btn_current_location)
+    }
+
+    @BindingAdapter("loading")
+    @JvmStatic
+    fun loading(loading: LottieAnimationView, isLoading: Boolean) {
+        if(isLoading) {
+            loading.visibility = View.VISIBLE
+            loading.playAnimation()
+        } else {
+            loading.visibility = View.GONE
+            loading.pauseAnimation()
+        }
     }
 
     @BindingAdapter("app:isSelected")

@@ -40,7 +40,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         binding.lifecycleOwner = this
 
         setMap()
-        setNicknameText(binding)
+        setNicknameText()
         observeItemClick()
         observeItemDelete()
         initMyUniverseListView()
@@ -57,7 +57,7 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this@UniverseFragment)
     }
 
-    private fun setNicknameText(binding: FragmentUniverseBinding) {
+    private fun setNicknameText() {
         viewLifecycleOwner.lifecycleScope.launch {
             whenResumed {
                 DataStore(requireContext()).getNickname.collect {
@@ -213,11 +213,6 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun loading() {
-        universeViewModel.isLoading()
-        binding.imgLoading.playAnimation()
-    }
-
     private fun setAlpha() {
         binding.layoutNickname.animate().apply{
             alpha(1f)
@@ -232,9 +227,9 @@ class UniverseFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        loading()
         setMarkerData()
         setAlpha()
+        universeViewModel.isLoading()
         universeViewModel.setMapClick()
     }
 

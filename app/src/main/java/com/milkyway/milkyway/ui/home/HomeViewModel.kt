@@ -29,7 +29,7 @@ class HomeViewModel : ViewModel() {
     val isSelectedList: LiveData<MutableList<Boolean>>
         get() = _isSelectedList
 
-    private val _loading = MutableLiveData<Boolean>(true)
+    private val _loading = MutableLiveData<Boolean>(false)
     val loading : LiveData<Boolean>
         get() = _loading
 
@@ -75,6 +75,7 @@ class HomeViewModel : ViewModel() {
             _markers.postValue(home.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
+            _markers.postValue(listOf())
             _toast.postValue(true)
         }
         _loading.postValue(false)
@@ -86,6 +87,7 @@ class HomeViewModel : ViewModel() {
             _markers.postValue(homeCategory.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
+            _markers.postValue(listOf())
             _toast.postValue(true)
         }
         _loading.postValue(false)
