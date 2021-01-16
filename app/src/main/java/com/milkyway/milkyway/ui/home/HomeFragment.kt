@@ -18,6 +18,7 @@ import com.milkyway.milkyway.ui.search.homesearch.CafeSearchActivity
 import com.milkyway.milkyway.util.DataStore
 import com.milkyway.milkyway.util.Location
 import com.milkyway.milkyway.util.MarkerDrawer
+import com.milkyway.milkyway.util.Toast
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -38,11 +39,15 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding= FragmentHomeBinding.inflate(inflater,container,false)
         binding.homeViewModel = homeViewModel
+        binding.bottomsheetHome.homeViewModel = homeViewModel
         binding.lifecycleOwner=this
 
         setMap()
-        setNicknameText(binding)
-        chipSelect(binding)
+        setNicknameText()
+        chipSelect()
+        setToastObserver()
+        setSearchListener()
+        initBottomSheet()
         return binding.root
     }
 
@@ -56,7 +61,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this@HomeFragment)
     }
 
-    private fun setNicknameText(binding : FragmentHomeBinding) {
+    private fun setNicknameText() {
         viewLifecycleOwner.lifecycleScope.launch {
             whenResumed {
                 DataStore(requireContext()).getNickname.collect {
@@ -77,20 +82,21 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setToastObserver() {
+        homeViewModel.toast.observe(viewLifecycleOwner, Observer { toast->
+            toast?.let {if(toast) Toast.customToast("원하는 옵션에 맞는 카페가 없어요.\n 다른 옵션을 선택해 볼까요?", requireActivity())}
+        })
+    }
 
-        binding.homeView.setOnClickListener {
-            homeBottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
-        }
-
-        binding.bottomsheetHome.viewModel=homeViewModel
-        homeBottomSheetBehavior=BottomSheetBehavior.from(binding.bottomsheetHome.root)
-
+    private fun setSearchListener() {
         binding.btnSearch.setOnClickListener {
             val intent = Intent(context, CafeSearchActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun initBottomSheet() {
+        homeBottomSheetBehavior = BottomSheetBehavior.from(binding.bottomsheetHome.root)
     }
 
     override fun onMapReady(p0: NaverMap) {
@@ -144,6 +150,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
     private fun setMapClickListener(p0 : NaverMap) {
         p0.setOnMapClickListener { _, _ ->
+            homeBottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
             homeViewModel.setMapClick()
             MarkerDrawer.setIcon()
         }
@@ -185,7 +192,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         Location.cameraMove(p0, index)
     }
 
-    private fun chipSelect(binding : FragmentHomeBinding) {
+    private fun chipSelect() {
         val list = mutableListOf<Int>()
         for (index in 0 until binding.chipGroup.childCount) {
             val chip: Chip = binding.chipGroup.getChildAt(index) as Chip

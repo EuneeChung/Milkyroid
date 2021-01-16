@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.milkyway.milkyway.data.remote.response.AroundCafe
 import com.milkyway.milkyway.data.remote.RetrofitBuilder
+import com.milkyway.milkyway.data.remote.response.AroundCafe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -32,6 +32,10 @@ class HomeViewModel : ViewModel() {
     private val _loading = MutableLiveData<Boolean>(true)
     val loading : LiveData<Boolean>
         get() = _loading
+
+    private val _toast = MutableLiveData<Boolean>()
+    val toast : LiveData<Boolean>
+        get() = _toast
 
     fun compassIcon() {
         _compass.value = !_compass.value!!
@@ -64,20 +68,22 @@ class HomeViewModel : ViewModel() {
     fun requestHomeData(token : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val home = RetrofitBuilder.service.home(token)
-            _loading.postValue(false)
             _markers.postValue(home.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
+            _toast.postValue(true)
         }
+        _loading.postValue(false)
     }
 
     fun requestCategoryData(token: String, categoryId : Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val homeCategory = RetrofitBuilder.service.homeCategory(token, categoryId)
-            _loading.postValue(false)
             _markers.postValue(homeCategory.data.result)
         } catch (e: HttpException) {
             Log.d("request", e.toString())
+            _toast.postValue(true)
         }
+        _loading.postValue(false)
     }
 }
