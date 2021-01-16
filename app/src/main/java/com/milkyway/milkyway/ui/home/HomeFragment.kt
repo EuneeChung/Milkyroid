@@ -233,4 +233,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         homeViewModel.setMapClick()
         homeViewModel.chooseLocation(-1) // RESET
     }
+
+    override fun onPause() {
+        super.onPause()
+        homeViewModel.isNotToast()
+    }
 }

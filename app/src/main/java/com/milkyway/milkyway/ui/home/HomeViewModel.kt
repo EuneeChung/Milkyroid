@@ -33,7 +33,7 @@ class HomeViewModel : ViewModel() {
     val loading : LiveData<Boolean>
         get() = _loading
 
-    private val _toast = MutableLiveData<Boolean>()
+    private val _toast = MutableLiveData<Boolean>(false)
     val toast : LiveData<Boolean>
         get() = _toast
 
@@ -59,6 +59,10 @@ class HomeViewModel : ViewModel() {
 
     fun isLoadingEnd() {
         _loading.value = false
+    }
+
+    fun isNotToast() {
+        _toast.value = false
     }
 
     fun chooseLocation(index: Int) {
