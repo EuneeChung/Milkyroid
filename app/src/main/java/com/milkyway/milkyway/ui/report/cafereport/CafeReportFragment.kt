@@ -180,18 +180,6 @@ class CafeReportFragment : Fragment() {
         binding.imgLoading.visibility=View.VISIBLE
         binding.imgLoading.playAnimation()
 
-
-
-
-        //칩 초기화
-        chipGroup.clearCheck()
-        honeyList.clear()
-        //카페명 초기화
-        binding.clCafeSearchAfter.visibility = View.INVISIBLE
-        binding.clGoToCafeSearch.visibility = View.VISIBLE
-        //카페메뉴 초기화
-        cafeReportMenuAdapter.clearData()
-        buttonActive()
     }
 
     //서버통신
@@ -221,7 +209,17 @@ class CafeReportFragment : Fragment() {
                         DataStore(context as MainActivity).getNickname.collect {
                             if (it != null) {
                                 val tabLayout = activity?.findViewById<TabLayout>(R.id.tab_report)
-                                ShowReportOkDialog(context as MainActivity, it,tabLayout).show(null)
+                                ShowReportOkDialog(context as MainActivity, it,tabLayout).show{
+                                    //칩 초기화
+                                    chipGroup.clearCheck()
+                                    honeyList.clear()
+                                    //카페명 초기화
+                                    binding.clCafeSearchAfter.visibility = View.INVISIBLE
+                                    binding.clGoToCafeSearch.visibility = View.VISIBLE
+                                    //카페메뉴 초기화
+                                    cafeReportMenuAdapter.clearData()
+                                    buttonActive()
+                                }
                             }
                         }
                     }
@@ -338,7 +336,6 @@ class CafeReportFragment : Fragment() {
             buttonActive()
         }
     }
-
 
     companion object {
         const val CAFE_RESULT = 1

@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.tabs.TabLayout
 import com.milkyway.milkyway.R
 import com.milkyway.milkyway.databinding.DailogReportOkBinding
-import com.milkyway.milkyway.generated.callback.OnClickListener
 
 
 class ShowReportOkDialog(context: Context, s: String, private val tabLayout: TabLayout?) {
@@ -30,11 +29,12 @@ class ShowReportOkDialog(context: Context, s: String, private val tabLayout: Tab
     private var dialog: AlertDialog?=null
 
     // 확인 누르면 팝업창 닫기
-    fun setPositiveButton(listener: OnClickListener?): ShowReportOkDialog {
+    fun setPositiveButton(listener:()->Unit): ShowReportOkDialog {
         binding.btnShowReportConfirm.apply {
             setOnClickListener{
+                listener()
                 tabLayout?.selectTab(tabLayout.getTabAt(1))
-               dismiss()
+                dismiss()
             }
         }
         return this
@@ -48,7 +48,7 @@ class ShowReportOkDialog(context: Context, s: String, private val tabLayout: Tab
     }
 
     //    fun show(listener: OnClickListener?){
-    fun show(listener: OnClickListener?){
+    fun show(listener: () -> Unit){
         setWindow()
         dialog = builder.create()
         setPositiveButton(listener)
